@@ -43,7 +43,7 @@ jest.mock('stripe', () => {
     webhooks: { constructEvent: mockConstructEvent },
     subscriptions: { retrieve: mockSubscriptionsRetrieve },
   }));
-  return { default: MockStripe };
+  return { __esModule: true, default: MockStripe };
 });
 
 import { HandleStripeWebhookUseCase } from './handle-stripe-webhook.use-case';

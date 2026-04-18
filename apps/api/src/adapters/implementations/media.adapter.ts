@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { MediaAsset } from '@nexvideo/shared';
 import { IPexelsPort, IPixabayPort } from '../interfaces/media.port';
 
@@ -7,6 +7,8 @@ import { IPexelsPort, IPixabayPort } from '../interfaces/media.port';
  */
 @Injectable()
 export class MediaAdapter {
+  private readonly logger = new Logger(MediaAdapter.name);
+
   constructor(
     @Inject('IPexelsPort')
     private pexelsAdapter: IPexelsPort,
@@ -34,7 +36,7 @@ export class MediaAdapter {
       return pexelsResults;
     } catch (error) {
       // On Pexels error, try Pixabay
-      console.error('Pexels search failed, falling back to Pixabay:', error);
+      this.logger.warn({ err: error }, 'Pexels search failed, falling back to Pixabay');
       return this.pixabayAdapter.searchImages(query, page);
     }
   }
@@ -59,7 +61,7 @@ export class MediaAdapter {
       return pexelsResults;
     } catch (error) {
       // On Pexels error, try Pixabay
-      console.error('Pexels search failed, falling back to Pixabay:', error);
+      this.logger.warn({ err: error }, 'Pexels search failed, falling back to Pixabay');
       return this.pixabayAdapter.searchVideos(query, page);
     }
   }

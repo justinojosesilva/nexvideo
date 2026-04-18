@@ -2,6 +2,12 @@ import { Injectable, Inject } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import Redis from 'ioredis';
 
+export interface SimpleHealthStatus {
+  status: 'ok';
+  uptime: number;
+  timestamp: string;
+}
+
 export interface HealthStatus {
   status: 'healthy' | 'degraded' | 'unhealthy';
   timestamp: string;
@@ -28,6 +34,14 @@ export class HealthService {
     private readonly prisma: PrismaService,
     @Inject('REDIS_INSTANCE') private readonly redis: Redis,
   ) {}
+
+  getSimpleHealth(): SimpleHealthStatus {
+    return {
+      status: 'ok',
+      uptime: Math.floor(process.uptime()),
+      timestamp: new Date().toISOString(),
+    };
+  }
 
   async getHealth(): Promise<HealthStatus> {
     const timestamp = new Date().toISOString();

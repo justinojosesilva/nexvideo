@@ -1,4 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 
 export type LogLevel = 'DEBUG' | 'INFO' | 'WARN' | 'ERROR';
 
@@ -21,19 +22,22 @@ export interface JobLog {
 
 @Injectable()
 export class StructuredLoggerService {
-  private readonly logger = new Logger(StructuredLoggerService.name);
+  constructor(
+    @InjectPinoLogger(StructuredLoggerService.name)
+    private readonly logger: PinoLogger,
+  ) {}
 
-  /**
-   * Log a job event with structured JSON
-   */
   logJob(log: JobLog): void {
-    const entry = {
-      ...log,
-      timestamp: log.timestamp || new Date().toISOString(),
-    };
+    const entry = { ...log, timestamp: log.timestamp || new Date().toISOString() };
+    const { level, ...fields } = entry;
 
-    // Output as JSON string for easy parsing
-    this.logger.log(JSON.stringify(entry));
+    if (level === 'ERROR') {
+      this.logger.error(fields, 'job_event');
+    } else if (level === 'WARN') {
+      this.logger.warn(fields, 'job_event');
+    } else {
+      this.logger.info(fields, 'job_event');
+    }
   }
 
   /**

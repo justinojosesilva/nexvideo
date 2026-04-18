@@ -15,6 +15,7 @@ import {
   ApiExcludeEndpoint,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Public } from '../auth/decorators/public.decorator';
 import { EnqueueTrendAnalysisUseCase } from './use-cases/enqueue-trend-analysis.use-case';
 import { GetTrendAnalysisUseCase } from './use-cases/get-trend-analysis.use-case';
 import { ExecuteTrendAnalysisUseCase } from './use-cases/execute-trend-analysis.use-case';
@@ -116,6 +117,7 @@ export class TrendsController {
   }
 
   @Post('internal/execute')
+  @Public()
   @ApiExcludeEndpoint()
   async executeInternal(@Body() input: AnalyzeTrendsInput): Promise<unknown> {
     return this.executeTrendAnalysisUseCase.execute(input);

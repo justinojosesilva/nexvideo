@@ -29,6 +29,7 @@ export default [
       "@typescript-eslint/eslint-recommended": "off",
       ...tseslint.configs.recommended.rules,
       "@typescript-eslint/no-explicit-any": "off",
+      "no-console": "error",
     },
   },
   {

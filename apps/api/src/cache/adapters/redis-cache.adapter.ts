@@ -1,5 +1,6 @@
 import {
   Injectable,
+  Logger,
   OnModuleInit,
   OnModuleDestroy,
   Inject,
@@ -25,6 +26,7 @@ const DEFAULT_TTL = 60 * 60; // 1 hour default
 export class RedisCacheAdapter
   implements ICachePort, OnModuleInit, OnModuleDestroy
 {
+  private readonly logger = new Logger(RedisCacheAdapter.name);
   private redis: Redis;
 
   constructor(
@@ -61,7 +63,7 @@ export class RedisCacheAdapter
 
       return JSON.parse(value) as T;
     } catch (error) {
-      console.error(`Cache get error for key "${key}":`, error);
+      this.logger.error({ key, err: error }, `Cache get error`);
       return null;
     }
   }
@@ -77,7 +79,7 @@ export class RedisCacheAdapter
         await this.redis.set(key, serialized);
       }
     } catch (error) {
-      console.error(`Cache set error for key "${key}":`, error);
+      this.logger.error({ key, err: error }, `Cache set error`);
     }
   }
 
@@ -85,7 +87,7 @@ export class RedisCacheAdapter
     try {
       await this.redis.del(key);
     } catch (error) {
-      console.error(`Cache delete error for key "${key}":`, error);
+      this.logger.error({ key, err: error }, `Cache delete error`);
     }
   }
 
@@ -97,10 +99,7 @@ export class RedisCacheAdapter
         await this.redis.del(...keys);
       }
     } catch (error) {
-      console.error(
-        `Cache invalidateByPrefix error for prefix "${prefix}":`,
-        error,
-      );
+      this.logger.error({ prefix, err: error }, `Cache invalidateByPrefix error`);
     }
   }
 

@@ -1,8 +1,9 @@
 import 'dotenv/config';
 import * as Sentry from '@sentry/nestjs';
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { Logger as PinoLogger } from 'nestjs-pino';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -13,7 +14,8 @@ async function bootstrap() {
     tracesSampleRate: 1.0,
   });
 
-  const app = await NestFactory.create(AppModule, { rawBody: true });
+  const app = await NestFactory.create(AppModule, { rawBody: true, bufferLogs: true });
+  app.useLogger(app.get(PinoLogger));
 
   // Enable CORS for frontend
   app.enableCors({
@@ -42,6 +44,6 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3002);
 }
 bootstrap().catch((error) => {
-  console.error('Failed to bootstrap application:', error);
+  new Logger('Bootstrap').error('Failed to bootstrap application', error);
   process.exit(1);
 });

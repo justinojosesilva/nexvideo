@@ -3,6 +3,8 @@ import { Queue, Worker, Job } from "bullmq";
 import Redis from "ioredis";
 import axios from "axios";
 import { prisma } from "@nexvideo/database";
+import * as http from "http";
+import { logger } from "./logger";
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
@@ -58,34 +60,23 @@ const narrationJobOptions = {
   removeOnComplete: false,
 };
 
-// Job processor for health-check jobs
 async function processHealthCheckJob(job: Job): Promise<{ status: string }> {
-  console.log(`[Worker] Processing health-check job: ${job.id}`);
-
-  // Update progress - health-check doesn't have a database entity
+  logger.info({ jobId: job.id }, "Processing health-check job");
   await job.updateProgress(50);
-
-  // Simulate work
   await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  // Update progress to completion
   await job.updateProgress(100);
-
-  console.log(`[Worker] Completed health-check job: ${job.id}`);
+  logger.info({ jobId: job.id }, "Completed health-check job");
   return { status: "completed" };
 }
 
-// Job processor for analyze-trends jobs
 async function processAnalyzeTrendsJob(job: Job): Promise<unknown> {
-  console.log(`[Worker] Processing analyze-trends job: ${job.id}`);
-
   const jobData = job.data as Record<string, unknown>;
   const { projectId, organizationId, keyword, geo, niche } = jobData;
 
-  try {
-    // Call the internal API endpoint to execute the analysis
-    await job.updateProgress(10);
+  logger.info({ jobId: job.id, organizationId }, "Processing analyze-trends job");
 
+  try {
+    await job.updateProgress(10);
     const response = await axios.post(`${API_URL}/trends/internal/execute`, {
       projectId,
       organizationId,
@@ -93,36 +84,26 @@ async function processAnalyzeTrendsJob(job: Job): Promise<unknown> {
       geo,
       niche,
     });
-
     await job.updateProgress(90);
-
-    console.log(`[Worker] Completed analyze-trends job: ${job.id}`);
+    logger.info({ jobId: job.id, organizationId }, "Completed analyze-trends job");
     await job.updateProgress(100);
-
     return response.data;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error(
-      `[Worker] Error calling trends API for job ${job.id}:`,
-      errorMessage,
-    );
+    logger.error({ jobId: job.id, organizationId, err: errorMessage }, "Error calling trends API");
     throw error;
   }
 }
 
-// Job processor for generate-script jobs
 async function processGenerateScriptJob(job: Job): Promise<unknown> {
-  console.log(`[Worker] Processing generate-script job: ${job.id}`);
-
   const jobData = job.data as Record<string, unknown>;
-  const { projectId, organizationId, trendAnalysisId, formatType, tone } =
-    jobData;
+  const { projectId, organizationId, trendAnalysisId, formatType, tone } = jobData;
+
+  logger.info({ jobId: job.id, organizationId }, "Processing generate-script job");
 
   try {
-    // Update progress: starting
     await job.updateProgress(20);
 
-    // Fetch current prompt version for logging
     let promptVersion = "unknown";
     try {
       const versionsResponse = await axios.get(`${API_URL}/prompts/versions`);
@@ -131,7 +112,6 @@ async function processGenerateScriptJob(job: Job): Promise<unknown> {
       // Silently fail if versions endpoint is not available
     }
 
-    // Call the internal API endpoint to generate script
     const response = await axios.post(`${API_URL}/scripts/internal/generate`, {
       projectId,
       organizationId,
@@ -142,41 +122,33 @@ async function processGenerateScriptJob(job: Job): Promise<unknown> {
 
     await job.updateProgress(80);
 
-    // Extract cost information from response
     const { script } = response.data;
     if (script?.estimatedCostBrl) {
-      console.log(
-        `[Worker] Script generated with estimated cost: R$ ${script.estimatedCostBrl.toFixed(2)}, prompt version: ${promptVersion}`,
+      logger.info(
+        { jobId: job.id, organizationId, estimatedCostBrl: script.estimatedCostBrl, promptVersion },
+        "Script generated",
       );
     }
 
     await job.updateProgress(100);
-
-    console.log(`[Worker] Completed generate-script job: ${job.id}`);
+    logger.info({ jobId: job.id, organizationId }, "Completed generate-script job");
     return response.data;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error(
-      `[Worker] Error calling script generation API for job ${job.id}:`,
-      errorMessage,
-    );
+    logger.error({ jobId: job.id, organizationId, err: errorMessage }, "Error calling script generation API");
     throw error;
   }
 }
 
-// Job processor for narration jobs
 async function processNarrationJob(job: Job): Promise<unknown> {
-  console.log(`[Worker] Processing narration job: ${job.id}`);
-
   const jobData = job.data as Record<string, unknown>;
-  const { narrationId, organizationId, scriptBlocks, tone, voiceId, speed } =
-    jobData;
+  const { narrationId, organizationId, scriptBlocks, tone, voiceId, speed } = jobData;
+
+  logger.info({ jobId: job.id, organizationId, narrationId }, "Processing narration job");
 
   try {
-    // Update progress: starting
     await job.updateProgress(20);
 
-    // Fetch current prompt version for logging
     let promptVersion = "unknown";
     try {
       const versionsResponse = await axios.get(`${API_URL}/prompts/versions`);
@@ -185,7 +157,6 @@ async function processNarrationJob(job: Job): Promise<unknown> {
       // Silently fail if versions endpoint is not available
     }
 
-    // Call the internal API endpoint to synthesize narration
     const response = await axios.post(
       `${API_URL}/narrations/internal/synthesize`,
       {
@@ -200,35 +171,29 @@ async function processNarrationJob(job: Job): Promise<unknown> {
 
     await job.updateProgress(80);
 
-    // Extract cost information from response
     const { estimatedCostBrl, durationSec } = response.data;
     if (estimatedCostBrl) {
-      console.log(
-        `[Worker] Narration synthesized with estimated cost: R$ ${estimatedCostBrl.toFixed(2)}, duration: ${durationSec}s, prompt version: ${promptVersion}`,
+      logger.info(
+        { jobId: job.id, organizationId, estimatedCostBrl, durationSec, promptVersion },
+        "Narration synthesized",
       );
     }
 
     await job.updateProgress(100);
-
-    console.log(`[Worker] Completed narration job: ${job.id}`);
+    logger.info({ jobId: job.id, organizationId, narrationId }, "Completed narration job");
     return response.data;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error(
-      `[Worker] Error calling narration API for job ${job.id}:`,
-      errorMessage,
-    );
+    logger.error({ jobId: job.id, organizationId, narrationId, err: errorMessage }, "Error calling narration API");
     throw error;
   }
 }
 
-// Job processor for export jobs
 async function processExportJob(job: Job): Promise<unknown> {
-  console.log(`[Worker] Processing export job: ${job.id}`);
-
   const jobData = job.data as Record<string, unknown>;
-  const { exportJobId, projectId, scriptId, narrationId, organizationId } =
-    jobData;
+  const { exportJobId, projectId, scriptId, narrationId, organizationId } = jobData;
+
+  logger.info({ jobId: job.id, organizationId, exportJobId }, "Processing export job");
 
   try {
     await job.updateProgress(10);
@@ -243,31 +208,21 @@ async function processExportJob(job: Job): Promise<unknown> {
 
     await job.updateProgress(90);
 
-    // Log export details: ZIP size and URL
     const { exportUrl, zipSize } = response.data as Record<string, unknown>;
-    if (zipSize && typeof zipSize === "number") {
-      const zipSizeKb = (zipSize / 1024).toFixed(2);
-      console.log(
-        `[Worker] Export job ${job.id} completed - ZIP size: ${zipSizeKb}KB, URL: ${exportUrl}`,
-      );
-    } else {
-      console.log(`[Worker] Export job ${job.id} completed - URL: ${exportUrl}`);
-    }
+    logger.info(
+      { jobId: job.id, organizationId, exportJobId, exportUrl, zipSizeKb: typeof zipSize === "number" ? (zipSize / 1024).toFixed(2) : undefined },
+      "Export job completed",
+    );
 
     await job.updateProgress(100);
-
     return response.data;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error(
-      `[Worker] Error processing export job ${job.id}:`,
-      errorMessage,
-    );
+    logger.error({ jobId: job.id, organizationId, exportJobId, err: errorMessage }, "Error processing export job");
     throw error;
   }
 }
 
-// Update job status in database for jobs with entity references
 async function updateJobStatusInDatabase(
   job: Job,
   status: "processing" | "completed" | "failed",
@@ -275,26 +230,20 @@ async function updateJobStatusInDatabase(
 ): Promise<void> {
   const jobData = job.data as Record<string, unknown>;
 
-  // If job has a projectId and trendAnalysisId, handle script generation
   if (
     jobData.projectId &&
     jobData.trendAnalysisId &&
     job.name === "generate-script"
   ) {
     const projectId = jobData.projectId as string;
-
-    // On failure: revert ContentProject status to planning (indicates needs retry)
     if (status === "failed") {
       await prisma.contentProject.update({
         where: { id: projectId },
-        data: {
-          status: "planning",
-        },
+        data: { status: "planning" },
       });
     }
   }
 
-  // If job is narration, handle narration status and project status updates
   if (
     job.name === "generate-narration" &&
     jobData.narrationId &&
@@ -303,9 +252,7 @@ async function updateJobStatusInDatabase(
     const narrationId = jobData.narrationId as string;
     const projectId = jobData.projectId as string;
 
-    // Update Narration entity
     if (status === "completed") {
-      // Update narration with audio URL (extracted from job result)
       const jobResult = (job as any).returnvalue;
       if (jobResult?.audioUrl) {
         await prisma.narration.update({
@@ -320,64 +267,40 @@ async function updateJobStatusInDatabase(
       } else {
         await prisma.narration.update({
           where: { id: narrationId },
-          data: {
-            status: "completed",
-            updatedAt: new Date(),
-          },
+          data: { status: "completed", updatedAt: new Date() },
         });
       }
-
-      // Update project status to READY after narration completion
       if (projectId && typeof projectId === "string") {
         await prisma.contentProject.update({
           where: { id: projectId },
-          data: {
-            status: "active",
-          },
+          data: { status: "active" },
         });
       }
     } else if (status === "processing") {
-      // Update Narration status to processing
       await prisma.narration.update({
         where: { id: narrationId },
-        data: {
-          status: "processing",
-          updatedAt: new Date(),
-        },
+        data: { status: "processing", updatedAt: new Date() },
       });
-
-      // Update project status to NARRATING
       if (projectId && typeof projectId === "string") {
         await prisma.contentProject.update({
           where: { id: projectId },
-          data: {
-            status: "in_review",
-          },
+          data: { status: "in_review" },
         });
       }
     } else if (status === "failed") {
-      // On failure: save error message but don't lock project (allow retry)
       await prisma.narration.update({
         where: { id: narrationId },
-        data: {
-          status: "failed",
-          updatedAt: new Date(),
-        },
+        data: { status: "failed", updatedAt: new Date() },
       });
-
-      // Revert project status back to in_development so it's not stuck
       if (projectId && typeof projectId === "string") {
         await prisma.contentProject.update({
           where: { id: projectId },
-          data: {
-            status: "in_development",
-          },
+          data: { status: "in_development" },
         });
       }
     }
   }
 
-  // If job has an exportJobId, update ExportJob entity
   if (jobData.exportJobId && typeof jobData.exportJobId === "string") {
     const projectId = jobData.projectId as string;
 
@@ -393,34 +316,26 @@ async function updateJobStatusInDatabase(
         errorMessage: errorMessage || null,
         startedAt: status === "processing" ? new Date() : undefined,
         completedAt:
-          status === "completed" || status === "failed"
-            ? new Date()
-            : undefined,
+          status === "completed" || status === "failed" ? new Date() : undefined,
       },
     });
 
-    // Update ContentProject status to EXPORTED on successful export
     if (status === "completed" && projectId && typeof projectId === "string") {
       await prisma.contentProject.update({
         where: { id: projectId },
-        data: {
-          status: "exported",
-        },
+        data: { status: "exported" },
       });
     }
   }
 }
 
-// Create worker to process jobs
 const worker = new Worker(
   QUEUE_NAME,
   async (job) => {
     const startTime = Date.now();
 
     try {
-      console.log(`[Worker] Job ${job.id} started - Type: ${job.name}`);
-
-      // Update database status to PROCESSING (if entity exists)
+      logger.info({ jobId: job.id, jobName: job.name }, "Job started");
       await updateJobStatusInDatabase(job, "processing");
 
       let result: unknown;
@@ -445,23 +360,15 @@ const worker = new Worker(
           throw new Error(`Unknown job type: ${job.name}`);
       }
 
-      // Update database status to DONE (if entity exists)
       await updateJobStatusInDatabase(job, "completed");
-
       const duration = Date.now() - startTime;
-      console.log(
-        `[Worker] Job ${job.id} completed successfully in ${duration}ms`,
-      );
+      logger.info({ jobId: job.id, jobName: job.name, durationMs: duration }, "Job completed");
       return result || { status: "completed" };
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const duration = Date.now() - startTime;
 
-      console.error(
-        `[Worker] Job ${job.id} failed after ${duration}ms:`,
-        errorMessage,
-      );
+      logger.error({ jobId: job.id, jobName: job.name, durationMs: duration, err: errorMessage }, "Job failed");
 
       Sentry.withScope((scope) => {
         scope.setTag("queue", QUEUE_NAME);
@@ -477,9 +384,7 @@ const worker = new Worker(
         Sentry.captureException(error);
       });
 
-      // Update database status to FAILED with error message
       await updateJobStatusInDatabase(job, "failed", errorMessage);
-
       throw error;
     }
   },
@@ -493,42 +398,35 @@ const worker = new Worker(
   },
 );
 
-// Event handlers
 worker.on("completed", (job) => {
-  console.log(
-    `[Worker] Event: Job ${job.id} completed with result:`,
-    job.returnvalue,
-  );
+  logger.info({ jobId: job.id, result: job.returnvalue }, "Job completed event");
 });
 
 worker.on("failed", (job, err) => {
-  console.error(
-    `[Worker] Event: Job ${job?.id} failed with error:`,
-    err.message,
-  );
+  logger.error({ jobId: job?.id, err: err.message }, "Job failed event");
 });
 
 worker.on("error", (err) => {
-  console.error("[Worker] Worker error:", err);
+  logger.error({ err }, "Worker infrastructure error");
   Sentry.captureException(err, { tags: { queue: QUEUE_NAME, "error.type": "worker_infrastructure" } });
 });
 
 worker.on("active", (job) => {
-  console.log(`[Worker] Event: Job ${job.id} is now active`);
+  logger.info({ jobId: job.id }, "Job is now active");
 });
 
-// Graceful shutdown
 async function shutdown() {
-  console.log("[Worker] Shutting down gracefully...");
+  logger.info("Shutting down gracefully...");
   try {
+    healthServer.close();
     await worker.close();
     await redisConnection.quit();
     await prisma.$disconnect();
     await Sentry.close(2000);
-    console.log("[Worker] Shutdown complete");
+    logger.info("Shutdown complete");
     process.exit(0);
   } catch (error) {
-    console.error("[Worker] Error during shutdown:", error);
+    logger.error({ err: error }, "Error during shutdown");
     process.exit(1);
   }
 }
@@ -536,23 +434,50 @@ async function shutdown() {
 process.on("SIGTERM", shutdown);
 process.on("SIGINT", shutdown);
 
-// Handle uncaught exceptions and unhandled rejections
 process.on("uncaughtException", (error) => {
-  console.error("[Worker] Uncaught exception:", error);
+  logger.error({ err: error }, "Uncaught exception");
   Sentry.captureException(error, { tags: { queue: QUEUE_NAME, "error.type": "uncaught_exception" } });
   void shutdown();
 });
 
 process.on("unhandledRejection", (reason) => {
-  console.error("[Worker] Unhandled rejection:", reason);
+  logger.error({ reason }, "Unhandled rejection");
   Sentry.captureException(reason instanceof Error ? reason : new Error(String(reason)), {
     tags: { queue: QUEUE_NAME, "error.type": "unhandled_rejection" },
   });
 });
 
-// Start worker
-console.log(`[Worker] Starting BullMQ worker for "${QUEUE_NAME}" queue`);
-console.log(`[Worker] Redis URL: ${REDIS_URL}`);
+logger.info({ queue: QUEUE_NAME, redisUrl: REDIS_URL }, "Starting BullMQ worker");
 worker.on("ready", () => {
-  console.log("[Worker] Worker ready and listening for jobs");
+  logger.info({ queue: QUEUE_NAME }, "Worker ready and listening for jobs");
 });
+
+// ── Worker HTTP health server ──────────────────────────────────────────────────
+const HEALTH_PORT = parseInt(process.env.WORKER_HEALTH_PORT || "3003", 10);
+
+const healthServer = http.createServer((req, res) => {
+  if (req.method !== "GET" || req.url !== "/health") {
+    res.writeHead(404);
+    res.end();
+    return;
+  }
+
+  const isWorkerReady = worker.isRunning();
+  const body = JSON.stringify({
+    status: isWorkerReady ? "ok" : "degraded",
+    uptime: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
+    worker: { queue: QUEUE_NAME, running: isWorkerReady },
+  });
+
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(body);
+});
+
+healthServer.listen(HEALTH_PORT, () => {
+  logger.info({ port: HEALTH_PORT }, "Worker health server listening");
+});
+
+// suppress unused variable warning — jobsQueue and narrationJobOptions used by external callers
+void jobsQueue;
+void narrationJobOptions;

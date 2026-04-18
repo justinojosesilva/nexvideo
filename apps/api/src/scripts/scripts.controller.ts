@@ -20,6 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { type Script } from '@nexvideo/database';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { Public } from '../auth/decorators/public.decorator';
 import { type JwtPayload } from '../auth/strategies/jwt.strategy';
 import { GetScriptsUseCase } from './use-cases/get-scripts.use-case';
 import { UpdateScriptUseCase } from './use-cases/update-script.use-case';
@@ -228,6 +229,7 @@ export class ScriptsController {
   }
 
   @Post('internal/generate')
+  @Public()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
     summary: 'Internal script generation endpoint',

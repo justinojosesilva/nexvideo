@@ -9,6 +9,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from '../auth/decorators/public.decorator';
 import { prisma } from '@nexvideo/database';
 import { SynthesizeNarrationUseCase } from './use-cases/synthesize-narration.use-case';
 import { SynthesizeNarrationDto } from './dto/synthesize-narration.dto';
@@ -21,6 +22,7 @@ export class NarrationsController {
   ) {}
 
   @Post('internal/synthesize')
+  @Public()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Internal narration synthesis endpoint',

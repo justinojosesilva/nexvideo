@@ -14,7 +14,7 @@ acceptanceCriteria:
   - 'Portal do Stripe valida upgrade, downgrade e cancelamento'
   - Resultados documentados em playbook com screenshots
   - Zero erros em logs durante o fluxo
-status: TODO
+status: IN_PROGRESS
 body: >
   ## Objetivo
 
@@ -36,7 +36,8 @@ body: >
 id: TASK-008
 score: 16
 createdAt: '2026-04-17T16:16:26.570Z'
-updatedAt: '2026-04-17T16:16:26.570Z'
+updatedAt: '2026-04-18T20:09:06.532Z'
+filePath: /projects/nexvideo/.pm/tasks/TASK-008.md
 ---
 ## Objetivo
 

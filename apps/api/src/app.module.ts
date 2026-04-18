@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
+import { LoggerModule } from 'nestjs-pino';
+import { randomUUID } from 'crypto';
 import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup';
 import { SentryUserContextInterceptor } from './common/interceptors/sentry-user-context.interceptor';
 import { AppController } from './app.controller';
@@ -31,8 +33,32 @@ import { BillingModule } from './billing/billing.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { AdminModule } from './admin/admin.module';
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 @Module({
   imports: [
+    LoggerModule.forRoot({
+      pinoHttp: {
+        level: process.env.LOG_LEVEL || (isDev ? 'debug' : 'info'),
+        transport: isDev
+          ? { target: 'pino-pretty', options: { colorize: true, singleLine: false } }
+          : undefined,
+        genReqId: (req) =>
+          (req.headers['x-request-id'] as string) || randomUUID(),
+        customProps: (req: any) => ({
+          requestId: req.id,
+          organizationId: req.user?.organizationId,
+        }),
+        serializers: {
+          req: (req) => ({
+            method: req.method,
+            url: req.url,
+            requestId: req.id,
+          }),
+          res: (res) => ({ statusCode: res.statusCode }),
+        },
+      },
+    }),
     SentryModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
