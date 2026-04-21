@@ -100,8 +100,8 @@ export default function PrivacyPage() {
             <SectionHeading number="1">Controlador dos Dados</SectionHeading>
             <p>
               O controlador responsável pelo tratamento dos seus dados pessoais é a{" "}
-              <strong className="text-white">nexvideo</strong> (doravante "nexvideo", "nós" ou
-              "nosso"). Para exercer seus direitos ou tirar dúvidas, consulte a{" "}
+              <strong className="text-white">nexvideo</strong> {`(doravante "nexvideo", "nós" ou
+              "nosso")`}. Para exercer seus direitos ou tirar dúvidas, consulte a{" "}
               <a href="#contact" className="text-[#7C3AED] hover:text-[#a78bfa] transition-colors underline">
                 seção de Contato
               </a>

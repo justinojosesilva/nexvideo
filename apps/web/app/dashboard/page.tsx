@@ -311,7 +311,6 @@ export default function DashboardPage() {
     refetchInterval: 5 * 60 * 1000,
   });
 
-  const isFree = subscription?.plan.slug === "free";
   const maxPercent = subscription
     ? Math.max(
         subscription.percentUsed.scripts,
