@@ -223,6 +223,34 @@ async function processExportJob(job: Job): Promise<unknown> {
   }
 }
 
+async function processYoutubeTokenRefreshJob(job: Job): Promise<unknown> {
+  logger.info({ jobId: job.id }, "Processing youtube:refresh-expiring-tokens job");
+  try {
+    const response = await axios.post(`${API_URL}/youtube/oauth/internal/refresh-tokens`);
+    logger.info({ jobId: job.id, result: response.data }, "YouTube token refresh complete");
+    return response.data;
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logger.error({ jobId: job.id, err: errorMessage }, "YouTube token refresh failed");
+    throw error;
+  }
+}
+
+async function processYoutubeSyncMetricsJob(job: Job): Promise<unknown> {
+  logger.info({ jobId: job.id }, "Processing youtube:sync-metrics job");
+  try {
+    const response = await axios.post(`${API_URL}/youtube/oauth/internal/sync-metrics`);
+    const { synced, failed } = response.data as { synced: number; failed: number };
+    logger.info({ jobId: job.id, synced, failed }, "YouTube metrics sync complete");
+    return response.data;
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const isQuota = errorMessage.toLowerCase().includes("quota");
+    logger.error({ jobId: job.id, isQuota, err: errorMessage }, "YouTube metrics sync failed");
+    throw error; // BullMQ applies exponential backoff per job options
+  }
+}
+
 async function updateJobStatusInDatabase(
   job: Job,
   status: "processing" | "completed" | "failed",
@@ -355,6 +383,12 @@ const worker = new Worker(
           break;
         case "process-export":
           result = await processExportJob(job);
+          break;
+        case "youtube:refresh-expiring-tokens":
+          result = await processYoutubeTokenRefreshJob(job);
+          break;
+        case "youtube:sync-metrics":
+          result = await processYoutubeSyncMetricsJob(job);
           break;
         default:
           throw new Error(`Unknown job type: ${job.name}`);

@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CacheModule } from '../cache/cache.module';
+import { AuthModule } from '../auth/auth.module';
+import { YouTubeAnalyticsAdapter } from './implementations/youtube-analytics.adapter';
+import { YouTubeUploadAdapter } from './implementations/youtube-upload.adapter';
 import { YouTubeDataAdapter } from './implementations/youtube-data.adapter';
+import { YoutubeQuotaService } from './services/youtube-quota.service';
 import { GoogleTrendsAdapter } from './implementations/google-trends.adapter';
 import { OpenAIAdapter } from './implementations/openai.adapter';
 import { ElevenLabsTtsAdapter } from './implementations/elevenlabs-tts.adapter';
@@ -13,8 +17,9 @@ import { PixabayAdapter } from './implementations/pixabay.adapter';
 import { MediaAdapter } from './implementations/media.adapter';
 
 @Module({
-  imports: [ConfigModule, CacheModule],
+  imports: [ConfigModule, CacheModule, AuthModule],
   providers: [
+    YoutubeQuotaService,
     {
       provide: 'IYouTubePort',
       useClass: YouTubeDataAdapter,
@@ -49,8 +54,17 @@ import { MediaAdapter } from './implementations/media.adapter';
       provide: 'MediaAdapter',
       useClass: MediaAdapter,
     },
+    {
+      provide: 'IYouTubeAnalyticsPort',
+      useClass: YouTubeAnalyticsAdapter,
+    },
+    {
+      provide: 'IYouTubeUploadPort',
+      useClass: YouTubeUploadAdapter,
+    },
   ],
   exports: [
+    YoutubeQuotaService,
     'IYouTubePort',
     'ITrendsPort',
     'IOpenAIPort',
@@ -59,6 +73,8 @@ import { MediaAdapter } from './implementations/media.adapter';
     'IPexelsPort',
     'IPixabayPort',
     'MediaAdapter',
+    'IYouTubeAnalyticsPort',
+    'IYouTubeUploadPort',
   ],
 })
 export class AdaptersModule {}

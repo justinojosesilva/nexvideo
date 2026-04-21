@@ -6,6 +6,8 @@ import { CompleteOnboardingUseCase } from './use-cases/complete-onboarding.use-c
 import { CreateInviteUseCase } from './use-cases/create-invite.use-case';
 import { AcceptInviteUseCase } from './use-cases/accept-invite.use-case';
 import { GetOrganizationMembersUseCase } from './use-cases/get-organization-members.use-case';
+import { RemoveMemberUseCase } from './use-cases/remove-member.use-case';
+import { UpdateMemberRoleUseCase } from './use-cases/update-member-role.use-case';
 
 @Module({
   imports: [PrismaModule, EmailModule],
@@ -15,6 +17,8 @@ import { GetOrganizationMembersUseCase } from './use-cases/get-organization-memb
     CreateInviteUseCase,
     AcceptInviteUseCase,
     GetOrganizationMembersUseCase,
+    RemoveMemberUseCase,
+    UpdateMemberRoleUseCase,
   ],
 })
 export class OrganizationsModule {}

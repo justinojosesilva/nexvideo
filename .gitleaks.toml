@@ -1,0 +1,22 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "False positives: test fixtures, Swagger examples, README placeholders"
+commits = [
+  "bb21ceb5",
+  "f35da92e",
+]
+paths = [
+  '''.*\.spec\.ts$''',
+  '''.*\.spec\.js$''',
+  '''README\.md$''',
+]
+regexes = [
+  # Well-known jwt.io test JWT (sub: 1234567890)
+  '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.eyJzdWIiOiIxMjM0NTY3ODkwIn0\.[A-Za-z0-9_-]+''',
+  # Fake Stripe key used in logger spec to verify redaction (never real)
+  '''sk_live_1234567890abcdefghij''',
+  # Obvious README placeholder
+  '''abc123def456''',
+]

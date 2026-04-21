@@ -12,6 +12,7 @@ interface HandleStripeWebhookInput {
 
 // Stripe v22 webhook event shape
 interface StripeWebhookEvent {
+  id: string;
   type: string;
   data: { object: Record<string, any> };
 }
@@ -46,6 +47,18 @@ export class HandleStripeWebhookUseCase {
         `Webhook signature verification failed: ${(err as Error).message}`,
       );
     }
+
+    // Event-level idempotency: skip if this event ID was already processed
+    const alreadyProcessed = await this.prisma.client.stripeWebhookEvent.findUnique({
+      where: { stripeEventId: event.id },
+    });
+    if (alreadyProcessed) {
+      this.logger.log(`Skipping duplicate Stripe event ${event.id} (${event.type})`);
+      return;
+    }
+    await this.prisma.client.stripeWebhookEvent.create({
+      data: { stripeEventId: event.id, type: event.type },
+    });
 
     const obj = event.data.object;
 

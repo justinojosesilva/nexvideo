@@ -159,6 +159,7 @@ model Organization {
   publicationMetadata PublicationMetadata[]
   exportJobs          ExportJob[]
   usageLogs           UsageLog[]
+  youtubeOAuthToken   YoutubeOAuthToken?
 
   @@map("organizations")
 }
@@ -172,6 +173,9 @@ model User {
   passwordHash   String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+
+  acceptedTermsAt  DateTime?
+  termsVersion     String?
 
   organization     Organization           @relation(fields: [organizationId], references: [id])
   channelProfiles  ChannelProfile[]
@@ -193,6 +197,22 @@ model RefreshToken {
 
   @@index([userId])
   @@map("refresh_tokens")
+}
+
+model YoutubeOAuthToken {
+  id             String   @id @default(cuid())
+  organizationId String   @unique
+  accessToken    String
+  refreshToken   String
+  scope          String
+  tokenType      String   @default("Bearer")
+  expiresAt      DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("youtube_oauth_tokens")
 }
 
 model ChannelProfile {
@@ -236,6 +256,7 @@ model ContentProject {
   mediaSuggestions    MediaSuggestion[]
   publicationMetadata PublicationMetadata[]
   exportJobs          ExportJob[]
+  videoPerformances   VideoPerformance[]
 
   @@index([organizationId])
   @@index([keyword])
@@ -433,6 +454,50 @@ model OrganizationInvite {
   @@index([email])
   @@index([token])
   @@map("organization_invites")
+}
+
+model StripeWebhookEvent {
+  id          String   @id @default(cuid())
+  stripeEventId String @unique
+  type        String
+  processedAt DateTime @default(now())
+
+  @@index([processedAt])
+  @@map("stripe_webhook_events")
+}
+
+model VideoPerformance {
+  id          String   @id @default(cuid())
+  projectId   String
+  recordedAt  DateTime @default(now())
+  views       Int      @default(0)
+  watchTime   Float    @default(0) // in seconds
+  ctr         Float    @default(0) // click-through rate (0-1)
+  impressions Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  contentProject ContentProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([projectId, recordedAt])
+  @@index([recordedAt])
+  @@map("video_performances")
+}
+
+model MemberRoleAudit {
+  id               String   @id @default(cuid())
+  organizationId   String
+  changedByUserId  String
+  targetUserId     String
+  previousRole     Role
+  newRole          Role
+  changedAt        DateTime @default(now())
+
+  @@index([organizationId])
+  @@index([targetUserId])
+  @@index([changedAt])
+  @@map("member_role_audits")
 }
 
 model BillingNotification {

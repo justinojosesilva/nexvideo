@@ -1,8 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Optional } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { YouTubeVideo, NicheCategory, Platform } from '@nexvideo/shared';
 import { IYouTubePort } from '../interfaces/youtube.port';
 import { YouTubeApiError } from '../exceptions/youtube-api.error';
+import { YoutubeQuotaService } from '../services/youtube-quota.service';
 
 interface YouTubeSearchItem {
   id: {
@@ -54,7 +55,10 @@ export class YouTubeDataAdapter implements IYouTubePort {
   private readonly baseUrl = 'https://www.googleapis.com/youtube/v3';
   private readonly defaultNiche = NicheCategory.OTHER;
 
-  constructor(private configService: ConfigService) {
+  constructor(
+    private configService: ConfigService,
+    @Optional() private readonly quotaService: YoutubeQuotaService | null,
+  ) {
     this.apiKey = this.configService.get<string>('YOUTUBE_API_KEY')!;
 
     if (!this.apiKey) {
@@ -83,6 +87,9 @@ export class YouTubeDataAdapter implements IYouTubePort {
       if (!response.ok) {
         return this.handleApiError(data);
       }
+
+      // search.list = 100 units per call
+      void this.quotaService?.track('SEARCH_LIST');
 
       const items: YouTubeSearchItem[] = data.items || [];
       const videoIds = items
@@ -129,6 +136,9 @@ export class YouTubeDataAdapter implements IYouTubePort {
       if (!response.ok) {
         return this.handleApiError(data);
       }
+
+      // videos.list = 1 unit per call
+      void this.quotaService?.track('VIDEOS_LIST');
 
       if (!data.items || data.items.length === 0) {
         throw new YouTubeApiError(`Video not found: ${videoId}`);

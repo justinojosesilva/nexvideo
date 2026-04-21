@@ -12,6 +12,7 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import {
   ApiOperation,
   ApiResponse,
@@ -45,6 +46,7 @@ export class ScriptsController {
   ) {}
 
   @Post()
+  @Throttle({ default: { ttl: 60_000, limit: 10 } })
   @HttpCode(HttpStatus.ACCEPTED)
   @ApiOperation({
     summary: 'Enqueue script generation job',
@@ -183,6 +185,7 @@ export class ScriptsController {
   }
 
   @Post('project/:projectId/generate')
+  @Throttle({ default: { ttl: 60_000, limit: 10 } })
   @HttpCode(HttpStatus.CREATED)
   @CheckPlanLimit('scripts')
   async generateScript(

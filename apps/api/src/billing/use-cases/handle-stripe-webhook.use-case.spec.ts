@@ -4,6 +4,10 @@ import { ConfigService } from '@nestjs/config';
 // ── Mock PrismaService ────────────────────────────────────────────────────────
 const mockPrisma = {
   client: {
+    stripeWebhookEvent: {
+      findUnique: jest.fn(),
+      create: jest.fn(),
+    },
     subscription: {
       findFirst: jest.fn(),
       create: jest.fn(),
@@ -72,6 +76,9 @@ describe('HandleStripeWebhookUseCase', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    // Default: event not yet processed
+    mockPrisma.client.stripeWebhookEvent.findUnique.mockResolvedValue(null);
+    mockPrisma.client.stripeWebhookEvent.create.mockResolvedValue({});
     useCase = new HandleStripeWebhookUseCase(
       makeConfigService(),
       mockPrisma as any,
@@ -92,6 +99,7 @@ describe('HandleStripeWebhookUseCase', () => {
   // ── Unknown event — no-op ─────────────────────────────────────────────────
   it('ignores unknown event types without error', async () => {
     mockConstructEvent.mockReturnValue({
+      id: 'evt_test_unknown',
       type: 'some.unknown.event',
       data: { object: {} },
     });
@@ -102,6 +110,7 @@ describe('HandleStripeWebhookUseCase', () => {
   // ── checkout.session.completed ────────────────────────────────────────────
   describe('checkout.session.completed', () => {
     const sessionEvent = {
+      id: 'evt_test_checkout',
       type: 'checkout.session.completed',
       data: {
         object: {
@@ -185,6 +194,7 @@ describe('HandleStripeWebhookUseCase', () => {
 
     it('does nothing when metadata is missing', async () => {
       mockConstructEvent.mockReturnValue({
+        id: 'evt_test_checkout_nometa',
         type: 'checkout.session.completed',
         data: { object: { subscription: 'sub_abc123', metadata: {} } },
       });
@@ -199,6 +209,7 @@ describe('HandleStripeWebhookUseCase', () => {
   describe('customer.subscription.updated', () => {
     it('updates subscription status and period end', async () => {
       mockConstructEvent.mockReturnValue({
+        id: 'evt_test_sub_updated',
         type: 'customer.subscription.updated',
         data: {
           object: {
@@ -221,6 +232,7 @@ describe('HandleStripeWebhookUseCase', () => {
 
     it('maps Stripe "canceled" status to "cancelled"', async () => {
       mockConstructEvent.mockReturnValue({
+        id: 'evt_test_sub_canceled',
         type: 'customer.subscription.updated',
         data: {
           object: {
@@ -245,6 +257,7 @@ describe('HandleStripeWebhookUseCase', () => {
   describe('customer.subscription.deleted', () => {
     it('cancels subscription and downgrades org to Free', async () => {
       mockConstructEvent.mockReturnValue({
+        id: 'evt_test_sub_deleted',
         type: 'customer.subscription.deleted',
         data: {
           object: {
@@ -280,6 +293,7 @@ describe('HandleStripeWebhookUseCase', () => {
 
     it('does nothing when subscription is not found in DB', async () => {
       mockConstructEvent.mockReturnValue({
+        id: 'evt_test_sub_deleted_notfound',
         type: 'customer.subscription.deleted',
         data: {
           object: { id: 'sub_unknown', status: 'canceled', current_period_end: 0 },
@@ -298,6 +312,7 @@ describe('HandleStripeWebhookUseCase', () => {
   // ── invoice.payment_failed ────────────────────────────────────────────────
   describe('invoice.payment_failed', () => {
     const failedInvoiceEvent = {
+      id: 'evt_test_invoice_failed',
       type: 'invoice.payment_failed',
       data: {
         object: {
@@ -365,6 +380,7 @@ describe('HandleStripeWebhookUseCase', () => {
 
     it('does nothing when invoice has no subscription', async () => {
       mockConstructEvent.mockReturnValue({
+        id: 'evt_test_invoice_nosub',
         type: 'invoice.payment_failed',
         data: { object: { subscription: null } },
       });
@@ -380,6 +396,7 @@ describe('HandleStripeWebhookUseCase', () => {
     const cancelSoonTimestamp = Math.floor(Date.now() / 1000) + 2 * 86400; // 2 days from now
 
     const cancelEvent = {
+      id: 'evt_test_cancel_warning',
       type: 'customer.subscription.updated',
       data: {
         object: {
@@ -429,6 +446,7 @@ describe('HandleStripeWebhookUseCase', () => {
 
     it('does not send warning when cancel_at_period_end is false', async () => {
       mockConstructEvent.mockReturnValue({
+        id: 'evt_test_cancel_false',
         type: 'customer.subscription.updated',
         data: {
           object: {
@@ -444,6 +462,54 @@ describe('HandleStripeWebhookUseCase', () => {
       await useCase.execute(makeInput());
 
       expect(mockSendCancellationWarningEmail.execute).not.toHaveBeenCalled();
+    });
+  });
+
+  // ── Event-level idempotency ───────────────────────────────────────────────
+  describe('event-level idempotency (StripeWebhookEvent deduplication)', () => {
+    it('skips processing and returns void when event ID was already recorded', async () => {
+      mockConstructEvent.mockReturnValue({
+        id: 'evt_duplicate_001',
+        type: 'checkout.session.completed',
+        data: { object: { subscription: 'sub_abc123', metadata: { organizationId: 'org-1', planId: 'plan-1' } } },
+      });
+      // Simulate event already recorded
+      mockPrisma.client.stripeWebhookEvent.findUnique.mockResolvedValue({
+        id: 'internal-id',
+        stripeEventId: 'evt_duplicate_001',
+        type: 'checkout.session.completed',
+        processedAt: new Date(),
+      });
+
+      await expect(useCase.execute(makeInput())).resolves.toBeUndefined();
+
+      // Must not attempt to create another event record
+      expect(mockPrisma.client.stripeWebhookEvent.create).not.toHaveBeenCalled();
+      // Must not process business logic
+      expect(mockPrisma.client.subscription.create).not.toHaveBeenCalled();
+      expect(mockPrisma.client.subscription.update).not.toHaveBeenCalled();
+    });
+
+    it('records event ID on first successful processing', async () => {
+      mockConstructEvent.mockReturnValue({
+        id: 'evt_new_001',
+        type: 'customer.subscription.updated',
+        data: {
+          object: { id: 'sub_abc123', status: 'active', current_period_end: 1800000000 },
+        },
+      });
+      mockPrisma.client.subscription.updateMany.mockResolvedValue({});
+
+      await useCase.execute(makeInput());
+
+      expect(mockPrisma.client.stripeWebhookEvent.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            stripeEventId: 'evt_new_001',
+            type: 'customer.subscription.updated',
+          }),
+        }),
+      );
     });
   });
 });

@@ -207,9 +207,8 @@ export class PixabayAdapter implements IPixabayPort {
   /**
    * All Pixabay content is free for commercial use under Pixabay License
    */
-  private hasCommercialLicense(
-    _asset: PixabayImage | PixabayVideo,
-  ): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private hasCommercialLicense(_asset: PixabayImage | PixabayVideo): boolean {
     return true;
   }
 

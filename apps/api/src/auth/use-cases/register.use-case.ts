@@ -44,6 +44,8 @@ export class RegisterUseCase {
             name: dto.name,
             role: 'admin',
             passwordHash,
+            acceptedTermsAt: new Date(),
+            termsVersion: '1.0',
           },
         });
 

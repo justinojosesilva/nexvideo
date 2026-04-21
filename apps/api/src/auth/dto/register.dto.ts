@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, MinLength, Equals } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RegisterDto {
@@ -34,6 +34,14 @@ export class RegisterDto {
   @IsString()
   @IsOptional()
   organizationName?: string;
+
+  @ApiProperty({
+    example: true,
+    description: 'User must explicitly accept Terms of Service',
+  })
+  @IsBoolean()
+  @Equals(true, { message: 'You must accept the Terms of Service to register' })
+  acceptTerms: boolean;
 }
 
 export class UserData {

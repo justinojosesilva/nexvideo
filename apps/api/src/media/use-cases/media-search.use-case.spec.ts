@@ -3,7 +3,6 @@ import { MediaAsset } from '@nexvideo/shared';
 import { prisma } from '@nexvideo/database';
 import { MediaSearchUseCase } from './media-search.use-case';
 import { MediaAdapter } from '../../adapters/implementations/media.adapter';
-import { SearchMediaDto } from '../dto/search-media.dto';
 
 // Mock prisma
 jest.mock('@nexvideo/database', () => ({
@@ -127,6 +126,7 @@ describe('MediaSearchUseCase', () => {
         blocks: [{ id: 'block-456', content: 'Test content' }],
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { query: _removed, ...inputWithoutQuery } = validInput;
 
       (prisma.script.findUnique as jest.Mock).mockResolvedValueOnce(mockScript);

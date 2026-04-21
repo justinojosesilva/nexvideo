@@ -139,7 +139,9 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   passwordHash: 'passwordHash',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  acceptedTermsAt: 'acceptedTermsAt',
+  termsVersion: 'termsVersion'
 };
 
 exports.Prisma.RefreshTokenScalarFieldEnum = {
@@ -148,6 +150,18 @@ exports.Prisma.RefreshTokenScalarFieldEnum = {
   token: 'token',
   expiresAt: 'expiresAt',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.YoutubeOAuthTokenScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  scope: 'scope',
+  tokenType: 'tokenType',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ChannelProfileScalarFieldEnum = {
@@ -304,6 +318,35 @@ exports.Prisma.OrganizationInviteScalarFieldEnum = {
   acceptedAt: 'acceptedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StripeWebhookEventScalarFieldEnum = {
+  id: 'id',
+  stripeEventId: 'stripeEventId',
+  type: 'type',
+  processedAt: 'processedAt'
+};
+
+exports.Prisma.VideoPerformanceScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  recordedAt: 'recordedAt',
+  views: 'views',
+  watchTime: 'watchTime',
+  ctr: 'ctr',
+  impressions: 'impressions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MemberRoleAuditScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  changedByUserId: 'changedByUserId',
+  targetUserId: 'targetUserId',
+  previousRole: 'previousRole',
+  newRole: 'newRole',
+  changedAt: 'changedAt'
 };
 
 exports.Prisma.BillingNotificationScalarFieldEnum = {
@@ -465,6 +508,7 @@ exports.Prisma.ModelName = {
   Organization: 'Organization',
   User: 'User',
   RefreshToken: 'RefreshToken',
+  YoutubeOAuthToken: 'YoutubeOAuthToken',
   ChannelProfile: 'ChannelProfile',
   ContentProject: 'ContentProject',
   TrendAnalysis: 'TrendAnalysis',
@@ -477,6 +521,9 @@ exports.Prisma.ModelName = {
   Subscription: 'Subscription',
   UsageLog: 'UsageLog',
   OrganizationInvite: 'OrganizationInvite',
+  StripeWebhookEvent: 'StripeWebhookEvent',
+  VideoPerformance: 'VideoPerformance',
+  MemberRoleAudit: 'MemberRoleAudit',
   BillingNotification: 'BillingNotification'
 };
 

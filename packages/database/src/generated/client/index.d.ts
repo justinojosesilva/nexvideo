@@ -29,6 +29,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
 /**
+ * Model YoutubeOAuthToken
+ * 
+ */
+export type YoutubeOAuthToken = $Result.DefaultSelection<Prisma.$YoutubeOAuthTokenPayload>
+/**
  * Model ChannelProfile
  * 
  */
@@ -88,6 +93,21 @@ export type UsageLog = $Result.DefaultSelection<Prisma.$UsageLogPayload>
  * 
  */
 export type OrganizationInvite = $Result.DefaultSelection<Prisma.$OrganizationInvitePayload>
+/**
+ * Model StripeWebhookEvent
+ * 
+ */
+export type StripeWebhookEvent = $Result.DefaultSelection<Prisma.$StripeWebhookEventPayload>
+/**
+ * Model VideoPerformance
+ * 
+ */
+export type VideoPerformance = $Result.DefaultSelection<Prisma.$VideoPerformancePayload>
+/**
+ * Model MemberRoleAudit
+ * 
+ */
+export type MemberRoleAudit = $Result.DefaultSelection<Prisma.$MemberRoleAuditPayload>
 /**
  * Model BillingNotification
  * 
@@ -475,6 +495,16 @@ export class PrismaClient<
   get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.youtubeOAuthToken`: Exposes CRUD operations for the **YoutubeOAuthToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more YoutubeOAuthTokens
+    * const youtubeOAuthTokens = await prisma.youtubeOAuthToken.findMany()
+    * ```
+    */
+  get youtubeOAuthToken(): Prisma.YoutubeOAuthTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.channelProfile`: Exposes CRUD operations for the **ChannelProfile** model.
     * Example usage:
     * ```ts
@@ -593,6 +623,36 @@ export class PrismaClient<
     * ```
     */
   get organizationInvite(): Prisma.OrganizationInviteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.stripeWebhookEvent`: Exposes CRUD operations for the **StripeWebhookEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StripeWebhookEvents
+    * const stripeWebhookEvents = await prisma.stripeWebhookEvent.findMany()
+    * ```
+    */
+  get stripeWebhookEvent(): Prisma.StripeWebhookEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.videoPerformance`: Exposes CRUD operations for the **VideoPerformance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VideoPerformances
+    * const videoPerformances = await prisma.videoPerformance.findMany()
+    * ```
+    */
+  get videoPerformance(): Prisma.VideoPerformanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.memberRoleAudit`: Exposes CRUD operations for the **MemberRoleAudit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MemberRoleAudits
+    * const memberRoleAudits = await prisma.memberRoleAudit.findMany()
+    * ```
+    */
+  get memberRoleAudit(): Prisma.MemberRoleAuditDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.billingNotification`: Exposes CRUD operations for the **BillingNotification** model.
@@ -1040,6 +1100,7 @@ export namespace Prisma {
     Organization: 'Organization',
     User: 'User',
     RefreshToken: 'RefreshToken',
+    YoutubeOAuthToken: 'YoutubeOAuthToken',
     ChannelProfile: 'ChannelProfile',
     ContentProject: 'ContentProject',
     TrendAnalysis: 'TrendAnalysis',
@@ -1052,6 +1113,9 @@ export namespace Prisma {
     Subscription: 'Subscription',
     UsageLog: 'UsageLog',
     OrganizationInvite: 'OrganizationInvite',
+    StripeWebhookEvent: 'StripeWebhookEvent',
+    VideoPerformance: 'VideoPerformance',
+    MemberRoleAudit: 'MemberRoleAudit',
     BillingNotification: 'BillingNotification'
   };
 
@@ -1068,7 +1132,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "organization" | "user" | "refreshToken" | "channelProfile" | "contentProject" | "trendAnalysis" | "script" | "narration" | "mediaSuggestion" | "publicationMetadata" | "exportJob" | "plan" | "subscription" | "usageLog" | "organizationInvite" | "billingNotification"
+      modelProps: "organization" | "user" | "refreshToken" | "youtubeOAuthToken" | "channelProfile" | "contentProject" | "trendAnalysis" | "script" | "narration" | "mediaSuggestion" | "publicationMetadata" | "exportJob" | "plan" | "subscription" | "usageLog" | "organizationInvite" | "stripeWebhookEvent" | "videoPerformance" | "memberRoleAudit" | "billingNotification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1291,6 +1355,80 @@ export namespace Prisma {
           count: {
             args: Prisma.RefreshTokenCountArgs<ExtArgs>
             result: $Utils.Optional<RefreshTokenCountAggregateOutputType> | number
+          }
+        }
+      }
+      YoutubeOAuthToken: {
+        payload: Prisma.$YoutubeOAuthTokenPayload<ExtArgs>
+        fields: Prisma.YoutubeOAuthTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.YoutubeOAuthTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.YoutubeOAuthTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.YoutubeOAuthTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.YoutubeOAuthTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>
+          }
+          findMany: {
+            args: Prisma.YoutubeOAuthTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>[]
+          }
+          create: {
+            args: Prisma.YoutubeOAuthTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>
+          }
+          createMany: {
+            args: Prisma.YoutubeOAuthTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.YoutubeOAuthTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.YoutubeOAuthTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>
+          }
+          update: {
+            args: Prisma.YoutubeOAuthTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.YoutubeOAuthTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.YoutubeOAuthTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.YoutubeOAuthTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.YoutubeOAuthTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YoutubeOAuthTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.YoutubeOAuthTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateYoutubeOAuthToken>
+          }
+          groupBy: {
+            args: Prisma.YoutubeOAuthTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<YoutubeOAuthTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.YoutubeOAuthTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<YoutubeOAuthTokenCountAggregateOutputType> | number
           }
         }
       }
@@ -2182,6 +2320,228 @@ export namespace Prisma {
           }
         }
       }
+      StripeWebhookEvent: {
+        payload: Prisma.$StripeWebhookEventPayload<ExtArgs>
+        fields: Prisma.StripeWebhookEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StripeWebhookEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StripeWebhookEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>
+          }
+          findFirst: {
+            args: Prisma.StripeWebhookEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StripeWebhookEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>
+          }
+          findMany: {
+            args: Prisma.StripeWebhookEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>[]
+          }
+          create: {
+            args: Prisma.StripeWebhookEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>
+          }
+          createMany: {
+            args: Prisma.StripeWebhookEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StripeWebhookEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>[]
+          }
+          delete: {
+            args: Prisma.StripeWebhookEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>
+          }
+          update: {
+            args: Prisma.StripeWebhookEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.StripeWebhookEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StripeWebhookEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StripeWebhookEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.StripeWebhookEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StripeWebhookEventPayload>
+          }
+          aggregate: {
+            args: Prisma.StripeWebhookEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStripeWebhookEvent>
+          }
+          groupBy: {
+            args: Prisma.StripeWebhookEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StripeWebhookEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StripeWebhookEventCountArgs<ExtArgs>
+            result: $Utils.Optional<StripeWebhookEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      VideoPerformance: {
+        payload: Prisma.$VideoPerformancePayload<ExtArgs>
+        fields: Prisma.VideoPerformanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VideoPerformanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VideoPerformanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>
+          }
+          findFirst: {
+            args: Prisma.VideoPerformanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VideoPerformanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>
+          }
+          findMany: {
+            args: Prisma.VideoPerformanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>[]
+          }
+          create: {
+            args: Prisma.VideoPerformanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>
+          }
+          createMany: {
+            args: Prisma.VideoPerformanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VideoPerformanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>[]
+          }
+          delete: {
+            args: Prisma.VideoPerformanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>
+          }
+          update: {
+            args: Prisma.VideoPerformanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>
+          }
+          deleteMany: {
+            args: Prisma.VideoPerformanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VideoPerformanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VideoPerformanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>[]
+          }
+          upsert: {
+            args: Prisma.VideoPerformanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoPerformancePayload>
+          }
+          aggregate: {
+            args: Prisma.VideoPerformanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVideoPerformance>
+          }
+          groupBy: {
+            args: Prisma.VideoPerformanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VideoPerformanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VideoPerformanceCountArgs<ExtArgs>
+            result: $Utils.Optional<VideoPerformanceCountAggregateOutputType> | number
+          }
+        }
+      }
+      MemberRoleAudit: {
+        payload: Prisma.$MemberRoleAuditPayload<ExtArgs>
+        fields: Prisma.MemberRoleAuditFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MemberRoleAuditFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MemberRoleAuditFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>
+          }
+          findFirst: {
+            args: Prisma.MemberRoleAuditFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MemberRoleAuditFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>
+          }
+          findMany: {
+            args: Prisma.MemberRoleAuditFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>[]
+          }
+          create: {
+            args: Prisma.MemberRoleAuditCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>
+          }
+          createMany: {
+            args: Prisma.MemberRoleAuditCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MemberRoleAuditCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>[]
+          }
+          delete: {
+            args: Prisma.MemberRoleAuditDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>
+          }
+          update: {
+            args: Prisma.MemberRoleAuditUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>
+          }
+          deleteMany: {
+            args: Prisma.MemberRoleAuditDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MemberRoleAuditUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MemberRoleAuditUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>[]
+          }
+          upsert: {
+            args: Prisma.MemberRoleAuditUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberRoleAuditPayload>
+          }
+          aggregate: {
+            args: Prisma.MemberRoleAuditAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMemberRoleAudit>
+          }
+          groupBy: {
+            args: Prisma.MemberRoleAuditGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MemberRoleAuditGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MemberRoleAuditCountArgs<ExtArgs>
+            result: $Utils.Optional<MemberRoleAuditCountAggregateOutputType> | number
+          }
+        }
+      }
       BillingNotification: {
         payload: Prisma.$BillingNotificationPayload<ExtArgs>
         fields: Prisma.BillingNotificationFieldRefs
@@ -2367,6 +2727,7 @@ export namespace Prisma {
     organization?: OrganizationOmit
     user?: UserOmit
     refreshToken?: RefreshTokenOmit
+    youtubeOAuthToken?: YoutubeOAuthTokenOmit
     channelProfile?: ChannelProfileOmit
     contentProject?: ContentProjectOmit
     trendAnalysis?: TrendAnalysisOmit
@@ -2379,6 +2740,9 @@ export namespace Prisma {
     subscription?: SubscriptionOmit
     usageLog?: UsageLogOmit
     organizationInvite?: OrganizationInviteOmit
+    stripeWebhookEvent?: StripeWebhookEventOmit
+    videoPerformance?: VideoPerformanceOmit
+    memberRoleAudit?: MemberRoleAuditOmit
     billingNotification?: BillingNotificationOmit
   }
 
@@ -2666,6 +3030,7 @@ export namespace Prisma {
     mediaSuggestions: number
     publicationMetadata: number
     exportJobs: number
+    videoPerformances: number
   }
 
   export type ContentProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2674,6 +3039,7 @@ export namespace Prisma {
     mediaSuggestions?: boolean | ContentProjectCountOutputTypeCountMediaSuggestionsArgs
     publicationMetadata?: boolean | ContentProjectCountOutputTypeCountPublicationMetadataArgs
     exportJobs?: boolean | ContentProjectCountOutputTypeCountExportJobsArgs
+    videoPerformances?: boolean | ContentProjectCountOutputTypeCountVideoPerformancesArgs
   }
 
   // Custom InputTypes
@@ -2720,6 +3086,13 @@ export namespace Prisma {
    */
   export type ContentProjectCountOutputTypeCountExportJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExportJobWhereInput
+  }
+
+  /**
+   * ContentProjectCountOutputType without action
+   */
+  export type ContentProjectCountOutputTypeCountVideoPerformancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VideoPerformanceWhereInput
   }
 
 
@@ -2989,6 +3362,7 @@ export namespace Prisma {
     publicationMetadata?: boolean | Organization$publicationMetadataArgs<ExtArgs>
     exportJobs?: boolean | Organization$exportJobsArgs<ExtArgs>
     usageLogs?: boolean | Organization$usageLogsArgs<ExtArgs>
+    youtubeOAuthToken?: boolean | Organization$youtubeOAuthTokenArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -3041,6 +3415,7 @@ export namespace Prisma {
     publicationMetadata?: boolean | Organization$publicationMetadataArgs<ExtArgs>
     exportJobs?: boolean | Organization$exportJobsArgs<ExtArgs>
     usageLogs?: boolean | Organization$usageLogsArgs<ExtArgs>
+    youtubeOAuthToken?: boolean | Organization$youtubeOAuthTokenArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3065,6 +3440,7 @@ export namespace Prisma {
       publicationMetadata: Prisma.$PublicationMetadataPayload<ExtArgs>[]
       exportJobs: Prisma.$ExportJobPayload<ExtArgs>[]
       usageLogs: Prisma.$UsageLogPayload<ExtArgs>[]
+      youtubeOAuthToken: Prisma.$YoutubeOAuthTokenPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3481,6 +3857,7 @@ export namespace Prisma {
     publicationMetadata<T extends Organization$publicationMetadataArgs<ExtArgs> = {}>(args?: Subset<T, Organization$publicationMetadataArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PublicationMetadataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exportJobs<T extends Organization$exportJobsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$exportJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExportJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     usageLogs<T extends Organization$usageLogsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$usageLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    youtubeOAuthToken<T extends Organization$youtubeOAuthTokenArgs<ExtArgs> = {}>(args?: Subset<T, Organization$youtubeOAuthTokenArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4202,6 +4579,25 @@ export namespace Prisma {
   }
 
   /**
+   * Organization.youtubeOAuthToken
+   */
+  export type Organization$youtubeOAuthTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    where?: YoutubeOAuthTokenWhereInput
+  }
+
+  /**
    * Organization without action
    */
   export type OrganizationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4239,6 +4635,8 @@ export namespace Prisma {
     passwordHash: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    acceptedTermsAt: Date | null
+    termsVersion: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -4250,6 +4648,8 @@ export namespace Prisma {
     passwordHash: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    acceptedTermsAt: Date | null
+    termsVersion: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4261,6 +4661,8 @@ export namespace Prisma {
     passwordHash: number
     createdAt: number
     updatedAt: number
+    acceptedTermsAt: number
+    termsVersion: number
     _all: number
   }
 
@@ -4274,6 +4676,8 @@ export namespace Prisma {
     passwordHash?: true
     createdAt?: true
     updatedAt?: true
+    acceptedTermsAt?: true
+    termsVersion?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4285,6 +4689,8 @@ export namespace Prisma {
     passwordHash?: true
     createdAt?: true
     updatedAt?: true
+    acceptedTermsAt?: true
+    termsVersion?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4296,6 +4702,8 @@ export namespace Prisma {
     passwordHash?: true
     createdAt?: true
     updatedAt?: true
+    acceptedTermsAt?: true
+    termsVersion?: true
     _all?: true
   }
 
@@ -4380,6 +4788,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt: Date
     updatedAt: Date
+    acceptedTermsAt: Date | null
+    termsVersion: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -4408,6 +4818,8 @@ export namespace Prisma {
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    acceptedTermsAt?: boolean
+    termsVersion?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     channelProfiles?: boolean | User$channelProfilesArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
@@ -4424,6 +4836,8 @@ export namespace Prisma {
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    acceptedTermsAt?: boolean
+    termsVersion?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4436,6 +4850,8 @@ export namespace Prisma {
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    acceptedTermsAt?: boolean
+    termsVersion?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4448,9 +4864,11 @@ export namespace Prisma {
     passwordHash?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    acceptedTermsAt?: boolean
+    termsVersion?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "organizationId" | "email" | "name" | "role" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "organizationId" | "email" | "name" | "role" | "passwordHash" | "createdAt" | "updatedAt" | "acceptedTermsAt" | "termsVersion", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     channelProfiles?: boolean | User$channelProfilesArgs<ExtArgs>
@@ -4482,6 +4900,8 @@ export namespace Prisma {
       passwordHash: string
       createdAt: Date
       updatedAt: Date
+      acceptedTermsAt: Date | null
+      termsVersion: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4917,6 +5337,8 @@ export namespace Prisma {
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly acceptedTermsAt: FieldRef<"User", 'DateTime'>
+    readonly termsVersion: FieldRef<"User", 'String'>
   }
     
 
@@ -6472,6 +6894,1121 @@ export namespace Prisma {
 
 
   /**
+   * Model YoutubeOAuthToken
+   */
+
+  export type AggregateYoutubeOAuthToken = {
+    _count: YoutubeOAuthTokenCountAggregateOutputType | null
+    _min: YoutubeOAuthTokenMinAggregateOutputType | null
+    _max: YoutubeOAuthTokenMaxAggregateOutputType | null
+  }
+
+  export type YoutubeOAuthTokenMinAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    accessToken: string | null
+    refreshToken: string | null
+    scope: string | null
+    tokenType: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type YoutubeOAuthTokenMaxAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    accessToken: string | null
+    refreshToken: string | null
+    scope: string | null
+    tokenType: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type YoutubeOAuthTokenCountAggregateOutputType = {
+    id: number
+    organizationId: number
+    accessToken: number
+    refreshToken: number
+    scope: number
+    tokenType: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type YoutubeOAuthTokenMinAggregateInputType = {
+    id?: true
+    organizationId?: true
+    accessToken?: true
+    refreshToken?: true
+    scope?: true
+    tokenType?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type YoutubeOAuthTokenMaxAggregateInputType = {
+    id?: true
+    organizationId?: true
+    accessToken?: true
+    refreshToken?: true
+    scope?: true
+    tokenType?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type YoutubeOAuthTokenCountAggregateInputType = {
+    id?: true
+    organizationId?: true
+    accessToken?: true
+    refreshToken?: true
+    scope?: true
+    tokenType?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type YoutubeOAuthTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which YoutubeOAuthToken to aggregate.
+     */
+    where?: YoutubeOAuthTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YoutubeOAuthTokens to fetch.
+     */
+    orderBy?: YoutubeOAuthTokenOrderByWithRelationInput | YoutubeOAuthTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: YoutubeOAuthTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YoutubeOAuthTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YoutubeOAuthTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned YoutubeOAuthTokens
+    **/
+    _count?: true | YoutubeOAuthTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: YoutubeOAuthTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: YoutubeOAuthTokenMaxAggregateInputType
+  }
+
+  export type GetYoutubeOAuthTokenAggregateType<T extends YoutubeOAuthTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateYoutubeOAuthToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateYoutubeOAuthToken[P]>
+      : GetScalarType<T[P], AggregateYoutubeOAuthToken[P]>
+  }
+
+
+
+
+  export type YoutubeOAuthTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: YoutubeOAuthTokenWhereInput
+    orderBy?: YoutubeOAuthTokenOrderByWithAggregationInput | YoutubeOAuthTokenOrderByWithAggregationInput[]
+    by: YoutubeOAuthTokenScalarFieldEnum[] | YoutubeOAuthTokenScalarFieldEnum
+    having?: YoutubeOAuthTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: YoutubeOAuthTokenCountAggregateInputType | true
+    _min?: YoutubeOAuthTokenMinAggregateInputType
+    _max?: YoutubeOAuthTokenMaxAggregateInputType
+  }
+
+  export type YoutubeOAuthTokenGroupByOutputType = {
+    id: string
+    organizationId: string
+    accessToken: string
+    refreshToken: string
+    scope: string
+    tokenType: string
+    expiresAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: YoutubeOAuthTokenCountAggregateOutputType | null
+    _min: YoutubeOAuthTokenMinAggregateOutputType | null
+    _max: YoutubeOAuthTokenMaxAggregateOutputType | null
+  }
+
+  type GetYoutubeOAuthTokenGroupByPayload<T extends YoutubeOAuthTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<YoutubeOAuthTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof YoutubeOAuthTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], YoutubeOAuthTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], YoutubeOAuthTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type YoutubeOAuthTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    scope?: boolean
+    tokenType?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["youtubeOAuthToken"]>
+
+  export type YoutubeOAuthTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    scope?: boolean
+    tokenType?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["youtubeOAuthToken"]>
+
+  export type YoutubeOAuthTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    scope?: boolean
+    tokenType?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["youtubeOAuthToken"]>
+
+  export type YoutubeOAuthTokenSelectScalar = {
+    id?: boolean
+    organizationId?: boolean
+    accessToken?: boolean
+    refreshToken?: boolean
+    scope?: boolean
+    tokenType?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type YoutubeOAuthTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "organizationId" | "accessToken" | "refreshToken" | "scope" | "tokenType" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["youtubeOAuthToken"]>
+  export type YoutubeOAuthTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type YoutubeOAuthTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type YoutubeOAuthTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $YoutubeOAuthTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "YoutubeOAuthToken"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      organizationId: string
+      accessToken: string
+      refreshToken: string
+      scope: string
+      tokenType: string
+      expiresAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["youtubeOAuthToken"]>
+    composites: {}
+  }
+
+  type YoutubeOAuthTokenGetPayload<S extends boolean | null | undefined | YoutubeOAuthTokenDefaultArgs> = $Result.GetResult<Prisma.$YoutubeOAuthTokenPayload, S>
+
+  type YoutubeOAuthTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<YoutubeOAuthTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: YoutubeOAuthTokenCountAggregateInputType | true
+    }
+
+  export interface YoutubeOAuthTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['YoutubeOAuthToken'], meta: { name: 'YoutubeOAuthToken' } }
+    /**
+     * Find zero or one YoutubeOAuthToken that matches the filter.
+     * @param {YoutubeOAuthTokenFindUniqueArgs} args - Arguments to find a YoutubeOAuthToken
+     * @example
+     * // Get one YoutubeOAuthToken
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends YoutubeOAuthTokenFindUniqueArgs>(args: SelectSubset<T, YoutubeOAuthTokenFindUniqueArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one YoutubeOAuthToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {YoutubeOAuthTokenFindUniqueOrThrowArgs} args - Arguments to find a YoutubeOAuthToken
+     * @example
+     * // Get one YoutubeOAuthToken
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends YoutubeOAuthTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, YoutubeOAuthTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first YoutubeOAuthToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YoutubeOAuthTokenFindFirstArgs} args - Arguments to find a YoutubeOAuthToken
+     * @example
+     * // Get one YoutubeOAuthToken
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends YoutubeOAuthTokenFindFirstArgs>(args?: SelectSubset<T, YoutubeOAuthTokenFindFirstArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first YoutubeOAuthToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YoutubeOAuthTokenFindFirstOrThrowArgs} args - Arguments to find a YoutubeOAuthToken
+     * @example
+     * // Get one YoutubeOAuthToken
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends YoutubeOAuthTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, YoutubeOAuthTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more YoutubeOAuthTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YoutubeOAuthTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all YoutubeOAuthTokens
+     * const youtubeOAuthTokens = await prisma.youtubeOAuthToken.findMany()
+     * 
+     * // Get first 10 YoutubeOAuthTokens
+     * const youtubeOAuthTokens = await prisma.youtubeOAuthToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const youtubeOAuthTokenWithIdOnly = await prisma.youtubeOAuthToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends YoutubeOAuthTokenFindManyArgs>(args?: SelectSubset<T, YoutubeOAuthTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a YoutubeOAuthToken.
+     * @param {YoutubeOAuthTokenCreateArgs} args - Arguments to create a YoutubeOAuthToken.
+     * @example
+     * // Create one YoutubeOAuthToken
+     * const YoutubeOAuthToken = await prisma.youtubeOAuthToken.create({
+     *   data: {
+     *     // ... data to create a YoutubeOAuthToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends YoutubeOAuthTokenCreateArgs>(args: SelectSubset<T, YoutubeOAuthTokenCreateArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many YoutubeOAuthTokens.
+     * @param {YoutubeOAuthTokenCreateManyArgs} args - Arguments to create many YoutubeOAuthTokens.
+     * @example
+     * // Create many YoutubeOAuthTokens
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends YoutubeOAuthTokenCreateManyArgs>(args?: SelectSubset<T, YoutubeOAuthTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many YoutubeOAuthTokens and returns the data saved in the database.
+     * @param {YoutubeOAuthTokenCreateManyAndReturnArgs} args - Arguments to create many YoutubeOAuthTokens.
+     * @example
+     * // Create many YoutubeOAuthTokens
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many YoutubeOAuthTokens and only return the `id`
+     * const youtubeOAuthTokenWithIdOnly = await prisma.youtubeOAuthToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends YoutubeOAuthTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, YoutubeOAuthTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a YoutubeOAuthToken.
+     * @param {YoutubeOAuthTokenDeleteArgs} args - Arguments to delete one YoutubeOAuthToken.
+     * @example
+     * // Delete one YoutubeOAuthToken
+     * const YoutubeOAuthToken = await prisma.youtubeOAuthToken.delete({
+     *   where: {
+     *     // ... filter to delete one YoutubeOAuthToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends YoutubeOAuthTokenDeleteArgs>(args: SelectSubset<T, YoutubeOAuthTokenDeleteArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one YoutubeOAuthToken.
+     * @param {YoutubeOAuthTokenUpdateArgs} args - Arguments to update one YoutubeOAuthToken.
+     * @example
+     * // Update one YoutubeOAuthToken
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends YoutubeOAuthTokenUpdateArgs>(args: SelectSubset<T, YoutubeOAuthTokenUpdateArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more YoutubeOAuthTokens.
+     * @param {YoutubeOAuthTokenDeleteManyArgs} args - Arguments to filter YoutubeOAuthTokens to delete.
+     * @example
+     * // Delete a few YoutubeOAuthTokens
+     * const { count } = await prisma.youtubeOAuthToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends YoutubeOAuthTokenDeleteManyArgs>(args?: SelectSubset<T, YoutubeOAuthTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more YoutubeOAuthTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YoutubeOAuthTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many YoutubeOAuthTokens
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends YoutubeOAuthTokenUpdateManyArgs>(args: SelectSubset<T, YoutubeOAuthTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more YoutubeOAuthTokens and returns the data updated in the database.
+     * @param {YoutubeOAuthTokenUpdateManyAndReturnArgs} args - Arguments to update many YoutubeOAuthTokens.
+     * @example
+     * // Update many YoutubeOAuthTokens
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more YoutubeOAuthTokens and only return the `id`
+     * const youtubeOAuthTokenWithIdOnly = await prisma.youtubeOAuthToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends YoutubeOAuthTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, YoutubeOAuthTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one YoutubeOAuthToken.
+     * @param {YoutubeOAuthTokenUpsertArgs} args - Arguments to update or create a YoutubeOAuthToken.
+     * @example
+     * // Update or create a YoutubeOAuthToken
+     * const youtubeOAuthToken = await prisma.youtubeOAuthToken.upsert({
+     *   create: {
+     *     // ... data to create a YoutubeOAuthToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the YoutubeOAuthToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends YoutubeOAuthTokenUpsertArgs>(args: SelectSubset<T, YoutubeOAuthTokenUpsertArgs<ExtArgs>>): Prisma__YoutubeOAuthTokenClient<$Result.GetResult<Prisma.$YoutubeOAuthTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of YoutubeOAuthTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YoutubeOAuthTokenCountArgs} args - Arguments to filter YoutubeOAuthTokens to count.
+     * @example
+     * // Count the number of YoutubeOAuthTokens
+     * const count = await prisma.youtubeOAuthToken.count({
+     *   where: {
+     *     // ... the filter for the YoutubeOAuthTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends YoutubeOAuthTokenCountArgs>(
+      args?: Subset<T, YoutubeOAuthTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], YoutubeOAuthTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a YoutubeOAuthToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YoutubeOAuthTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends YoutubeOAuthTokenAggregateArgs>(args: Subset<T, YoutubeOAuthTokenAggregateArgs>): Prisma.PrismaPromise<GetYoutubeOAuthTokenAggregateType<T>>
+
+    /**
+     * Group by YoutubeOAuthToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YoutubeOAuthTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends YoutubeOAuthTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: YoutubeOAuthTokenGroupByArgs['orderBy'] }
+        : { orderBy?: YoutubeOAuthTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, YoutubeOAuthTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetYoutubeOAuthTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the YoutubeOAuthToken model
+   */
+  readonly fields: YoutubeOAuthTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for YoutubeOAuthToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__YoutubeOAuthTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the YoutubeOAuthToken model
+   */
+  interface YoutubeOAuthTokenFieldRefs {
+    readonly id: FieldRef<"YoutubeOAuthToken", 'String'>
+    readonly organizationId: FieldRef<"YoutubeOAuthToken", 'String'>
+    readonly accessToken: FieldRef<"YoutubeOAuthToken", 'String'>
+    readonly refreshToken: FieldRef<"YoutubeOAuthToken", 'String'>
+    readonly scope: FieldRef<"YoutubeOAuthToken", 'String'>
+    readonly tokenType: FieldRef<"YoutubeOAuthToken", 'String'>
+    readonly expiresAt: FieldRef<"YoutubeOAuthToken", 'DateTime'>
+    readonly createdAt: FieldRef<"YoutubeOAuthToken", 'DateTime'>
+    readonly updatedAt: FieldRef<"YoutubeOAuthToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * YoutubeOAuthToken findUnique
+   */
+  export type YoutubeOAuthTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which YoutubeOAuthToken to fetch.
+     */
+    where: YoutubeOAuthTokenWhereUniqueInput
+  }
+
+  /**
+   * YoutubeOAuthToken findUniqueOrThrow
+   */
+  export type YoutubeOAuthTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which YoutubeOAuthToken to fetch.
+     */
+    where: YoutubeOAuthTokenWhereUniqueInput
+  }
+
+  /**
+   * YoutubeOAuthToken findFirst
+   */
+  export type YoutubeOAuthTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which YoutubeOAuthToken to fetch.
+     */
+    where?: YoutubeOAuthTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YoutubeOAuthTokens to fetch.
+     */
+    orderBy?: YoutubeOAuthTokenOrderByWithRelationInput | YoutubeOAuthTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for YoutubeOAuthTokens.
+     */
+    cursor?: YoutubeOAuthTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YoutubeOAuthTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YoutubeOAuthTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YoutubeOAuthTokens.
+     */
+    distinct?: YoutubeOAuthTokenScalarFieldEnum | YoutubeOAuthTokenScalarFieldEnum[]
+  }
+
+  /**
+   * YoutubeOAuthToken findFirstOrThrow
+   */
+  export type YoutubeOAuthTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which YoutubeOAuthToken to fetch.
+     */
+    where?: YoutubeOAuthTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YoutubeOAuthTokens to fetch.
+     */
+    orderBy?: YoutubeOAuthTokenOrderByWithRelationInput | YoutubeOAuthTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for YoutubeOAuthTokens.
+     */
+    cursor?: YoutubeOAuthTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YoutubeOAuthTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YoutubeOAuthTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YoutubeOAuthTokens.
+     */
+    distinct?: YoutubeOAuthTokenScalarFieldEnum | YoutubeOAuthTokenScalarFieldEnum[]
+  }
+
+  /**
+   * YoutubeOAuthToken findMany
+   */
+  export type YoutubeOAuthTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which YoutubeOAuthTokens to fetch.
+     */
+    where?: YoutubeOAuthTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YoutubeOAuthTokens to fetch.
+     */
+    orderBy?: YoutubeOAuthTokenOrderByWithRelationInput | YoutubeOAuthTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing YoutubeOAuthTokens.
+     */
+    cursor?: YoutubeOAuthTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YoutubeOAuthTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YoutubeOAuthTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YoutubeOAuthTokens.
+     */
+    distinct?: YoutubeOAuthTokenScalarFieldEnum | YoutubeOAuthTokenScalarFieldEnum[]
+  }
+
+  /**
+   * YoutubeOAuthToken create
+   */
+  export type YoutubeOAuthTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a YoutubeOAuthToken.
+     */
+    data: XOR<YoutubeOAuthTokenCreateInput, YoutubeOAuthTokenUncheckedCreateInput>
+  }
+
+  /**
+   * YoutubeOAuthToken createMany
+   */
+  export type YoutubeOAuthTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many YoutubeOAuthTokens.
+     */
+    data: YoutubeOAuthTokenCreateManyInput | YoutubeOAuthTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * YoutubeOAuthToken createManyAndReturn
+   */
+  export type YoutubeOAuthTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many YoutubeOAuthTokens.
+     */
+    data: YoutubeOAuthTokenCreateManyInput | YoutubeOAuthTokenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * YoutubeOAuthToken update
+   */
+  export type YoutubeOAuthTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a YoutubeOAuthToken.
+     */
+    data: XOR<YoutubeOAuthTokenUpdateInput, YoutubeOAuthTokenUncheckedUpdateInput>
+    /**
+     * Choose, which YoutubeOAuthToken to update.
+     */
+    where: YoutubeOAuthTokenWhereUniqueInput
+  }
+
+  /**
+   * YoutubeOAuthToken updateMany
+   */
+  export type YoutubeOAuthTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update YoutubeOAuthTokens.
+     */
+    data: XOR<YoutubeOAuthTokenUpdateManyMutationInput, YoutubeOAuthTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which YoutubeOAuthTokens to update
+     */
+    where?: YoutubeOAuthTokenWhereInput
+    /**
+     * Limit how many YoutubeOAuthTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * YoutubeOAuthToken updateManyAndReturn
+   */
+  export type YoutubeOAuthTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update YoutubeOAuthTokens.
+     */
+    data: XOR<YoutubeOAuthTokenUpdateManyMutationInput, YoutubeOAuthTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which YoutubeOAuthTokens to update
+     */
+    where?: YoutubeOAuthTokenWhereInput
+    /**
+     * Limit how many YoutubeOAuthTokens to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * YoutubeOAuthToken upsert
+   */
+  export type YoutubeOAuthTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the YoutubeOAuthToken to update in case it exists.
+     */
+    where: YoutubeOAuthTokenWhereUniqueInput
+    /**
+     * In case the YoutubeOAuthToken found by the `where` argument doesn't exist, create a new YoutubeOAuthToken with this data.
+     */
+    create: XOR<YoutubeOAuthTokenCreateInput, YoutubeOAuthTokenUncheckedCreateInput>
+    /**
+     * In case the YoutubeOAuthToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<YoutubeOAuthTokenUpdateInput, YoutubeOAuthTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * YoutubeOAuthToken delete
+   */
+  export type YoutubeOAuthTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+    /**
+     * Filter which YoutubeOAuthToken to delete.
+     */
+    where: YoutubeOAuthTokenWhereUniqueInput
+  }
+
+  /**
+   * YoutubeOAuthToken deleteMany
+   */
+  export type YoutubeOAuthTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which YoutubeOAuthTokens to delete
+     */
+    where?: YoutubeOAuthTokenWhereInput
+    /**
+     * Limit how many YoutubeOAuthTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * YoutubeOAuthToken without action
+   */
+  export type YoutubeOAuthTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YoutubeOAuthToken
+     */
+    select?: YoutubeOAuthTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YoutubeOAuthToken
+     */
+    omit?: YoutubeOAuthTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: YoutubeOAuthTokenInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model ChannelProfile
    */
 
@@ -7903,6 +9440,7 @@ export namespace Prisma {
     mediaSuggestions?: boolean | ContentProject$mediaSuggestionsArgs<ExtArgs>
     publicationMetadata?: boolean | ContentProject$publicationMetadataArgs<ExtArgs>
     exportJobs?: boolean | ContentProject$exportJobsArgs<ExtArgs>
+    videoPerformances?: boolean | ContentProject$videoPerformancesArgs<ExtArgs>
     _count?: boolean | ContentProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contentProject"]>
 
@@ -7961,6 +9499,7 @@ export namespace Prisma {
     mediaSuggestions?: boolean | ContentProject$mediaSuggestionsArgs<ExtArgs>
     publicationMetadata?: boolean | ContentProject$publicationMetadataArgs<ExtArgs>
     exportJobs?: boolean | ContentProject$exportJobsArgs<ExtArgs>
+    videoPerformances?: boolean | ContentProject$videoPerformancesArgs<ExtArgs>
     _count?: boolean | ContentProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContentProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7982,6 +9521,7 @@ export namespace Prisma {
       mediaSuggestions: Prisma.$MediaSuggestionPayload<ExtArgs>[]
       publicationMetadata: Prisma.$PublicationMetadataPayload<ExtArgs>[]
       exportJobs: Prisma.$ExportJobPayload<ExtArgs>[]
+      videoPerformances: Prisma.$VideoPerformancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8396,6 +9936,7 @@ export namespace Prisma {
     mediaSuggestions<T extends ContentProject$mediaSuggestionsArgs<ExtArgs> = {}>(args?: Subset<T, ContentProject$mediaSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     publicationMetadata<T extends ContentProject$publicationMetadataArgs<ExtArgs> = {}>(args?: Subset<T, ContentProject$publicationMetadataArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PublicationMetadataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exportJobs<T extends ContentProject$exportJobsArgs<ExtArgs> = {}>(args?: Subset<T, ContentProject$exportJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExportJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    videoPerformances<T extends ContentProject$videoPerformancesArgs<ExtArgs> = {}>(args?: Subset<T, ContentProject$videoPerformancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8954,6 +10495,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExportJobScalarFieldEnum | ExportJobScalarFieldEnum[]
+  }
+
+  /**
+   * ContentProject.videoPerformances
+   */
+  export type ContentProject$videoPerformancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    where?: VideoPerformanceWhereInput
+    orderBy?: VideoPerformanceOrderByWithRelationInput | VideoPerformanceOrderByWithRelationInput[]
+    cursor?: VideoPerformanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VideoPerformanceScalarFieldEnum | VideoPerformanceScalarFieldEnum[]
   }
 
   /**
@@ -20529,6 +22094,3180 @@ export namespace Prisma {
 
 
   /**
+   * Model StripeWebhookEvent
+   */
+
+  export type AggregateStripeWebhookEvent = {
+    _count: StripeWebhookEventCountAggregateOutputType | null
+    _min: StripeWebhookEventMinAggregateOutputType | null
+    _max: StripeWebhookEventMaxAggregateOutputType | null
+  }
+
+  export type StripeWebhookEventMinAggregateOutputType = {
+    id: string | null
+    stripeEventId: string | null
+    type: string | null
+    processedAt: Date | null
+  }
+
+  export type StripeWebhookEventMaxAggregateOutputType = {
+    id: string | null
+    stripeEventId: string | null
+    type: string | null
+    processedAt: Date | null
+  }
+
+  export type StripeWebhookEventCountAggregateOutputType = {
+    id: number
+    stripeEventId: number
+    type: number
+    processedAt: number
+    _all: number
+  }
+
+
+  export type StripeWebhookEventMinAggregateInputType = {
+    id?: true
+    stripeEventId?: true
+    type?: true
+    processedAt?: true
+  }
+
+  export type StripeWebhookEventMaxAggregateInputType = {
+    id?: true
+    stripeEventId?: true
+    type?: true
+    processedAt?: true
+  }
+
+  export type StripeWebhookEventCountAggregateInputType = {
+    id?: true
+    stripeEventId?: true
+    type?: true
+    processedAt?: true
+    _all?: true
+  }
+
+  export type StripeWebhookEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StripeWebhookEvent to aggregate.
+     */
+    where?: StripeWebhookEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StripeWebhookEvents to fetch.
+     */
+    orderBy?: StripeWebhookEventOrderByWithRelationInput | StripeWebhookEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StripeWebhookEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StripeWebhookEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StripeWebhookEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StripeWebhookEvents
+    **/
+    _count?: true | StripeWebhookEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StripeWebhookEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StripeWebhookEventMaxAggregateInputType
+  }
+
+  export type GetStripeWebhookEventAggregateType<T extends StripeWebhookEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateStripeWebhookEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStripeWebhookEvent[P]>
+      : GetScalarType<T[P], AggregateStripeWebhookEvent[P]>
+  }
+
+
+
+
+  export type StripeWebhookEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StripeWebhookEventWhereInput
+    orderBy?: StripeWebhookEventOrderByWithAggregationInput | StripeWebhookEventOrderByWithAggregationInput[]
+    by: StripeWebhookEventScalarFieldEnum[] | StripeWebhookEventScalarFieldEnum
+    having?: StripeWebhookEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StripeWebhookEventCountAggregateInputType | true
+    _min?: StripeWebhookEventMinAggregateInputType
+    _max?: StripeWebhookEventMaxAggregateInputType
+  }
+
+  export type StripeWebhookEventGroupByOutputType = {
+    id: string
+    stripeEventId: string
+    type: string
+    processedAt: Date
+    _count: StripeWebhookEventCountAggregateOutputType | null
+    _min: StripeWebhookEventMinAggregateOutputType | null
+    _max: StripeWebhookEventMaxAggregateOutputType | null
+  }
+
+  type GetStripeWebhookEventGroupByPayload<T extends StripeWebhookEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StripeWebhookEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StripeWebhookEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StripeWebhookEventGroupByOutputType[P]>
+            : GetScalarType<T[P], StripeWebhookEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StripeWebhookEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    stripeEventId?: boolean
+    type?: boolean
+    processedAt?: boolean
+  }, ExtArgs["result"]["stripeWebhookEvent"]>
+
+  export type StripeWebhookEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    stripeEventId?: boolean
+    type?: boolean
+    processedAt?: boolean
+  }, ExtArgs["result"]["stripeWebhookEvent"]>
+
+  export type StripeWebhookEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    stripeEventId?: boolean
+    type?: boolean
+    processedAt?: boolean
+  }, ExtArgs["result"]["stripeWebhookEvent"]>
+
+  export type StripeWebhookEventSelectScalar = {
+    id?: boolean
+    stripeEventId?: boolean
+    type?: boolean
+    processedAt?: boolean
+  }
+
+  export type StripeWebhookEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "stripeEventId" | "type" | "processedAt", ExtArgs["result"]["stripeWebhookEvent"]>
+
+  export type $StripeWebhookEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StripeWebhookEvent"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      stripeEventId: string
+      type: string
+      processedAt: Date
+    }, ExtArgs["result"]["stripeWebhookEvent"]>
+    composites: {}
+  }
+
+  type StripeWebhookEventGetPayload<S extends boolean | null | undefined | StripeWebhookEventDefaultArgs> = $Result.GetResult<Prisma.$StripeWebhookEventPayload, S>
+
+  type StripeWebhookEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StripeWebhookEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StripeWebhookEventCountAggregateInputType | true
+    }
+
+  export interface StripeWebhookEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StripeWebhookEvent'], meta: { name: 'StripeWebhookEvent' } }
+    /**
+     * Find zero or one StripeWebhookEvent that matches the filter.
+     * @param {StripeWebhookEventFindUniqueArgs} args - Arguments to find a StripeWebhookEvent
+     * @example
+     * // Get one StripeWebhookEvent
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StripeWebhookEventFindUniqueArgs>(args: SelectSubset<T, StripeWebhookEventFindUniqueArgs<ExtArgs>>): Prisma__StripeWebhookEventClient<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StripeWebhookEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StripeWebhookEventFindUniqueOrThrowArgs} args - Arguments to find a StripeWebhookEvent
+     * @example
+     * // Get one StripeWebhookEvent
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StripeWebhookEventFindUniqueOrThrowArgs>(args: SelectSubset<T, StripeWebhookEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StripeWebhookEventClient<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StripeWebhookEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StripeWebhookEventFindFirstArgs} args - Arguments to find a StripeWebhookEvent
+     * @example
+     * // Get one StripeWebhookEvent
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StripeWebhookEventFindFirstArgs>(args?: SelectSubset<T, StripeWebhookEventFindFirstArgs<ExtArgs>>): Prisma__StripeWebhookEventClient<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StripeWebhookEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StripeWebhookEventFindFirstOrThrowArgs} args - Arguments to find a StripeWebhookEvent
+     * @example
+     * // Get one StripeWebhookEvent
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StripeWebhookEventFindFirstOrThrowArgs>(args?: SelectSubset<T, StripeWebhookEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__StripeWebhookEventClient<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StripeWebhookEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StripeWebhookEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StripeWebhookEvents
+     * const stripeWebhookEvents = await prisma.stripeWebhookEvent.findMany()
+     * 
+     * // Get first 10 StripeWebhookEvents
+     * const stripeWebhookEvents = await prisma.stripeWebhookEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stripeWebhookEventWithIdOnly = await prisma.stripeWebhookEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StripeWebhookEventFindManyArgs>(args?: SelectSubset<T, StripeWebhookEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StripeWebhookEvent.
+     * @param {StripeWebhookEventCreateArgs} args - Arguments to create a StripeWebhookEvent.
+     * @example
+     * // Create one StripeWebhookEvent
+     * const StripeWebhookEvent = await prisma.stripeWebhookEvent.create({
+     *   data: {
+     *     // ... data to create a StripeWebhookEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends StripeWebhookEventCreateArgs>(args: SelectSubset<T, StripeWebhookEventCreateArgs<ExtArgs>>): Prisma__StripeWebhookEventClient<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StripeWebhookEvents.
+     * @param {StripeWebhookEventCreateManyArgs} args - Arguments to create many StripeWebhookEvents.
+     * @example
+     * // Create many StripeWebhookEvents
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StripeWebhookEventCreateManyArgs>(args?: SelectSubset<T, StripeWebhookEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StripeWebhookEvents and returns the data saved in the database.
+     * @param {StripeWebhookEventCreateManyAndReturnArgs} args - Arguments to create many StripeWebhookEvents.
+     * @example
+     * // Create many StripeWebhookEvents
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StripeWebhookEvents and only return the `id`
+     * const stripeWebhookEventWithIdOnly = await prisma.stripeWebhookEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StripeWebhookEventCreateManyAndReturnArgs>(args?: SelectSubset<T, StripeWebhookEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a StripeWebhookEvent.
+     * @param {StripeWebhookEventDeleteArgs} args - Arguments to delete one StripeWebhookEvent.
+     * @example
+     * // Delete one StripeWebhookEvent
+     * const StripeWebhookEvent = await prisma.stripeWebhookEvent.delete({
+     *   where: {
+     *     // ... filter to delete one StripeWebhookEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StripeWebhookEventDeleteArgs>(args: SelectSubset<T, StripeWebhookEventDeleteArgs<ExtArgs>>): Prisma__StripeWebhookEventClient<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StripeWebhookEvent.
+     * @param {StripeWebhookEventUpdateArgs} args - Arguments to update one StripeWebhookEvent.
+     * @example
+     * // Update one StripeWebhookEvent
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StripeWebhookEventUpdateArgs>(args: SelectSubset<T, StripeWebhookEventUpdateArgs<ExtArgs>>): Prisma__StripeWebhookEventClient<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StripeWebhookEvents.
+     * @param {StripeWebhookEventDeleteManyArgs} args - Arguments to filter StripeWebhookEvents to delete.
+     * @example
+     * // Delete a few StripeWebhookEvents
+     * const { count } = await prisma.stripeWebhookEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StripeWebhookEventDeleteManyArgs>(args?: SelectSubset<T, StripeWebhookEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StripeWebhookEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StripeWebhookEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StripeWebhookEvents
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StripeWebhookEventUpdateManyArgs>(args: SelectSubset<T, StripeWebhookEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StripeWebhookEvents and returns the data updated in the database.
+     * @param {StripeWebhookEventUpdateManyAndReturnArgs} args - Arguments to update many StripeWebhookEvents.
+     * @example
+     * // Update many StripeWebhookEvents
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StripeWebhookEvents and only return the `id`
+     * const stripeWebhookEventWithIdOnly = await prisma.stripeWebhookEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StripeWebhookEventUpdateManyAndReturnArgs>(args: SelectSubset<T, StripeWebhookEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one StripeWebhookEvent.
+     * @param {StripeWebhookEventUpsertArgs} args - Arguments to update or create a StripeWebhookEvent.
+     * @example
+     * // Update or create a StripeWebhookEvent
+     * const stripeWebhookEvent = await prisma.stripeWebhookEvent.upsert({
+     *   create: {
+     *     // ... data to create a StripeWebhookEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StripeWebhookEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StripeWebhookEventUpsertArgs>(args: SelectSubset<T, StripeWebhookEventUpsertArgs<ExtArgs>>): Prisma__StripeWebhookEventClient<$Result.GetResult<Prisma.$StripeWebhookEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StripeWebhookEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StripeWebhookEventCountArgs} args - Arguments to filter StripeWebhookEvents to count.
+     * @example
+     * // Count the number of StripeWebhookEvents
+     * const count = await prisma.stripeWebhookEvent.count({
+     *   where: {
+     *     // ... the filter for the StripeWebhookEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends StripeWebhookEventCountArgs>(
+      args?: Subset<T, StripeWebhookEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StripeWebhookEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StripeWebhookEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StripeWebhookEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StripeWebhookEventAggregateArgs>(args: Subset<T, StripeWebhookEventAggregateArgs>): Prisma.PrismaPromise<GetStripeWebhookEventAggregateType<T>>
+
+    /**
+     * Group by StripeWebhookEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StripeWebhookEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StripeWebhookEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StripeWebhookEventGroupByArgs['orderBy'] }
+        : { orderBy?: StripeWebhookEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StripeWebhookEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStripeWebhookEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StripeWebhookEvent model
+   */
+  readonly fields: StripeWebhookEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StripeWebhookEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StripeWebhookEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StripeWebhookEvent model
+   */
+  interface StripeWebhookEventFieldRefs {
+    readonly id: FieldRef<"StripeWebhookEvent", 'String'>
+    readonly stripeEventId: FieldRef<"StripeWebhookEvent", 'String'>
+    readonly type: FieldRef<"StripeWebhookEvent", 'String'>
+    readonly processedAt: FieldRef<"StripeWebhookEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StripeWebhookEvent findUnique
+   */
+  export type StripeWebhookEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * Filter, which StripeWebhookEvent to fetch.
+     */
+    where: StripeWebhookEventWhereUniqueInput
+  }
+
+  /**
+   * StripeWebhookEvent findUniqueOrThrow
+   */
+  export type StripeWebhookEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * Filter, which StripeWebhookEvent to fetch.
+     */
+    where: StripeWebhookEventWhereUniqueInput
+  }
+
+  /**
+   * StripeWebhookEvent findFirst
+   */
+  export type StripeWebhookEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * Filter, which StripeWebhookEvent to fetch.
+     */
+    where?: StripeWebhookEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StripeWebhookEvents to fetch.
+     */
+    orderBy?: StripeWebhookEventOrderByWithRelationInput | StripeWebhookEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StripeWebhookEvents.
+     */
+    cursor?: StripeWebhookEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StripeWebhookEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StripeWebhookEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StripeWebhookEvents.
+     */
+    distinct?: StripeWebhookEventScalarFieldEnum | StripeWebhookEventScalarFieldEnum[]
+  }
+
+  /**
+   * StripeWebhookEvent findFirstOrThrow
+   */
+  export type StripeWebhookEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * Filter, which StripeWebhookEvent to fetch.
+     */
+    where?: StripeWebhookEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StripeWebhookEvents to fetch.
+     */
+    orderBy?: StripeWebhookEventOrderByWithRelationInput | StripeWebhookEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StripeWebhookEvents.
+     */
+    cursor?: StripeWebhookEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StripeWebhookEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StripeWebhookEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StripeWebhookEvents.
+     */
+    distinct?: StripeWebhookEventScalarFieldEnum | StripeWebhookEventScalarFieldEnum[]
+  }
+
+  /**
+   * StripeWebhookEvent findMany
+   */
+  export type StripeWebhookEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * Filter, which StripeWebhookEvents to fetch.
+     */
+    where?: StripeWebhookEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StripeWebhookEvents to fetch.
+     */
+    orderBy?: StripeWebhookEventOrderByWithRelationInput | StripeWebhookEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StripeWebhookEvents.
+     */
+    cursor?: StripeWebhookEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StripeWebhookEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StripeWebhookEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StripeWebhookEvents.
+     */
+    distinct?: StripeWebhookEventScalarFieldEnum | StripeWebhookEventScalarFieldEnum[]
+  }
+
+  /**
+   * StripeWebhookEvent create
+   */
+  export type StripeWebhookEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * The data needed to create a StripeWebhookEvent.
+     */
+    data: XOR<StripeWebhookEventCreateInput, StripeWebhookEventUncheckedCreateInput>
+  }
+
+  /**
+   * StripeWebhookEvent createMany
+   */
+  export type StripeWebhookEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StripeWebhookEvents.
+     */
+    data: StripeWebhookEventCreateManyInput | StripeWebhookEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StripeWebhookEvent createManyAndReturn
+   */
+  export type StripeWebhookEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many StripeWebhookEvents.
+     */
+    data: StripeWebhookEventCreateManyInput | StripeWebhookEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StripeWebhookEvent update
+   */
+  export type StripeWebhookEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * The data needed to update a StripeWebhookEvent.
+     */
+    data: XOR<StripeWebhookEventUpdateInput, StripeWebhookEventUncheckedUpdateInput>
+    /**
+     * Choose, which StripeWebhookEvent to update.
+     */
+    where: StripeWebhookEventWhereUniqueInput
+  }
+
+  /**
+   * StripeWebhookEvent updateMany
+   */
+  export type StripeWebhookEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StripeWebhookEvents.
+     */
+    data: XOR<StripeWebhookEventUpdateManyMutationInput, StripeWebhookEventUncheckedUpdateManyInput>
+    /**
+     * Filter which StripeWebhookEvents to update
+     */
+    where?: StripeWebhookEventWhereInput
+    /**
+     * Limit how many StripeWebhookEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StripeWebhookEvent updateManyAndReturn
+   */
+  export type StripeWebhookEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * The data used to update StripeWebhookEvents.
+     */
+    data: XOR<StripeWebhookEventUpdateManyMutationInput, StripeWebhookEventUncheckedUpdateManyInput>
+    /**
+     * Filter which StripeWebhookEvents to update
+     */
+    where?: StripeWebhookEventWhereInput
+    /**
+     * Limit how many StripeWebhookEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StripeWebhookEvent upsert
+   */
+  export type StripeWebhookEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * The filter to search for the StripeWebhookEvent to update in case it exists.
+     */
+    where: StripeWebhookEventWhereUniqueInput
+    /**
+     * In case the StripeWebhookEvent found by the `where` argument doesn't exist, create a new StripeWebhookEvent with this data.
+     */
+    create: XOR<StripeWebhookEventCreateInput, StripeWebhookEventUncheckedCreateInput>
+    /**
+     * In case the StripeWebhookEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StripeWebhookEventUpdateInput, StripeWebhookEventUncheckedUpdateInput>
+  }
+
+  /**
+   * StripeWebhookEvent delete
+   */
+  export type StripeWebhookEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+    /**
+     * Filter which StripeWebhookEvent to delete.
+     */
+    where: StripeWebhookEventWhereUniqueInput
+  }
+
+  /**
+   * StripeWebhookEvent deleteMany
+   */
+  export type StripeWebhookEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StripeWebhookEvents to delete
+     */
+    where?: StripeWebhookEventWhereInput
+    /**
+     * Limit how many StripeWebhookEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StripeWebhookEvent without action
+   */
+  export type StripeWebhookEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StripeWebhookEvent
+     */
+    select?: StripeWebhookEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StripeWebhookEvent
+     */
+    omit?: StripeWebhookEventOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VideoPerformance
+   */
+
+  export type AggregateVideoPerformance = {
+    _count: VideoPerformanceCountAggregateOutputType | null
+    _avg: VideoPerformanceAvgAggregateOutputType | null
+    _sum: VideoPerformanceSumAggregateOutputType | null
+    _min: VideoPerformanceMinAggregateOutputType | null
+    _max: VideoPerformanceMaxAggregateOutputType | null
+  }
+
+  export type VideoPerformanceAvgAggregateOutputType = {
+    views: number | null
+    watchTime: number | null
+    ctr: number | null
+    impressions: number | null
+  }
+
+  export type VideoPerformanceSumAggregateOutputType = {
+    views: number | null
+    watchTime: number | null
+    ctr: number | null
+    impressions: number | null
+  }
+
+  export type VideoPerformanceMinAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    recordedAt: Date | null
+    views: number | null
+    watchTime: number | null
+    ctr: number | null
+    impressions: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VideoPerformanceMaxAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    recordedAt: Date | null
+    views: number | null
+    watchTime: number | null
+    ctr: number | null
+    impressions: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VideoPerformanceCountAggregateOutputType = {
+    id: number
+    projectId: number
+    recordedAt: number
+    views: number
+    watchTime: number
+    ctr: number
+    impressions: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type VideoPerformanceAvgAggregateInputType = {
+    views?: true
+    watchTime?: true
+    ctr?: true
+    impressions?: true
+  }
+
+  export type VideoPerformanceSumAggregateInputType = {
+    views?: true
+    watchTime?: true
+    ctr?: true
+    impressions?: true
+  }
+
+  export type VideoPerformanceMinAggregateInputType = {
+    id?: true
+    projectId?: true
+    recordedAt?: true
+    views?: true
+    watchTime?: true
+    ctr?: true
+    impressions?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VideoPerformanceMaxAggregateInputType = {
+    id?: true
+    projectId?: true
+    recordedAt?: true
+    views?: true
+    watchTime?: true
+    ctr?: true
+    impressions?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VideoPerformanceCountAggregateInputType = {
+    id?: true
+    projectId?: true
+    recordedAt?: true
+    views?: true
+    watchTime?: true
+    ctr?: true
+    impressions?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type VideoPerformanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VideoPerformance to aggregate.
+     */
+    where?: VideoPerformanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoPerformances to fetch.
+     */
+    orderBy?: VideoPerformanceOrderByWithRelationInput | VideoPerformanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VideoPerformanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoPerformances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoPerformances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VideoPerformances
+    **/
+    _count?: true | VideoPerformanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VideoPerformanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VideoPerformanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VideoPerformanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VideoPerformanceMaxAggregateInputType
+  }
+
+  export type GetVideoPerformanceAggregateType<T extends VideoPerformanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateVideoPerformance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVideoPerformance[P]>
+      : GetScalarType<T[P], AggregateVideoPerformance[P]>
+  }
+
+
+
+
+  export type VideoPerformanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VideoPerformanceWhereInput
+    orderBy?: VideoPerformanceOrderByWithAggregationInput | VideoPerformanceOrderByWithAggregationInput[]
+    by: VideoPerformanceScalarFieldEnum[] | VideoPerformanceScalarFieldEnum
+    having?: VideoPerformanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VideoPerformanceCountAggregateInputType | true
+    _avg?: VideoPerformanceAvgAggregateInputType
+    _sum?: VideoPerformanceSumAggregateInputType
+    _min?: VideoPerformanceMinAggregateInputType
+    _max?: VideoPerformanceMaxAggregateInputType
+  }
+
+  export type VideoPerformanceGroupByOutputType = {
+    id: string
+    projectId: string
+    recordedAt: Date
+    views: number
+    watchTime: number
+    ctr: number
+    impressions: number
+    createdAt: Date
+    updatedAt: Date
+    _count: VideoPerformanceCountAggregateOutputType | null
+    _avg: VideoPerformanceAvgAggregateOutputType | null
+    _sum: VideoPerformanceSumAggregateOutputType | null
+    _min: VideoPerformanceMinAggregateOutputType | null
+    _max: VideoPerformanceMaxAggregateOutputType | null
+  }
+
+  type GetVideoPerformanceGroupByPayload<T extends VideoPerformanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VideoPerformanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VideoPerformanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VideoPerformanceGroupByOutputType[P]>
+            : GetScalarType<T[P], VideoPerformanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VideoPerformanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    recordedAt?: boolean
+    views?: boolean
+    watchTime?: boolean
+    ctr?: boolean
+    impressions?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contentProject?: boolean | ContentProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoPerformance"]>
+
+  export type VideoPerformanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    recordedAt?: boolean
+    views?: boolean
+    watchTime?: boolean
+    ctr?: boolean
+    impressions?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contentProject?: boolean | ContentProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoPerformance"]>
+
+  export type VideoPerformanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    recordedAt?: boolean
+    views?: boolean
+    watchTime?: boolean
+    ctr?: boolean
+    impressions?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contentProject?: boolean | ContentProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoPerformance"]>
+
+  export type VideoPerformanceSelectScalar = {
+    id?: boolean
+    projectId?: boolean
+    recordedAt?: boolean
+    views?: boolean
+    watchTime?: boolean
+    ctr?: boolean
+    impressions?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type VideoPerformanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "projectId" | "recordedAt" | "views" | "watchTime" | "ctr" | "impressions" | "createdAt" | "updatedAt", ExtArgs["result"]["videoPerformance"]>
+  export type VideoPerformanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contentProject?: boolean | ContentProjectDefaultArgs<ExtArgs>
+  }
+  export type VideoPerformanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contentProject?: boolean | ContentProjectDefaultArgs<ExtArgs>
+  }
+  export type VideoPerformanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contentProject?: boolean | ContentProjectDefaultArgs<ExtArgs>
+  }
+
+  export type $VideoPerformancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VideoPerformance"
+    objects: {
+      contentProject: Prisma.$ContentProjectPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      projectId: string
+      recordedAt: Date
+      views: number
+      watchTime: number
+      ctr: number
+      impressions: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["videoPerformance"]>
+    composites: {}
+  }
+
+  type VideoPerformanceGetPayload<S extends boolean | null | undefined | VideoPerformanceDefaultArgs> = $Result.GetResult<Prisma.$VideoPerformancePayload, S>
+
+  type VideoPerformanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VideoPerformanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VideoPerformanceCountAggregateInputType | true
+    }
+
+  export interface VideoPerformanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VideoPerformance'], meta: { name: 'VideoPerformance' } }
+    /**
+     * Find zero or one VideoPerformance that matches the filter.
+     * @param {VideoPerformanceFindUniqueArgs} args - Arguments to find a VideoPerformance
+     * @example
+     * // Get one VideoPerformance
+     * const videoPerformance = await prisma.videoPerformance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VideoPerformanceFindUniqueArgs>(args: SelectSubset<T, VideoPerformanceFindUniqueArgs<ExtArgs>>): Prisma__VideoPerformanceClient<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VideoPerformance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VideoPerformanceFindUniqueOrThrowArgs} args - Arguments to find a VideoPerformance
+     * @example
+     * // Get one VideoPerformance
+     * const videoPerformance = await prisma.videoPerformance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VideoPerformanceFindUniqueOrThrowArgs>(args: SelectSubset<T, VideoPerformanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VideoPerformanceClient<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VideoPerformance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoPerformanceFindFirstArgs} args - Arguments to find a VideoPerformance
+     * @example
+     * // Get one VideoPerformance
+     * const videoPerformance = await prisma.videoPerformance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VideoPerformanceFindFirstArgs>(args?: SelectSubset<T, VideoPerformanceFindFirstArgs<ExtArgs>>): Prisma__VideoPerformanceClient<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VideoPerformance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoPerformanceFindFirstOrThrowArgs} args - Arguments to find a VideoPerformance
+     * @example
+     * // Get one VideoPerformance
+     * const videoPerformance = await prisma.videoPerformance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VideoPerformanceFindFirstOrThrowArgs>(args?: SelectSubset<T, VideoPerformanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__VideoPerformanceClient<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VideoPerformances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoPerformanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VideoPerformances
+     * const videoPerformances = await prisma.videoPerformance.findMany()
+     * 
+     * // Get first 10 VideoPerformances
+     * const videoPerformances = await prisma.videoPerformance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const videoPerformanceWithIdOnly = await prisma.videoPerformance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VideoPerformanceFindManyArgs>(args?: SelectSubset<T, VideoPerformanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VideoPerformance.
+     * @param {VideoPerformanceCreateArgs} args - Arguments to create a VideoPerformance.
+     * @example
+     * // Create one VideoPerformance
+     * const VideoPerformance = await prisma.videoPerformance.create({
+     *   data: {
+     *     // ... data to create a VideoPerformance
+     *   }
+     * })
+     * 
+     */
+    create<T extends VideoPerformanceCreateArgs>(args: SelectSubset<T, VideoPerformanceCreateArgs<ExtArgs>>): Prisma__VideoPerformanceClient<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VideoPerformances.
+     * @param {VideoPerformanceCreateManyArgs} args - Arguments to create many VideoPerformances.
+     * @example
+     * // Create many VideoPerformances
+     * const videoPerformance = await prisma.videoPerformance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VideoPerformanceCreateManyArgs>(args?: SelectSubset<T, VideoPerformanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VideoPerformances and returns the data saved in the database.
+     * @param {VideoPerformanceCreateManyAndReturnArgs} args - Arguments to create many VideoPerformances.
+     * @example
+     * // Create many VideoPerformances
+     * const videoPerformance = await prisma.videoPerformance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VideoPerformances and only return the `id`
+     * const videoPerformanceWithIdOnly = await prisma.videoPerformance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VideoPerformanceCreateManyAndReturnArgs>(args?: SelectSubset<T, VideoPerformanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VideoPerformance.
+     * @param {VideoPerformanceDeleteArgs} args - Arguments to delete one VideoPerformance.
+     * @example
+     * // Delete one VideoPerformance
+     * const VideoPerformance = await prisma.videoPerformance.delete({
+     *   where: {
+     *     // ... filter to delete one VideoPerformance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VideoPerformanceDeleteArgs>(args: SelectSubset<T, VideoPerformanceDeleteArgs<ExtArgs>>): Prisma__VideoPerformanceClient<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VideoPerformance.
+     * @param {VideoPerformanceUpdateArgs} args - Arguments to update one VideoPerformance.
+     * @example
+     * // Update one VideoPerformance
+     * const videoPerformance = await prisma.videoPerformance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VideoPerformanceUpdateArgs>(args: SelectSubset<T, VideoPerformanceUpdateArgs<ExtArgs>>): Prisma__VideoPerformanceClient<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VideoPerformances.
+     * @param {VideoPerformanceDeleteManyArgs} args - Arguments to filter VideoPerformances to delete.
+     * @example
+     * // Delete a few VideoPerformances
+     * const { count } = await prisma.videoPerformance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VideoPerformanceDeleteManyArgs>(args?: SelectSubset<T, VideoPerformanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VideoPerformances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoPerformanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VideoPerformances
+     * const videoPerformance = await prisma.videoPerformance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VideoPerformanceUpdateManyArgs>(args: SelectSubset<T, VideoPerformanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VideoPerformances and returns the data updated in the database.
+     * @param {VideoPerformanceUpdateManyAndReturnArgs} args - Arguments to update many VideoPerformances.
+     * @example
+     * // Update many VideoPerformances
+     * const videoPerformance = await prisma.videoPerformance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VideoPerformances and only return the `id`
+     * const videoPerformanceWithIdOnly = await prisma.videoPerformance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VideoPerformanceUpdateManyAndReturnArgs>(args: SelectSubset<T, VideoPerformanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VideoPerformance.
+     * @param {VideoPerformanceUpsertArgs} args - Arguments to update or create a VideoPerformance.
+     * @example
+     * // Update or create a VideoPerformance
+     * const videoPerformance = await prisma.videoPerformance.upsert({
+     *   create: {
+     *     // ... data to create a VideoPerformance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VideoPerformance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VideoPerformanceUpsertArgs>(args: SelectSubset<T, VideoPerformanceUpsertArgs<ExtArgs>>): Prisma__VideoPerformanceClient<$Result.GetResult<Prisma.$VideoPerformancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VideoPerformances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoPerformanceCountArgs} args - Arguments to filter VideoPerformances to count.
+     * @example
+     * // Count the number of VideoPerformances
+     * const count = await prisma.videoPerformance.count({
+     *   where: {
+     *     // ... the filter for the VideoPerformances we want to count
+     *   }
+     * })
+    **/
+    count<T extends VideoPerformanceCountArgs>(
+      args?: Subset<T, VideoPerformanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VideoPerformanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VideoPerformance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoPerformanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VideoPerformanceAggregateArgs>(args: Subset<T, VideoPerformanceAggregateArgs>): Prisma.PrismaPromise<GetVideoPerformanceAggregateType<T>>
+
+    /**
+     * Group by VideoPerformance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoPerformanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VideoPerformanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VideoPerformanceGroupByArgs['orderBy'] }
+        : { orderBy?: VideoPerformanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VideoPerformanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVideoPerformanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VideoPerformance model
+   */
+  readonly fields: VideoPerformanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VideoPerformance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VideoPerformanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contentProject<T extends ContentProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContentProjectDefaultArgs<ExtArgs>>): Prisma__ContentProjectClient<$Result.GetResult<Prisma.$ContentProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VideoPerformance model
+   */
+  interface VideoPerformanceFieldRefs {
+    readonly id: FieldRef<"VideoPerformance", 'String'>
+    readonly projectId: FieldRef<"VideoPerformance", 'String'>
+    readonly recordedAt: FieldRef<"VideoPerformance", 'DateTime'>
+    readonly views: FieldRef<"VideoPerformance", 'Int'>
+    readonly watchTime: FieldRef<"VideoPerformance", 'Float'>
+    readonly ctr: FieldRef<"VideoPerformance", 'Float'>
+    readonly impressions: FieldRef<"VideoPerformance", 'Int'>
+    readonly createdAt: FieldRef<"VideoPerformance", 'DateTime'>
+    readonly updatedAt: FieldRef<"VideoPerformance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VideoPerformance findUnique
+   */
+  export type VideoPerformanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoPerformance to fetch.
+     */
+    where: VideoPerformanceWhereUniqueInput
+  }
+
+  /**
+   * VideoPerformance findUniqueOrThrow
+   */
+  export type VideoPerformanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoPerformance to fetch.
+     */
+    where: VideoPerformanceWhereUniqueInput
+  }
+
+  /**
+   * VideoPerformance findFirst
+   */
+  export type VideoPerformanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoPerformance to fetch.
+     */
+    where?: VideoPerformanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoPerformances to fetch.
+     */
+    orderBy?: VideoPerformanceOrderByWithRelationInput | VideoPerformanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VideoPerformances.
+     */
+    cursor?: VideoPerformanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoPerformances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoPerformances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VideoPerformances.
+     */
+    distinct?: VideoPerformanceScalarFieldEnum | VideoPerformanceScalarFieldEnum[]
+  }
+
+  /**
+   * VideoPerformance findFirstOrThrow
+   */
+  export type VideoPerformanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoPerformance to fetch.
+     */
+    where?: VideoPerformanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoPerformances to fetch.
+     */
+    orderBy?: VideoPerformanceOrderByWithRelationInput | VideoPerformanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VideoPerformances.
+     */
+    cursor?: VideoPerformanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoPerformances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoPerformances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VideoPerformances.
+     */
+    distinct?: VideoPerformanceScalarFieldEnum | VideoPerformanceScalarFieldEnum[]
+  }
+
+  /**
+   * VideoPerformance findMany
+   */
+  export type VideoPerformanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoPerformances to fetch.
+     */
+    where?: VideoPerformanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoPerformances to fetch.
+     */
+    orderBy?: VideoPerformanceOrderByWithRelationInput | VideoPerformanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VideoPerformances.
+     */
+    cursor?: VideoPerformanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoPerformances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoPerformances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VideoPerformances.
+     */
+    distinct?: VideoPerformanceScalarFieldEnum | VideoPerformanceScalarFieldEnum[]
+  }
+
+  /**
+   * VideoPerformance create
+   */
+  export type VideoPerformanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VideoPerformance.
+     */
+    data: XOR<VideoPerformanceCreateInput, VideoPerformanceUncheckedCreateInput>
+  }
+
+  /**
+   * VideoPerformance createMany
+   */
+  export type VideoPerformanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VideoPerformances.
+     */
+    data: VideoPerformanceCreateManyInput | VideoPerformanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VideoPerformance createManyAndReturn
+   */
+  export type VideoPerformanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many VideoPerformances.
+     */
+    data: VideoPerformanceCreateManyInput | VideoPerformanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VideoPerformance update
+   */
+  export type VideoPerformanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VideoPerformance.
+     */
+    data: XOR<VideoPerformanceUpdateInput, VideoPerformanceUncheckedUpdateInput>
+    /**
+     * Choose, which VideoPerformance to update.
+     */
+    where: VideoPerformanceWhereUniqueInput
+  }
+
+  /**
+   * VideoPerformance updateMany
+   */
+  export type VideoPerformanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VideoPerformances.
+     */
+    data: XOR<VideoPerformanceUpdateManyMutationInput, VideoPerformanceUncheckedUpdateManyInput>
+    /**
+     * Filter which VideoPerformances to update
+     */
+    where?: VideoPerformanceWhereInput
+    /**
+     * Limit how many VideoPerformances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VideoPerformance updateManyAndReturn
+   */
+  export type VideoPerformanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * The data used to update VideoPerformances.
+     */
+    data: XOR<VideoPerformanceUpdateManyMutationInput, VideoPerformanceUncheckedUpdateManyInput>
+    /**
+     * Filter which VideoPerformances to update
+     */
+    where?: VideoPerformanceWhereInput
+    /**
+     * Limit how many VideoPerformances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VideoPerformance upsert
+   */
+  export type VideoPerformanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VideoPerformance to update in case it exists.
+     */
+    where: VideoPerformanceWhereUniqueInput
+    /**
+     * In case the VideoPerformance found by the `where` argument doesn't exist, create a new VideoPerformance with this data.
+     */
+    create: XOR<VideoPerformanceCreateInput, VideoPerformanceUncheckedCreateInput>
+    /**
+     * In case the VideoPerformance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VideoPerformanceUpdateInput, VideoPerformanceUncheckedUpdateInput>
+  }
+
+  /**
+   * VideoPerformance delete
+   */
+  export type VideoPerformanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+    /**
+     * Filter which VideoPerformance to delete.
+     */
+    where: VideoPerformanceWhereUniqueInput
+  }
+
+  /**
+   * VideoPerformance deleteMany
+   */
+  export type VideoPerformanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VideoPerformances to delete
+     */
+    where?: VideoPerformanceWhereInput
+    /**
+     * Limit how many VideoPerformances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VideoPerformance without action
+   */
+  export type VideoPerformanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoPerformance
+     */
+    select?: VideoPerformanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoPerformance
+     */
+    omit?: VideoPerformanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoPerformanceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MemberRoleAudit
+   */
+
+  export type AggregateMemberRoleAudit = {
+    _count: MemberRoleAuditCountAggregateOutputType | null
+    _min: MemberRoleAuditMinAggregateOutputType | null
+    _max: MemberRoleAuditMaxAggregateOutputType | null
+  }
+
+  export type MemberRoleAuditMinAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    changedByUserId: string | null
+    targetUserId: string | null
+    previousRole: $Enums.Role | null
+    newRole: $Enums.Role | null
+    changedAt: Date | null
+  }
+
+  export type MemberRoleAuditMaxAggregateOutputType = {
+    id: string | null
+    organizationId: string | null
+    changedByUserId: string | null
+    targetUserId: string | null
+    previousRole: $Enums.Role | null
+    newRole: $Enums.Role | null
+    changedAt: Date | null
+  }
+
+  export type MemberRoleAuditCountAggregateOutputType = {
+    id: number
+    organizationId: number
+    changedByUserId: number
+    targetUserId: number
+    previousRole: number
+    newRole: number
+    changedAt: number
+    _all: number
+  }
+
+
+  export type MemberRoleAuditMinAggregateInputType = {
+    id?: true
+    organizationId?: true
+    changedByUserId?: true
+    targetUserId?: true
+    previousRole?: true
+    newRole?: true
+    changedAt?: true
+  }
+
+  export type MemberRoleAuditMaxAggregateInputType = {
+    id?: true
+    organizationId?: true
+    changedByUserId?: true
+    targetUserId?: true
+    previousRole?: true
+    newRole?: true
+    changedAt?: true
+  }
+
+  export type MemberRoleAuditCountAggregateInputType = {
+    id?: true
+    organizationId?: true
+    changedByUserId?: true
+    targetUserId?: true
+    previousRole?: true
+    newRole?: true
+    changedAt?: true
+    _all?: true
+  }
+
+  export type MemberRoleAuditAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberRoleAudit to aggregate.
+     */
+    where?: MemberRoleAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberRoleAudits to fetch.
+     */
+    orderBy?: MemberRoleAuditOrderByWithRelationInput | MemberRoleAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MemberRoleAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberRoleAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberRoleAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MemberRoleAudits
+    **/
+    _count?: true | MemberRoleAuditCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MemberRoleAuditMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MemberRoleAuditMaxAggregateInputType
+  }
+
+  export type GetMemberRoleAuditAggregateType<T extends MemberRoleAuditAggregateArgs> = {
+        [P in keyof T & keyof AggregateMemberRoleAudit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMemberRoleAudit[P]>
+      : GetScalarType<T[P], AggregateMemberRoleAudit[P]>
+  }
+
+
+
+
+  export type MemberRoleAuditGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberRoleAuditWhereInput
+    orderBy?: MemberRoleAuditOrderByWithAggregationInput | MemberRoleAuditOrderByWithAggregationInput[]
+    by: MemberRoleAuditScalarFieldEnum[] | MemberRoleAuditScalarFieldEnum
+    having?: MemberRoleAuditScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MemberRoleAuditCountAggregateInputType | true
+    _min?: MemberRoleAuditMinAggregateInputType
+    _max?: MemberRoleAuditMaxAggregateInputType
+  }
+
+  export type MemberRoleAuditGroupByOutputType = {
+    id: string
+    organizationId: string
+    changedByUserId: string
+    targetUserId: string
+    previousRole: $Enums.Role
+    newRole: $Enums.Role
+    changedAt: Date
+    _count: MemberRoleAuditCountAggregateOutputType | null
+    _min: MemberRoleAuditMinAggregateOutputType | null
+    _max: MemberRoleAuditMaxAggregateOutputType | null
+  }
+
+  type GetMemberRoleAuditGroupByPayload<T extends MemberRoleAuditGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MemberRoleAuditGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MemberRoleAuditGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MemberRoleAuditGroupByOutputType[P]>
+            : GetScalarType<T[P], MemberRoleAuditGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MemberRoleAuditSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    changedByUserId?: boolean
+    targetUserId?: boolean
+    previousRole?: boolean
+    newRole?: boolean
+    changedAt?: boolean
+  }, ExtArgs["result"]["memberRoleAudit"]>
+
+  export type MemberRoleAuditSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    changedByUserId?: boolean
+    targetUserId?: boolean
+    previousRole?: boolean
+    newRole?: boolean
+    changedAt?: boolean
+  }, ExtArgs["result"]["memberRoleAudit"]>
+
+  export type MemberRoleAuditSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    organizationId?: boolean
+    changedByUserId?: boolean
+    targetUserId?: boolean
+    previousRole?: boolean
+    newRole?: boolean
+    changedAt?: boolean
+  }, ExtArgs["result"]["memberRoleAudit"]>
+
+  export type MemberRoleAuditSelectScalar = {
+    id?: boolean
+    organizationId?: boolean
+    changedByUserId?: boolean
+    targetUserId?: boolean
+    previousRole?: boolean
+    newRole?: boolean
+    changedAt?: boolean
+  }
+
+  export type MemberRoleAuditOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "organizationId" | "changedByUserId" | "targetUserId" | "previousRole" | "newRole" | "changedAt", ExtArgs["result"]["memberRoleAudit"]>
+
+  export type $MemberRoleAuditPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MemberRoleAudit"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      organizationId: string
+      changedByUserId: string
+      targetUserId: string
+      previousRole: $Enums.Role
+      newRole: $Enums.Role
+      changedAt: Date
+    }, ExtArgs["result"]["memberRoleAudit"]>
+    composites: {}
+  }
+
+  type MemberRoleAuditGetPayload<S extends boolean | null | undefined | MemberRoleAuditDefaultArgs> = $Result.GetResult<Prisma.$MemberRoleAuditPayload, S>
+
+  type MemberRoleAuditCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MemberRoleAuditFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MemberRoleAuditCountAggregateInputType | true
+    }
+
+  export interface MemberRoleAuditDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MemberRoleAudit'], meta: { name: 'MemberRoleAudit' } }
+    /**
+     * Find zero or one MemberRoleAudit that matches the filter.
+     * @param {MemberRoleAuditFindUniqueArgs} args - Arguments to find a MemberRoleAudit
+     * @example
+     * // Get one MemberRoleAudit
+     * const memberRoleAudit = await prisma.memberRoleAudit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MemberRoleAuditFindUniqueArgs>(args: SelectSubset<T, MemberRoleAuditFindUniqueArgs<ExtArgs>>): Prisma__MemberRoleAuditClient<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MemberRoleAudit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MemberRoleAuditFindUniqueOrThrowArgs} args - Arguments to find a MemberRoleAudit
+     * @example
+     * // Get one MemberRoleAudit
+     * const memberRoleAudit = await prisma.memberRoleAudit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MemberRoleAuditFindUniqueOrThrowArgs>(args: SelectSubset<T, MemberRoleAuditFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MemberRoleAuditClient<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MemberRoleAudit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberRoleAuditFindFirstArgs} args - Arguments to find a MemberRoleAudit
+     * @example
+     * // Get one MemberRoleAudit
+     * const memberRoleAudit = await prisma.memberRoleAudit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MemberRoleAuditFindFirstArgs>(args?: SelectSubset<T, MemberRoleAuditFindFirstArgs<ExtArgs>>): Prisma__MemberRoleAuditClient<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MemberRoleAudit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberRoleAuditFindFirstOrThrowArgs} args - Arguments to find a MemberRoleAudit
+     * @example
+     * // Get one MemberRoleAudit
+     * const memberRoleAudit = await prisma.memberRoleAudit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MemberRoleAuditFindFirstOrThrowArgs>(args?: SelectSubset<T, MemberRoleAuditFindFirstOrThrowArgs<ExtArgs>>): Prisma__MemberRoleAuditClient<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MemberRoleAudits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberRoleAuditFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MemberRoleAudits
+     * const memberRoleAudits = await prisma.memberRoleAudit.findMany()
+     * 
+     * // Get first 10 MemberRoleAudits
+     * const memberRoleAudits = await prisma.memberRoleAudit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const memberRoleAuditWithIdOnly = await prisma.memberRoleAudit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MemberRoleAuditFindManyArgs>(args?: SelectSubset<T, MemberRoleAuditFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MemberRoleAudit.
+     * @param {MemberRoleAuditCreateArgs} args - Arguments to create a MemberRoleAudit.
+     * @example
+     * // Create one MemberRoleAudit
+     * const MemberRoleAudit = await prisma.memberRoleAudit.create({
+     *   data: {
+     *     // ... data to create a MemberRoleAudit
+     *   }
+     * })
+     * 
+     */
+    create<T extends MemberRoleAuditCreateArgs>(args: SelectSubset<T, MemberRoleAuditCreateArgs<ExtArgs>>): Prisma__MemberRoleAuditClient<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MemberRoleAudits.
+     * @param {MemberRoleAuditCreateManyArgs} args - Arguments to create many MemberRoleAudits.
+     * @example
+     * // Create many MemberRoleAudits
+     * const memberRoleAudit = await prisma.memberRoleAudit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MemberRoleAuditCreateManyArgs>(args?: SelectSubset<T, MemberRoleAuditCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MemberRoleAudits and returns the data saved in the database.
+     * @param {MemberRoleAuditCreateManyAndReturnArgs} args - Arguments to create many MemberRoleAudits.
+     * @example
+     * // Create many MemberRoleAudits
+     * const memberRoleAudit = await prisma.memberRoleAudit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MemberRoleAudits and only return the `id`
+     * const memberRoleAuditWithIdOnly = await prisma.memberRoleAudit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MemberRoleAuditCreateManyAndReturnArgs>(args?: SelectSubset<T, MemberRoleAuditCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MemberRoleAudit.
+     * @param {MemberRoleAuditDeleteArgs} args - Arguments to delete one MemberRoleAudit.
+     * @example
+     * // Delete one MemberRoleAudit
+     * const MemberRoleAudit = await prisma.memberRoleAudit.delete({
+     *   where: {
+     *     // ... filter to delete one MemberRoleAudit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MemberRoleAuditDeleteArgs>(args: SelectSubset<T, MemberRoleAuditDeleteArgs<ExtArgs>>): Prisma__MemberRoleAuditClient<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MemberRoleAudit.
+     * @param {MemberRoleAuditUpdateArgs} args - Arguments to update one MemberRoleAudit.
+     * @example
+     * // Update one MemberRoleAudit
+     * const memberRoleAudit = await prisma.memberRoleAudit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MemberRoleAuditUpdateArgs>(args: SelectSubset<T, MemberRoleAuditUpdateArgs<ExtArgs>>): Prisma__MemberRoleAuditClient<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MemberRoleAudits.
+     * @param {MemberRoleAuditDeleteManyArgs} args - Arguments to filter MemberRoleAudits to delete.
+     * @example
+     * // Delete a few MemberRoleAudits
+     * const { count } = await prisma.memberRoleAudit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MemberRoleAuditDeleteManyArgs>(args?: SelectSubset<T, MemberRoleAuditDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberRoleAudits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberRoleAuditUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MemberRoleAudits
+     * const memberRoleAudit = await prisma.memberRoleAudit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MemberRoleAuditUpdateManyArgs>(args: SelectSubset<T, MemberRoleAuditUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberRoleAudits and returns the data updated in the database.
+     * @param {MemberRoleAuditUpdateManyAndReturnArgs} args - Arguments to update many MemberRoleAudits.
+     * @example
+     * // Update many MemberRoleAudits
+     * const memberRoleAudit = await prisma.memberRoleAudit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MemberRoleAudits and only return the `id`
+     * const memberRoleAuditWithIdOnly = await prisma.memberRoleAudit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MemberRoleAuditUpdateManyAndReturnArgs>(args: SelectSubset<T, MemberRoleAuditUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MemberRoleAudit.
+     * @param {MemberRoleAuditUpsertArgs} args - Arguments to update or create a MemberRoleAudit.
+     * @example
+     * // Update or create a MemberRoleAudit
+     * const memberRoleAudit = await prisma.memberRoleAudit.upsert({
+     *   create: {
+     *     // ... data to create a MemberRoleAudit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MemberRoleAudit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MemberRoleAuditUpsertArgs>(args: SelectSubset<T, MemberRoleAuditUpsertArgs<ExtArgs>>): Prisma__MemberRoleAuditClient<$Result.GetResult<Prisma.$MemberRoleAuditPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MemberRoleAudits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberRoleAuditCountArgs} args - Arguments to filter MemberRoleAudits to count.
+     * @example
+     * // Count the number of MemberRoleAudits
+     * const count = await prisma.memberRoleAudit.count({
+     *   where: {
+     *     // ... the filter for the MemberRoleAudits we want to count
+     *   }
+     * })
+    **/
+    count<T extends MemberRoleAuditCountArgs>(
+      args?: Subset<T, MemberRoleAuditCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MemberRoleAuditCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MemberRoleAudit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberRoleAuditAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MemberRoleAuditAggregateArgs>(args: Subset<T, MemberRoleAuditAggregateArgs>): Prisma.PrismaPromise<GetMemberRoleAuditAggregateType<T>>
+
+    /**
+     * Group by MemberRoleAudit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberRoleAuditGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MemberRoleAuditGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MemberRoleAuditGroupByArgs['orderBy'] }
+        : { orderBy?: MemberRoleAuditGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MemberRoleAuditGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMemberRoleAuditGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MemberRoleAudit model
+   */
+  readonly fields: MemberRoleAuditFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MemberRoleAudit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MemberRoleAuditClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MemberRoleAudit model
+   */
+  interface MemberRoleAuditFieldRefs {
+    readonly id: FieldRef<"MemberRoleAudit", 'String'>
+    readonly organizationId: FieldRef<"MemberRoleAudit", 'String'>
+    readonly changedByUserId: FieldRef<"MemberRoleAudit", 'String'>
+    readonly targetUserId: FieldRef<"MemberRoleAudit", 'String'>
+    readonly previousRole: FieldRef<"MemberRoleAudit", 'Role'>
+    readonly newRole: FieldRef<"MemberRoleAudit", 'Role'>
+    readonly changedAt: FieldRef<"MemberRoleAudit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MemberRoleAudit findUnique
+   */
+  export type MemberRoleAuditFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberRoleAudit to fetch.
+     */
+    where: MemberRoleAuditWhereUniqueInput
+  }
+
+  /**
+   * MemberRoleAudit findUniqueOrThrow
+   */
+  export type MemberRoleAuditFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberRoleAudit to fetch.
+     */
+    where: MemberRoleAuditWhereUniqueInput
+  }
+
+  /**
+   * MemberRoleAudit findFirst
+   */
+  export type MemberRoleAuditFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberRoleAudit to fetch.
+     */
+    where?: MemberRoleAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberRoleAudits to fetch.
+     */
+    orderBy?: MemberRoleAuditOrderByWithRelationInput | MemberRoleAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberRoleAudits.
+     */
+    cursor?: MemberRoleAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberRoleAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberRoleAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberRoleAudits.
+     */
+    distinct?: MemberRoleAuditScalarFieldEnum | MemberRoleAuditScalarFieldEnum[]
+  }
+
+  /**
+   * MemberRoleAudit findFirstOrThrow
+   */
+  export type MemberRoleAuditFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberRoleAudit to fetch.
+     */
+    where?: MemberRoleAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberRoleAudits to fetch.
+     */
+    orderBy?: MemberRoleAuditOrderByWithRelationInput | MemberRoleAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberRoleAudits.
+     */
+    cursor?: MemberRoleAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberRoleAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberRoleAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberRoleAudits.
+     */
+    distinct?: MemberRoleAuditScalarFieldEnum | MemberRoleAuditScalarFieldEnum[]
+  }
+
+  /**
+   * MemberRoleAudit findMany
+   */
+  export type MemberRoleAuditFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberRoleAudits to fetch.
+     */
+    where?: MemberRoleAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberRoleAudits to fetch.
+     */
+    orderBy?: MemberRoleAuditOrderByWithRelationInput | MemberRoleAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MemberRoleAudits.
+     */
+    cursor?: MemberRoleAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberRoleAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberRoleAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberRoleAudits.
+     */
+    distinct?: MemberRoleAuditScalarFieldEnum | MemberRoleAuditScalarFieldEnum[]
+  }
+
+  /**
+   * MemberRoleAudit create
+   */
+  export type MemberRoleAuditCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MemberRoleAudit.
+     */
+    data: XOR<MemberRoleAuditCreateInput, MemberRoleAuditUncheckedCreateInput>
+  }
+
+  /**
+   * MemberRoleAudit createMany
+   */
+  export type MemberRoleAuditCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MemberRoleAudits.
+     */
+    data: MemberRoleAuditCreateManyInput | MemberRoleAuditCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemberRoleAudit createManyAndReturn
+   */
+  export type MemberRoleAuditCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * The data used to create many MemberRoleAudits.
+     */
+    data: MemberRoleAuditCreateManyInput | MemberRoleAuditCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemberRoleAudit update
+   */
+  export type MemberRoleAuditUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MemberRoleAudit.
+     */
+    data: XOR<MemberRoleAuditUpdateInput, MemberRoleAuditUncheckedUpdateInput>
+    /**
+     * Choose, which MemberRoleAudit to update.
+     */
+    where: MemberRoleAuditWhereUniqueInput
+  }
+
+  /**
+   * MemberRoleAudit updateMany
+   */
+  export type MemberRoleAuditUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MemberRoleAudits.
+     */
+    data: XOR<MemberRoleAuditUpdateManyMutationInput, MemberRoleAuditUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberRoleAudits to update
+     */
+    where?: MemberRoleAuditWhereInput
+    /**
+     * Limit how many MemberRoleAudits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MemberRoleAudit updateManyAndReturn
+   */
+  export type MemberRoleAuditUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * The data used to update MemberRoleAudits.
+     */
+    data: XOR<MemberRoleAuditUpdateManyMutationInput, MemberRoleAuditUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberRoleAudits to update
+     */
+    where?: MemberRoleAuditWhereInput
+    /**
+     * Limit how many MemberRoleAudits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MemberRoleAudit upsert
+   */
+  export type MemberRoleAuditUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MemberRoleAudit to update in case it exists.
+     */
+    where: MemberRoleAuditWhereUniqueInput
+    /**
+     * In case the MemberRoleAudit found by the `where` argument doesn't exist, create a new MemberRoleAudit with this data.
+     */
+    create: XOR<MemberRoleAuditCreateInput, MemberRoleAuditUncheckedCreateInput>
+    /**
+     * In case the MemberRoleAudit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MemberRoleAuditUpdateInput, MemberRoleAuditUncheckedUpdateInput>
+  }
+
+  /**
+   * MemberRoleAudit delete
+   */
+  export type MemberRoleAuditDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+    /**
+     * Filter which MemberRoleAudit to delete.
+     */
+    where: MemberRoleAuditWhereUniqueInput
+  }
+
+  /**
+   * MemberRoleAudit deleteMany
+   */
+  export type MemberRoleAuditDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberRoleAudits to delete
+     */
+    where?: MemberRoleAuditWhereInput
+    /**
+     * Limit how many MemberRoleAudits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MemberRoleAudit without action
+   */
+  export type MemberRoleAuditDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberRoleAudit
+     */
+    select?: MemberRoleAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberRoleAudit
+     */
+    omit?: MemberRoleAuditOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model BillingNotification
    */
 
@@ -21627,7 +26366,9 @@ export namespace Prisma {
     role: 'role',
     passwordHash: 'passwordHash',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    acceptedTermsAt: 'acceptedTermsAt',
+    termsVersion: 'termsVersion'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -21642,6 +26383,21 @@ export namespace Prisma {
   };
 
   export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+  export const YoutubeOAuthTokenScalarFieldEnum: {
+    id: 'id',
+    organizationId: 'organizationId',
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
+    scope: 'scope',
+    tokenType: 'tokenType',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type YoutubeOAuthTokenScalarFieldEnum = (typeof YoutubeOAuthTokenScalarFieldEnum)[keyof typeof YoutubeOAuthTokenScalarFieldEnum]
 
 
   export const ChannelProfileScalarFieldEnum: {
@@ -21834,6 +26590,44 @@ export namespace Prisma {
   };
 
   export type OrganizationInviteScalarFieldEnum = (typeof OrganizationInviteScalarFieldEnum)[keyof typeof OrganizationInviteScalarFieldEnum]
+
+
+  export const StripeWebhookEventScalarFieldEnum: {
+    id: 'id',
+    stripeEventId: 'stripeEventId',
+    type: 'type',
+    processedAt: 'processedAt'
+  };
+
+  export type StripeWebhookEventScalarFieldEnum = (typeof StripeWebhookEventScalarFieldEnum)[keyof typeof StripeWebhookEventScalarFieldEnum]
+
+
+  export const VideoPerformanceScalarFieldEnum: {
+    id: 'id',
+    projectId: 'projectId',
+    recordedAt: 'recordedAt',
+    views: 'views',
+    watchTime: 'watchTime',
+    ctr: 'ctr',
+    impressions: 'impressions',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type VideoPerformanceScalarFieldEnum = (typeof VideoPerformanceScalarFieldEnum)[keyof typeof VideoPerformanceScalarFieldEnum]
+
+
+  export const MemberRoleAuditScalarFieldEnum: {
+    id: 'id',
+    organizationId: 'organizationId',
+    changedByUserId: 'changedByUserId',
+    targetUserId: 'targetUserId',
+    previousRole: 'previousRole',
+    newRole: 'newRole',
+    changedAt: 'changedAt'
+  };
+
+  export type MemberRoleAuditScalarFieldEnum = (typeof MemberRoleAuditScalarFieldEnum)[keyof typeof MemberRoleAuditScalarFieldEnum]
 
 
   export const BillingNotificationScalarFieldEnum: {
@@ -22200,6 +26994,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataListRelationFilter
     exportJobs?: ExportJobListRelationFilter
     usageLogs?: UsageLogListRelationFilter
+    youtubeOAuthToken?: XOR<YoutubeOAuthTokenNullableScalarRelationFilter, YoutubeOAuthTokenWhereInput> | null
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -22223,6 +27018,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataOrderByRelationAggregateInput
     exportJobs?: ExportJobOrderByRelationAggregateInput
     usageLogs?: UsageLogOrderByRelationAggregateInput
+    youtubeOAuthToken?: YoutubeOAuthTokenOrderByWithRelationInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -22249,6 +27045,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataListRelationFilter
     exportJobs?: ExportJobListRelationFilter
     usageLogs?: UsageLogListRelationFilter
+    youtubeOAuthToken?: XOR<YoutubeOAuthTokenNullableScalarRelationFilter, YoutubeOAuthTokenWhereInput> | null
   }, "id" | "slug" | "subscriptionId">
 
   export type OrganizationOrderByWithAggregationInput = {
@@ -22291,6 +27088,8 @@ export namespace Prisma {
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    acceptedTermsAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    termsVersion?: StringNullableFilter<"User"> | string | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     channelProfiles?: ChannelProfileListRelationFilter
     refreshTokens?: RefreshTokenListRelationFilter
@@ -22306,6 +27105,8 @@ export namespace Prisma {
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedTermsAt?: SortOrderInput | SortOrder
+    termsVersion?: SortOrderInput | SortOrder
     organization?: OrganizationOrderByWithRelationInput
     channelProfiles?: ChannelProfileOrderByRelationAggregateInput
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
@@ -22324,6 +27125,8 @@ export namespace Prisma {
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    acceptedTermsAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    termsVersion?: StringNullableFilter<"User"> | string | null
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     channelProfiles?: ChannelProfileListRelationFilter
     refreshTokens?: RefreshTokenListRelationFilter
@@ -22339,6 +27142,8 @@ export namespace Prisma {
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedTermsAt?: SortOrderInput | SortOrder
+    termsVersion?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -22356,6 +27161,8 @@ export namespace Prisma {
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    acceptedTermsAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    termsVersion?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type RefreshTokenWhereInput = {
@@ -22411,6 +27218,81 @@ export namespace Prisma {
     token?: StringWithAggregatesFilter<"RefreshToken"> | string
     expiresAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
+  }
+
+  export type YoutubeOAuthTokenWhereInput = {
+    AND?: YoutubeOAuthTokenWhereInput | YoutubeOAuthTokenWhereInput[]
+    OR?: YoutubeOAuthTokenWhereInput[]
+    NOT?: YoutubeOAuthTokenWhereInput | YoutubeOAuthTokenWhereInput[]
+    id?: StringFilter<"YoutubeOAuthToken"> | string
+    organizationId?: StringFilter<"YoutubeOAuthToken"> | string
+    accessToken?: StringFilter<"YoutubeOAuthToken"> | string
+    refreshToken?: StringFilter<"YoutubeOAuthToken"> | string
+    scope?: StringFilter<"YoutubeOAuthToken"> | string
+    tokenType?: StringFilter<"YoutubeOAuthToken"> | string
+    expiresAt?: DateTimeFilter<"YoutubeOAuthToken"> | Date | string
+    createdAt?: DateTimeFilter<"YoutubeOAuthToken"> | Date | string
+    updatedAt?: DateTimeFilter<"YoutubeOAuthToken"> | Date | string
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type YoutubeOAuthTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    scope?: SortOrder
+    tokenType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type YoutubeOAuthTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    organizationId?: string
+    AND?: YoutubeOAuthTokenWhereInput | YoutubeOAuthTokenWhereInput[]
+    OR?: YoutubeOAuthTokenWhereInput[]
+    NOT?: YoutubeOAuthTokenWhereInput | YoutubeOAuthTokenWhereInput[]
+    accessToken?: StringFilter<"YoutubeOAuthToken"> | string
+    refreshToken?: StringFilter<"YoutubeOAuthToken"> | string
+    scope?: StringFilter<"YoutubeOAuthToken"> | string
+    tokenType?: StringFilter<"YoutubeOAuthToken"> | string
+    expiresAt?: DateTimeFilter<"YoutubeOAuthToken"> | Date | string
+    createdAt?: DateTimeFilter<"YoutubeOAuthToken"> | Date | string
+    updatedAt?: DateTimeFilter<"YoutubeOAuthToken"> | Date | string
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "id" | "organizationId">
+
+  export type YoutubeOAuthTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    scope?: SortOrder
+    tokenType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: YoutubeOAuthTokenCountOrderByAggregateInput
+    _max?: YoutubeOAuthTokenMaxOrderByAggregateInput
+    _min?: YoutubeOAuthTokenMinOrderByAggregateInput
+  }
+
+  export type YoutubeOAuthTokenScalarWhereWithAggregatesInput = {
+    AND?: YoutubeOAuthTokenScalarWhereWithAggregatesInput | YoutubeOAuthTokenScalarWhereWithAggregatesInput[]
+    OR?: YoutubeOAuthTokenScalarWhereWithAggregatesInput[]
+    NOT?: YoutubeOAuthTokenScalarWhereWithAggregatesInput | YoutubeOAuthTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"YoutubeOAuthToken"> | string
+    organizationId?: StringWithAggregatesFilter<"YoutubeOAuthToken"> | string
+    accessToken?: StringWithAggregatesFilter<"YoutubeOAuthToken"> | string
+    refreshToken?: StringWithAggregatesFilter<"YoutubeOAuthToken"> | string
+    scope?: StringWithAggregatesFilter<"YoutubeOAuthToken"> | string
+    tokenType?: StringWithAggregatesFilter<"YoutubeOAuthToken"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"YoutubeOAuthToken"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"YoutubeOAuthToken"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"YoutubeOAuthToken"> | Date | string
   }
 
   export type ChannelProfileWhereInput = {
@@ -22526,6 +27408,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionListRelationFilter
     publicationMetadata?: PublicationMetadataListRelationFilter
     exportJobs?: ExportJobListRelationFilter
+    videoPerformances?: VideoPerformanceListRelationFilter
   }
 
   export type ContentProjectOrderByWithRelationInput = {
@@ -22547,6 +27430,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionOrderByRelationAggregateInput
     publicationMetadata?: PublicationMetadataOrderByRelationAggregateInput
     exportJobs?: ExportJobOrderByRelationAggregateInput
+    videoPerformances?: VideoPerformanceOrderByRelationAggregateInput
   }
 
   export type ContentProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -22571,6 +27455,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionListRelationFilter
     publicationMetadata?: PublicationMetadataListRelationFilter
     exportJobs?: ExportJobListRelationFilter
+    videoPerformances?: VideoPerformanceListRelationFilter
   }, "id">
 
   export type ContentProjectOrderByWithAggregationInput = {
@@ -23434,6 +28319,192 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"OrganizationInvite"> | Date | string
   }
 
+  export type StripeWebhookEventWhereInput = {
+    AND?: StripeWebhookEventWhereInput | StripeWebhookEventWhereInput[]
+    OR?: StripeWebhookEventWhereInput[]
+    NOT?: StripeWebhookEventWhereInput | StripeWebhookEventWhereInput[]
+    id?: StringFilter<"StripeWebhookEvent"> | string
+    stripeEventId?: StringFilter<"StripeWebhookEvent"> | string
+    type?: StringFilter<"StripeWebhookEvent"> | string
+    processedAt?: DateTimeFilter<"StripeWebhookEvent"> | Date | string
+  }
+
+  export type StripeWebhookEventOrderByWithRelationInput = {
+    id?: SortOrder
+    stripeEventId?: SortOrder
+    type?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type StripeWebhookEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    stripeEventId?: string
+    AND?: StripeWebhookEventWhereInput | StripeWebhookEventWhereInput[]
+    OR?: StripeWebhookEventWhereInput[]
+    NOT?: StripeWebhookEventWhereInput | StripeWebhookEventWhereInput[]
+    type?: StringFilter<"StripeWebhookEvent"> | string
+    processedAt?: DateTimeFilter<"StripeWebhookEvent"> | Date | string
+  }, "id" | "stripeEventId">
+
+  export type StripeWebhookEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    stripeEventId?: SortOrder
+    type?: SortOrder
+    processedAt?: SortOrder
+    _count?: StripeWebhookEventCountOrderByAggregateInput
+    _max?: StripeWebhookEventMaxOrderByAggregateInput
+    _min?: StripeWebhookEventMinOrderByAggregateInput
+  }
+
+  export type StripeWebhookEventScalarWhereWithAggregatesInput = {
+    AND?: StripeWebhookEventScalarWhereWithAggregatesInput | StripeWebhookEventScalarWhereWithAggregatesInput[]
+    OR?: StripeWebhookEventScalarWhereWithAggregatesInput[]
+    NOT?: StripeWebhookEventScalarWhereWithAggregatesInput | StripeWebhookEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StripeWebhookEvent"> | string
+    stripeEventId?: StringWithAggregatesFilter<"StripeWebhookEvent"> | string
+    type?: StringWithAggregatesFilter<"StripeWebhookEvent"> | string
+    processedAt?: DateTimeWithAggregatesFilter<"StripeWebhookEvent"> | Date | string
+  }
+
+  export type VideoPerformanceWhereInput = {
+    AND?: VideoPerformanceWhereInput | VideoPerformanceWhereInput[]
+    OR?: VideoPerformanceWhereInput[]
+    NOT?: VideoPerformanceWhereInput | VideoPerformanceWhereInput[]
+    id?: StringFilter<"VideoPerformance"> | string
+    projectId?: StringFilter<"VideoPerformance"> | string
+    recordedAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+    views?: IntFilter<"VideoPerformance"> | number
+    watchTime?: FloatFilter<"VideoPerformance"> | number
+    ctr?: FloatFilter<"VideoPerformance"> | number
+    impressions?: IntFilter<"VideoPerformance"> | number
+    createdAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+    updatedAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+    contentProject?: XOR<ContentProjectScalarRelationFilter, ContentProjectWhereInput>
+  }
+
+  export type VideoPerformanceOrderByWithRelationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    recordedAt?: SortOrder
+    views?: SortOrder
+    watchTime?: SortOrder
+    ctr?: SortOrder
+    impressions?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    contentProject?: ContentProjectOrderByWithRelationInput
+  }
+
+  export type VideoPerformanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VideoPerformanceWhereInput | VideoPerformanceWhereInput[]
+    OR?: VideoPerformanceWhereInput[]
+    NOT?: VideoPerformanceWhereInput | VideoPerformanceWhereInput[]
+    projectId?: StringFilter<"VideoPerformance"> | string
+    recordedAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+    views?: IntFilter<"VideoPerformance"> | number
+    watchTime?: FloatFilter<"VideoPerformance"> | number
+    ctr?: FloatFilter<"VideoPerformance"> | number
+    impressions?: IntFilter<"VideoPerformance"> | number
+    createdAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+    updatedAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+    contentProject?: XOR<ContentProjectScalarRelationFilter, ContentProjectWhereInput>
+  }, "id">
+
+  export type VideoPerformanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    recordedAt?: SortOrder
+    views?: SortOrder
+    watchTime?: SortOrder
+    ctr?: SortOrder
+    impressions?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: VideoPerformanceCountOrderByAggregateInput
+    _avg?: VideoPerformanceAvgOrderByAggregateInput
+    _max?: VideoPerformanceMaxOrderByAggregateInput
+    _min?: VideoPerformanceMinOrderByAggregateInput
+    _sum?: VideoPerformanceSumOrderByAggregateInput
+  }
+
+  export type VideoPerformanceScalarWhereWithAggregatesInput = {
+    AND?: VideoPerformanceScalarWhereWithAggregatesInput | VideoPerformanceScalarWhereWithAggregatesInput[]
+    OR?: VideoPerformanceScalarWhereWithAggregatesInput[]
+    NOT?: VideoPerformanceScalarWhereWithAggregatesInput | VideoPerformanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VideoPerformance"> | string
+    projectId?: StringWithAggregatesFilter<"VideoPerformance"> | string
+    recordedAt?: DateTimeWithAggregatesFilter<"VideoPerformance"> | Date | string
+    views?: IntWithAggregatesFilter<"VideoPerformance"> | number
+    watchTime?: FloatWithAggregatesFilter<"VideoPerformance"> | number
+    ctr?: FloatWithAggregatesFilter<"VideoPerformance"> | number
+    impressions?: IntWithAggregatesFilter<"VideoPerformance"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"VideoPerformance"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"VideoPerformance"> | Date | string
+  }
+
+  export type MemberRoleAuditWhereInput = {
+    AND?: MemberRoleAuditWhereInput | MemberRoleAuditWhereInput[]
+    OR?: MemberRoleAuditWhereInput[]
+    NOT?: MemberRoleAuditWhereInput | MemberRoleAuditWhereInput[]
+    id?: StringFilter<"MemberRoleAudit"> | string
+    organizationId?: StringFilter<"MemberRoleAudit"> | string
+    changedByUserId?: StringFilter<"MemberRoleAudit"> | string
+    targetUserId?: StringFilter<"MemberRoleAudit"> | string
+    previousRole?: EnumRoleFilter<"MemberRoleAudit"> | $Enums.Role
+    newRole?: EnumRoleFilter<"MemberRoleAudit"> | $Enums.Role
+    changedAt?: DateTimeFilter<"MemberRoleAudit"> | Date | string
+  }
+
+  export type MemberRoleAuditOrderByWithRelationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    changedByUserId?: SortOrder
+    targetUserId?: SortOrder
+    previousRole?: SortOrder
+    newRole?: SortOrder
+    changedAt?: SortOrder
+  }
+
+  export type MemberRoleAuditWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MemberRoleAuditWhereInput | MemberRoleAuditWhereInput[]
+    OR?: MemberRoleAuditWhereInput[]
+    NOT?: MemberRoleAuditWhereInput | MemberRoleAuditWhereInput[]
+    organizationId?: StringFilter<"MemberRoleAudit"> | string
+    changedByUserId?: StringFilter<"MemberRoleAudit"> | string
+    targetUserId?: StringFilter<"MemberRoleAudit"> | string
+    previousRole?: EnumRoleFilter<"MemberRoleAudit"> | $Enums.Role
+    newRole?: EnumRoleFilter<"MemberRoleAudit"> | $Enums.Role
+    changedAt?: DateTimeFilter<"MemberRoleAudit"> | Date | string
+  }, "id">
+
+  export type MemberRoleAuditOrderByWithAggregationInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    changedByUserId?: SortOrder
+    targetUserId?: SortOrder
+    previousRole?: SortOrder
+    newRole?: SortOrder
+    changedAt?: SortOrder
+    _count?: MemberRoleAuditCountOrderByAggregateInput
+    _max?: MemberRoleAuditMaxOrderByAggregateInput
+    _min?: MemberRoleAuditMinOrderByAggregateInput
+  }
+
+  export type MemberRoleAuditScalarWhereWithAggregatesInput = {
+    AND?: MemberRoleAuditScalarWhereWithAggregatesInput | MemberRoleAuditScalarWhereWithAggregatesInput[]
+    OR?: MemberRoleAuditScalarWhereWithAggregatesInput[]
+    NOT?: MemberRoleAuditScalarWhereWithAggregatesInput | MemberRoleAuditScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MemberRoleAudit"> | string
+    organizationId?: StringWithAggregatesFilter<"MemberRoleAudit"> | string
+    changedByUserId?: StringWithAggregatesFilter<"MemberRoleAudit"> | string
+    targetUserId?: StringWithAggregatesFilter<"MemberRoleAudit"> | string
+    previousRole?: EnumRoleWithAggregatesFilter<"MemberRoleAudit"> | $Enums.Role
+    newRole?: EnumRoleWithAggregatesFilter<"MemberRoleAudit"> | $Enums.Role
+    changedAt?: DateTimeWithAggregatesFilter<"MemberRoleAudit"> | Date | string
+  }
+
   export type BillingNotificationWhereInput = {
     AND?: BillingNotificationWhereInput | BillingNotificationWhereInput[]
     OR?: BillingNotificationWhereInput[]
@@ -23510,6 +28581,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -23532,6 +28604,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
@@ -23554,6 +28627,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -23576,6 +28650,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -23618,6 +28693,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     organization: OrganizationCreateNestedOneWithoutUsersInput
     channelProfiles?: ChannelProfileCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -23633,6 +28710,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     channelProfiles?: ChannelProfileUncheckedCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     inviteCreated?: OrganizationInviteUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -23646,6 +28725,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     channelProfiles?: ChannelProfileUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -23661,6 +28742,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     channelProfiles?: ChannelProfileUncheckedUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     inviteCreated?: OrganizationInviteUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -23675,6 +28758,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -23685,6 +28770,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -23696,6 +28783,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RefreshTokenCreateInput = {
@@ -23751,6 +28840,89 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YoutubeOAuthTokenCreateInput = {
+    id?: string
+    accessToken: string
+    refreshToken: string
+    scope: string
+    tokenType?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutYoutubeOAuthTokenInput
+  }
+
+  export type YoutubeOAuthTokenUncheckedCreateInput = {
+    id?: string
+    organizationId: string
+    accessToken: string
+    refreshToken: string
+    scope: string
+    tokenType?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YoutubeOAuthTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    tokenType?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutYoutubeOAuthTokenNestedInput
+  }
+
+  export type YoutubeOAuthTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    tokenType?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YoutubeOAuthTokenCreateManyInput = {
+    id?: string
+    organizationId: string
+    accessToken: string
+    refreshToken: string
+    scope: string
+    tokenType?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YoutubeOAuthTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    tokenType?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YoutubeOAuthTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    tokenType?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChannelProfileCreateInput = {
@@ -23870,6 +29042,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUncheckedCreateInput = {
@@ -23889,6 +29062,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUpdateInput = {
@@ -23908,6 +29082,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateInput = {
@@ -23927,6 +29102,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectCreateManyInput = {
@@ -24862,6 +30038,208 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StripeWebhookEventCreateInput = {
+    id?: string
+    stripeEventId: string
+    type: string
+    processedAt?: Date | string
+  }
+
+  export type StripeWebhookEventUncheckedCreateInput = {
+    id?: string
+    stripeEventId: string
+    type: string
+    processedAt?: Date | string
+  }
+
+  export type StripeWebhookEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripeEventId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    processedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StripeWebhookEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripeEventId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    processedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StripeWebhookEventCreateManyInput = {
+    id?: string
+    stripeEventId: string
+    type: string
+    processedAt?: Date | string
+  }
+
+  export type StripeWebhookEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripeEventId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    processedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StripeWebhookEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stripeEventId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    processedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoPerformanceCreateInput = {
+    id?: string
+    recordedAt?: Date | string
+    views?: number
+    watchTime?: number
+    ctr?: number
+    impressions?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contentProject: ContentProjectCreateNestedOneWithoutVideoPerformancesInput
+  }
+
+  export type VideoPerformanceUncheckedCreateInput = {
+    id?: string
+    projectId: string
+    recordedAt?: Date | string
+    views?: number
+    watchTime?: number
+    ctr?: number
+    impressions?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VideoPerformanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
+    watchTime?: FloatFieldUpdateOperationsInput | number
+    ctr?: FloatFieldUpdateOperationsInput | number
+    impressions?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contentProject?: ContentProjectUpdateOneRequiredWithoutVideoPerformancesNestedInput
+  }
+
+  export type VideoPerformanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
+    watchTime?: FloatFieldUpdateOperationsInput | number
+    ctr?: FloatFieldUpdateOperationsInput | number
+    impressions?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoPerformanceCreateManyInput = {
+    id?: string
+    projectId: string
+    recordedAt?: Date | string
+    views?: number
+    watchTime?: number
+    ctr?: number
+    impressions?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VideoPerformanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
+    watchTime?: FloatFieldUpdateOperationsInput | number
+    ctr?: FloatFieldUpdateOperationsInput | number
+    impressions?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoPerformanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
+    watchTime?: FloatFieldUpdateOperationsInput | number
+    ctr?: FloatFieldUpdateOperationsInput | number
+    impressions?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberRoleAuditCreateInput = {
+    id?: string
+    organizationId: string
+    changedByUserId: string
+    targetUserId: string
+    previousRole: $Enums.Role
+    newRole: $Enums.Role
+    changedAt?: Date | string
+  }
+
+  export type MemberRoleAuditUncheckedCreateInput = {
+    id?: string
+    organizationId: string
+    changedByUserId: string
+    targetUserId: string
+    previousRole: $Enums.Role
+    newRole: $Enums.Role
+    changedAt?: Date | string
+  }
+
+  export type MemberRoleAuditUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    changedByUserId?: StringFieldUpdateOperationsInput | string
+    targetUserId?: StringFieldUpdateOperationsInput | string
+    previousRole?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    newRole?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberRoleAuditUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    changedByUserId?: StringFieldUpdateOperationsInput | string
+    targetUserId?: StringFieldUpdateOperationsInput | string
+    previousRole?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    newRole?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberRoleAuditCreateManyInput = {
+    id?: string
+    organizationId: string
+    changedByUserId: string
+    targetUserId: string
+    previousRole: $Enums.Role
+    newRole: $Enums.Role
+    changedAt?: Date | string
+  }
+
+  export type MemberRoleAuditUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    changedByUserId?: StringFieldUpdateOperationsInput | string
+    targetUserId?: StringFieldUpdateOperationsInput | string
+    previousRole?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    newRole?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberRoleAuditUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    changedByUserId?: StringFieldUpdateOperationsInput | string
+    targetUserId?: StringFieldUpdateOperationsInput | string
+    previousRole?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    newRole?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BillingNotificationCreateInput = {
     id?: string
     invoiceId: string
@@ -25041,6 +30419,11 @@ export namespace Prisma {
     none?: UsageLogWhereInput
   }
 
+  export type YoutubeOAuthTokenNullableScalarRelationFilter = {
+    is?: YoutubeOAuthTokenWhereInput | null
+    isNot?: YoutubeOAuthTokenWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -25198,6 +30581,17 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type OrganizationScalarRelationFilter = {
     is?: OrganizationWhereInput
     isNot?: OrganizationWhereInput
@@ -25222,6 +30616,8 @@ export namespace Prisma {
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedTermsAt?: SortOrder
+    termsVersion?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -25233,6 +30629,8 @@ export namespace Prisma {
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedTermsAt?: SortOrder
+    termsVersion?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -25244,6 +30642,8 @@ export namespace Prisma {
     passwordHash?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    acceptedTermsAt?: SortOrder
+    termsVersion?: SortOrder
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -25254,6 +30654,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -25283,6 +30697,42 @@ export namespace Prisma {
     token?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type YoutubeOAuthTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    scope?: SortOrder
+    tokenType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YoutubeOAuthTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    scope?: SortOrder
+    tokenType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YoutubeOAuthTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    accessToken?: SortOrder
+    refreshToken?: SortOrder
+    scope?: SortOrder
+    tokenType?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EnumPlatformFilter<$PrismaModel = never> = {
@@ -25431,7 +30881,17 @@ export namespace Prisma {
     none?: ScriptWhereInput
   }
 
+  export type VideoPerformanceListRelationFilter = {
+    every?: VideoPerformanceWhereInput
+    some?: VideoPerformanceWhereInput
+    none?: VideoPerformanceWhereInput
+  }
+
   export type ScriptOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VideoPerformanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25930,17 +31390,6 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type PublicationMetadataCountOrderByAggregateInput = {
     id?: SortOrder
     organizationId?: SortOrder
@@ -25994,20 +31443,6 @@ export namespace Prisma {
 
   export type PublicationMetadataSumOrderByAggregateInput = {
     complianceScore?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type ExportJobCountOrderByAggregateInput = {
@@ -26302,6 +31737,134 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type StripeWebhookEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    stripeEventId?: SortOrder
+    type?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type StripeWebhookEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    stripeEventId?: SortOrder
+    type?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type StripeWebhookEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    stripeEventId?: SortOrder
+    type?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type VideoPerformanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    recordedAt?: SortOrder
+    views?: SortOrder
+    watchTime?: SortOrder
+    ctr?: SortOrder
+    impressions?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VideoPerformanceAvgOrderByAggregateInput = {
+    views?: SortOrder
+    watchTime?: SortOrder
+    ctr?: SortOrder
+    impressions?: SortOrder
+  }
+
+  export type VideoPerformanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    recordedAt?: SortOrder
+    views?: SortOrder
+    watchTime?: SortOrder
+    ctr?: SortOrder
+    impressions?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VideoPerformanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    recordedAt?: SortOrder
+    views?: SortOrder
+    watchTime?: SortOrder
+    ctr?: SortOrder
+    impressions?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VideoPerformanceSumOrderByAggregateInput = {
+    views?: SortOrder
+    watchTime?: SortOrder
+    ctr?: SortOrder
+    impressions?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type MemberRoleAuditCountOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    changedByUserId?: SortOrder
+    targetUserId?: SortOrder
+    previousRole?: SortOrder
+    newRole?: SortOrder
+    changedAt?: SortOrder
+  }
+
+  export type MemberRoleAuditMaxOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    changedByUserId?: SortOrder
+    targetUserId?: SortOrder
+    previousRole?: SortOrder
+    newRole?: SortOrder
+    changedAt?: SortOrder
+  }
+
+  export type MemberRoleAuditMinOrderByAggregateInput = {
+    id?: SortOrder
+    organizationId?: SortOrder
+    changedByUserId?: SortOrder
+    targetUserId?: SortOrder
+    previousRole?: SortOrder
+    newRole?: SortOrder
+    changedAt?: SortOrder
+  }
+
   export type BillingNotificationInvoiceIdTypeCompoundUniqueInput = {
     invoiceId: string
     type: string
@@ -26414,6 +31977,12 @@ export namespace Prisma {
     connect?: UsageLogWhereUniqueInput | UsageLogWhereUniqueInput[]
   }
 
+  export type YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput = {
+    create?: XOR<YoutubeOAuthTokenCreateWithoutOrganizationInput, YoutubeOAuthTokenUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: YoutubeOAuthTokenCreateOrConnectWithoutOrganizationInput
+    connect?: YoutubeOAuthTokenWhereUniqueInput
+  }
+
   export type SubscriptionUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<SubscriptionCreateWithoutOrganizationInput, SubscriptionUncheckedCreateWithoutOrganizationInput> | SubscriptionCreateWithoutOrganizationInput[] | SubscriptionUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: SubscriptionCreateOrConnectWithoutOrganizationInput | SubscriptionCreateOrConnectWithoutOrganizationInput[]
@@ -26489,6 +32058,12 @@ export namespace Prisma {
     connectOrCreate?: UsageLogCreateOrConnectWithoutOrganizationInput | UsageLogCreateOrConnectWithoutOrganizationInput[]
     createMany?: UsageLogCreateManyOrganizationInputEnvelope
     connect?: UsageLogWhereUniqueInput | UsageLogWhereUniqueInput[]
+  }
+
+  export type YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput = {
+    create?: XOR<YoutubeOAuthTokenCreateWithoutOrganizationInput, YoutubeOAuthTokenUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: YoutubeOAuthTokenCreateOrConnectWithoutOrganizationInput
+    connect?: YoutubeOAuthTokenWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -26671,6 +32246,16 @@ export namespace Prisma {
     deleteMany?: UsageLogScalarWhereInput | UsageLogScalarWhereInput[]
   }
 
+  export type YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput = {
+    create?: XOR<YoutubeOAuthTokenCreateWithoutOrganizationInput, YoutubeOAuthTokenUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: YoutubeOAuthTokenCreateOrConnectWithoutOrganizationInput
+    upsert?: YoutubeOAuthTokenUpsertWithoutOrganizationInput
+    disconnect?: YoutubeOAuthTokenWhereInput | boolean
+    delete?: YoutubeOAuthTokenWhereInput | boolean
+    connect?: YoutubeOAuthTokenWhereUniqueInput
+    update?: XOR<XOR<YoutubeOAuthTokenUpdateToOneWithWhereWithoutOrganizationInput, YoutubeOAuthTokenUpdateWithoutOrganizationInput>, YoutubeOAuthTokenUncheckedUpdateWithoutOrganizationInput>
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -26829,6 +32414,16 @@ export namespace Prisma {
     deleteMany?: UsageLogScalarWhereInput | UsageLogScalarWhereInput[]
   }
 
+  export type YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput = {
+    create?: XOR<YoutubeOAuthTokenCreateWithoutOrganizationInput, YoutubeOAuthTokenUncheckedCreateWithoutOrganizationInput>
+    connectOrCreate?: YoutubeOAuthTokenCreateOrConnectWithoutOrganizationInput
+    upsert?: YoutubeOAuthTokenUpsertWithoutOrganizationInput
+    disconnect?: YoutubeOAuthTokenWhereInput | boolean
+    delete?: YoutubeOAuthTokenWhereInput | boolean
+    connect?: YoutubeOAuthTokenWhereUniqueInput
+    update?: XOR<XOR<YoutubeOAuthTokenUpdateToOneWithWhereWithoutOrganizationInput, YoutubeOAuthTokenUpdateWithoutOrganizationInput>, YoutubeOAuthTokenUncheckedUpdateWithoutOrganizationInput>
+  }
+
   export type OrganizationCreateNestedOneWithoutUsersInput = {
     create?: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutUsersInput
@@ -26879,6 +32474,10 @@ export namespace Prisma {
 
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type OrganizationUpdateOneRequiredWithoutUsersNestedInput = {
@@ -26985,6 +32584,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutRefreshTokensInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRefreshTokensInput, UserUpdateWithoutRefreshTokensInput>, UserUncheckedUpdateWithoutRefreshTokensInput>
+  }
+
+  export type OrganizationCreateNestedOneWithoutYoutubeOAuthTokenInput = {
+    create?: XOR<OrganizationCreateWithoutYoutubeOAuthTokenInput, OrganizationUncheckedCreateWithoutYoutubeOAuthTokenInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutYoutubeOAuthTokenInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutYoutubeOAuthTokenNestedInput = {
+    create?: XOR<OrganizationCreateWithoutYoutubeOAuthTokenInput, OrganizationUncheckedCreateWithoutYoutubeOAuthTokenInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutYoutubeOAuthTokenInput
+    upsert?: OrganizationUpsertWithoutYoutubeOAuthTokenInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutYoutubeOAuthTokenInput, OrganizationUpdateWithoutYoutubeOAuthTokenInput>, OrganizationUncheckedUpdateWithoutYoutubeOAuthTokenInput>
   }
 
   export type OrganizationCreateNestedOneWithoutChannelProfilesInput = {
@@ -27120,6 +32733,13 @@ export namespace Prisma {
     connect?: ExportJobWhereUniqueInput | ExportJobWhereUniqueInput[]
   }
 
+  export type VideoPerformanceCreateNestedManyWithoutContentProjectInput = {
+    create?: XOR<VideoPerformanceCreateWithoutContentProjectInput, VideoPerformanceUncheckedCreateWithoutContentProjectInput> | VideoPerformanceCreateWithoutContentProjectInput[] | VideoPerformanceUncheckedCreateWithoutContentProjectInput[]
+    connectOrCreate?: VideoPerformanceCreateOrConnectWithoutContentProjectInput | VideoPerformanceCreateOrConnectWithoutContentProjectInput[]
+    createMany?: VideoPerformanceCreateManyContentProjectInputEnvelope
+    connect?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+  }
+
   export type TrendAnalysisUncheckedCreateNestedManyWithoutContentProjectInput = {
     create?: XOR<TrendAnalysisCreateWithoutContentProjectInput, TrendAnalysisUncheckedCreateWithoutContentProjectInput> | TrendAnalysisCreateWithoutContentProjectInput[] | TrendAnalysisUncheckedCreateWithoutContentProjectInput[]
     connectOrCreate?: TrendAnalysisCreateOrConnectWithoutContentProjectInput | TrendAnalysisCreateOrConnectWithoutContentProjectInput[]
@@ -27153,6 +32773,13 @@ export namespace Prisma {
     connectOrCreate?: ExportJobCreateOrConnectWithoutContentProjectInput | ExportJobCreateOrConnectWithoutContentProjectInput[]
     createMany?: ExportJobCreateManyContentProjectInputEnvelope
     connect?: ExportJobWhereUniqueInput | ExportJobWhereUniqueInput[]
+  }
+
+  export type VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput = {
+    create?: XOR<VideoPerformanceCreateWithoutContentProjectInput, VideoPerformanceUncheckedCreateWithoutContentProjectInput> | VideoPerformanceCreateWithoutContentProjectInput[] | VideoPerformanceUncheckedCreateWithoutContentProjectInput[]
+    connectOrCreate?: VideoPerformanceCreateOrConnectWithoutContentProjectInput | VideoPerformanceCreateOrConnectWithoutContentProjectInput[]
+    createMany?: VideoPerformanceCreateManyContentProjectInputEnvelope
+    connect?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
   }
 
   export type EnumFormatTypeFieldUpdateOperationsInput = {
@@ -27257,6 +32884,20 @@ export namespace Prisma {
     deleteMany?: ExportJobScalarWhereInput | ExportJobScalarWhereInput[]
   }
 
+  export type VideoPerformanceUpdateManyWithoutContentProjectNestedInput = {
+    create?: XOR<VideoPerformanceCreateWithoutContentProjectInput, VideoPerformanceUncheckedCreateWithoutContentProjectInput> | VideoPerformanceCreateWithoutContentProjectInput[] | VideoPerformanceUncheckedCreateWithoutContentProjectInput[]
+    connectOrCreate?: VideoPerformanceCreateOrConnectWithoutContentProjectInput | VideoPerformanceCreateOrConnectWithoutContentProjectInput[]
+    upsert?: VideoPerformanceUpsertWithWhereUniqueWithoutContentProjectInput | VideoPerformanceUpsertWithWhereUniqueWithoutContentProjectInput[]
+    createMany?: VideoPerformanceCreateManyContentProjectInputEnvelope
+    set?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+    disconnect?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+    delete?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+    connect?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+    update?: VideoPerformanceUpdateWithWhereUniqueWithoutContentProjectInput | VideoPerformanceUpdateWithWhereUniqueWithoutContentProjectInput[]
+    updateMany?: VideoPerformanceUpdateManyWithWhereWithoutContentProjectInput | VideoPerformanceUpdateManyWithWhereWithoutContentProjectInput[]
+    deleteMany?: VideoPerformanceScalarWhereInput | VideoPerformanceScalarWhereInput[]
+  }
+
   export type TrendAnalysisUncheckedUpdateManyWithoutContentProjectNestedInput = {
     create?: XOR<TrendAnalysisCreateWithoutContentProjectInput, TrendAnalysisUncheckedCreateWithoutContentProjectInput> | TrendAnalysisCreateWithoutContentProjectInput[] | TrendAnalysisUncheckedCreateWithoutContentProjectInput[]
     connectOrCreate?: TrendAnalysisCreateOrConnectWithoutContentProjectInput | TrendAnalysisCreateOrConnectWithoutContentProjectInput[]
@@ -27325,6 +32966,20 @@ export namespace Prisma {
     update?: ExportJobUpdateWithWhereUniqueWithoutContentProjectInput | ExportJobUpdateWithWhereUniqueWithoutContentProjectInput[]
     updateMany?: ExportJobUpdateManyWithWhereWithoutContentProjectInput | ExportJobUpdateManyWithWhereWithoutContentProjectInput[]
     deleteMany?: ExportJobScalarWhereInput | ExportJobScalarWhereInput[]
+  }
+
+  export type VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput = {
+    create?: XOR<VideoPerformanceCreateWithoutContentProjectInput, VideoPerformanceUncheckedCreateWithoutContentProjectInput> | VideoPerformanceCreateWithoutContentProjectInput[] | VideoPerformanceUncheckedCreateWithoutContentProjectInput[]
+    connectOrCreate?: VideoPerformanceCreateOrConnectWithoutContentProjectInput | VideoPerformanceCreateOrConnectWithoutContentProjectInput[]
+    upsert?: VideoPerformanceUpsertWithWhereUniqueWithoutContentProjectInput | VideoPerformanceUpsertWithWhereUniqueWithoutContentProjectInput[]
+    createMany?: VideoPerformanceCreateManyContentProjectInputEnvelope
+    set?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+    disconnect?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+    delete?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+    connect?: VideoPerformanceWhereUniqueInput | VideoPerformanceWhereUniqueInput[]
+    update?: VideoPerformanceUpdateWithWhereUniqueWithoutContentProjectInput | VideoPerformanceUpdateWithWhereUniqueWithoutContentProjectInput[]
+    updateMany?: VideoPerformanceUpdateManyWithWhereWithoutContentProjectInput | VideoPerformanceUpdateManyWithWhereWithoutContentProjectInput[]
+    deleteMany?: VideoPerformanceScalarWhereInput | VideoPerformanceScalarWhereInput[]
   }
 
   export type OrganizationCreateNestedOneWithoutTrendAnalysesInput = {
@@ -27500,10 +33155,6 @@ export namespace Prisma {
   export type PublicationMetadataUpdatetagsInput = {
     set?: string[]
     push?: string | string[]
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type OrganizationUpdateOneRequiredWithoutPublicationMetadataNestedInput = {
@@ -27714,6 +33365,28 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInviteCreatedInput, UserUpdateWithoutInviteCreatedInput>, UserUncheckedUpdateWithoutInviteCreatedInput>
   }
 
+  export type ContentProjectCreateNestedOneWithoutVideoPerformancesInput = {
+    create?: XOR<ContentProjectCreateWithoutVideoPerformancesInput, ContentProjectUncheckedCreateWithoutVideoPerformancesInput>
+    connectOrCreate?: ContentProjectCreateOrConnectWithoutVideoPerformancesInput
+    connect?: ContentProjectWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ContentProjectUpdateOneRequiredWithoutVideoPerformancesNestedInput = {
+    create?: XOR<ContentProjectCreateWithoutVideoPerformancesInput, ContentProjectUncheckedCreateWithoutVideoPerformancesInput>
+    connectOrCreate?: ContentProjectCreateOrConnectWithoutVideoPerformancesInput
+    upsert?: ContentProjectUpsertWithoutVideoPerformancesInput
+    connect?: ContentProjectWhereUniqueInput
+    update?: XOR<XOR<ContentProjectUpdateToOneWithWhereWithoutVideoPerformancesInput, ContentProjectUpdateWithoutVideoPerformancesInput>, ContentProjectUncheckedUpdateWithoutVideoPerformancesInput>
+  }
+
   export type OrganizationCreateNestedOneWithoutBillingNotificationsInput = {
     create?: XOR<OrganizationCreateWithoutBillingNotificationsInput, OrganizationUncheckedCreateWithoutBillingNotificationsInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutBillingNotificationsInput
@@ -27874,6 +33547,17 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -27882,6 +33566,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumPlatformFilter<$PrismaModel = never> = {
@@ -28160,31 +33858,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -28256,6 +33929,22 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type SubscriptionCreateWithoutActiveForInput = {
     id?: string
     status?: $Enums.SubscriptionStatus
@@ -28323,6 +34012,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     channelProfiles?: ChannelProfileCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     inviteCreated?: OrganizationInviteCreateNestedManyWithoutCreatedByUserInput
@@ -28336,6 +34027,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     channelProfiles?: ChannelProfileUncheckedCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     inviteCreated?: OrganizationInviteUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -28461,6 +34154,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUncheckedCreateWithoutOrganizationInput = {
@@ -28479,6 +34173,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectCreateOrConnectWithoutOrganizationInput = {
@@ -28657,6 +34352,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type YoutubeOAuthTokenCreateWithoutOrganizationInput = {
+    id?: string
+    accessToken: string
+    refreshToken: string
+    scope: string
+    tokenType?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YoutubeOAuthTokenUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    accessToken: string
+    refreshToken: string
+    scope: string
+    tokenType?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YoutubeOAuthTokenCreateOrConnectWithoutOrganizationInput = {
+    where: YoutubeOAuthTokenWhereUniqueInput
+    create: XOR<YoutubeOAuthTokenCreateWithoutOrganizationInput, YoutubeOAuthTokenUncheckedCreateWithoutOrganizationInput>
+  }
+
   export type SubscriptionUpsertWithoutActiveForInput = {
     update: XOR<SubscriptionUpdateWithoutActiveForInput, SubscriptionUncheckedUpdateWithoutActiveForInput>
     create: XOR<SubscriptionCreateWithoutActiveForInput, SubscriptionUncheckedCreateWithoutActiveForInput>
@@ -28748,6 +34470,8 @@ export namespace Prisma {
     passwordHash?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    acceptedTermsAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    termsVersion?: StringNullableFilter<"User"> | string | null
   }
 
   export type OrganizationInviteUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -29032,6 +34756,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UsageLog"> | Date | string
   }
 
+  export type YoutubeOAuthTokenUpsertWithoutOrganizationInput = {
+    update: XOR<YoutubeOAuthTokenUpdateWithoutOrganizationInput, YoutubeOAuthTokenUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<YoutubeOAuthTokenCreateWithoutOrganizationInput, YoutubeOAuthTokenUncheckedCreateWithoutOrganizationInput>
+    where?: YoutubeOAuthTokenWhereInput
+  }
+
+  export type YoutubeOAuthTokenUpdateToOneWithWhereWithoutOrganizationInput = {
+    where?: YoutubeOAuthTokenWhereInput
+    data: XOR<YoutubeOAuthTokenUpdateWithoutOrganizationInput, YoutubeOAuthTokenUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type YoutubeOAuthTokenUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    tokenType?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YoutubeOAuthTokenUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    accessToken?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    tokenType?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type OrganizationCreateWithoutUsersInput = {
     id?: string
     name: string
@@ -29051,6 +34808,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -29072,6 +34830,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -29203,6 +34962,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -29224,6 +34984,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type ChannelProfileUpsertWithWhereUniqueWithoutUserInput = {
@@ -29293,6 +35054,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     organization: OrganizationCreateNestedOneWithoutUsersInput
     channelProfiles?: ChannelProfileCreateNestedManyWithoutUserInput
     inviteCreated?: OrganizationInviteCreateNestedManyWithoutCreatedByUserInput
@@ -29307,6 +35070,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     channelProfiles?: ChannelProfileUncheckedCreateNestedManyWithoutUserInput
     inviteCreated?: OrganizationInviteUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
@@ -29335,6 +35100,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     channelProfiles?: ChannelProfileUpdateManyWithoutUserNestedInput
     inviteCreated?: OrganizationInviteUpdateManyWithoutCreatedByUserNestedInput
@@ -29349,8 +35116,114 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     channelProfiles?: ChannelProfileUncheckedUpdateManyWithoutUserNestedInput
     inviteCreated?: OrganizationInviteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type OrganizationCreateWithoutYoutubeOAuthTokenInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.PlanTier
+    onboardingCompleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    activeSubscription?: SubscriptionCreateNestedOneWithoutActiveForInput
+    subscriptions?: SubscriptionCreateNestedManyWithoutOrganizationInput
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    invites?: OrganizationInviteCreateNestedManyWithoutOrganizationInput
+    billingNotifications?: BillingNotificationCreateNestedManyWithoutOrganizationInput
+    channelProfiles?: ChannelProfileCreateNestedManyWithoutOrganizationInput
+    contentProjects?: ContentProjectCreateNestedManyWithoutOrganizationInput
+    trendAnalyses?: TrendAnalysisCreateNestedManyWithoutOrganizationInput
+    mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutOrganizationInput
+    publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
+    exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
+    usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutYoutubeOAuthTokenInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.PlanTier
+    subscriptionId?: string | null
+    onboardingCompleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subscriptions?: SubscriptionUncheckedCreateNestedManyWithoutOrganizationInput
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    invites?: OrganizationInviteUncheckedCreateNestedManyWithoutOrganizationInput
+    billingNotifications?: BillingNotificationUncheckedCreateNestedManyWithoutOrganizationInput
+    channelProfiles?: ChannelProfileUncheckedCreateNestedManyWithoutOrganizationInput
+    contentProjects?: ContentProjectUncheckedCreateNestedManyWithoutOrganizationInput
+    trendAnalyses?: TrendAnalysisUncheckedCreateNestedManyWithoutOrganizationInput
+    mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutOrganizationInput
+    publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
+    exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
+    usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutYoutubeOAuthTokenInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutYoutubeOAuthTokenInput, OrganizationUncheckedCreateWithoutYoutubeOAuthTokenInput>
+  }
+
+  export type OrganizationUpsertWithoutYoutubeOAuthTokenInput = {
+    update: XOR<OrganizationUpdateWithoutYoutubeOAuthTokenInput, OrganizationUncheckedUpdateWithoutYoutubeOAuthTokenInput>
+    create: XOR<OrganizationCreateWithoutYoutubeOAuthTokenInput, OrganizationUncheckedCreateWithoutYoutubeOAuthTokenInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutYoutubeOAuthTokenInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutYoutubeOAuthTokenInput, OrganizationUncheckedUpdateWithoutYoutubeOAuthTokenInput>
+  }
+
+  export type OrganizationUpdateWithoutYoutubeOAuthTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    activeSubscription?: SubscriptionUpdateOneWithoutActiveForNestedInput
+    subscriptions?: SubscriptionUpdateManyWithoutOrganizationNestedInput
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    invites?: OrganizationInviteUpdateManyWithoutOrganizationNestedInput
+    billingNotifications?: BillingNotificationUpdateManyWithoutOrganizationNestedInput
+    channelProfiles?: ChannelProfileUpdateManyWithoutOrganizationNestedInput
+    contentProjects?: ContentProjectUpdateManyWithoutOrganizationNestedInput
+    trendAnalyses?: TrendAnalysisUpdateManyWithoutOrganizationNestedInput
+    mediaSuggestions?: MediaSuggestionUpdateManyWithoutOrganizationNestedInput
+    publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
+    exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
+    usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutYoutubeOAuthTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumPlanTierFieldUpdateOperationsInput | $Enums.PlanTier
+    subscriptionId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subscriptions?: SubscriptionUncheckedUpdateManyWithoutOrganizationNestedInput
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    invites?: OrganizationInviteUncheckedUpdateManyWithoutOrganizationNestedInput
+    billingNotifications?: BillingNotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+    channelProfiles?: ChannelProfileUncheckedUpdateManyWithoutOrganizationNestedInput
+    contentProjects?: ContentProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+    trendAnalyses?: TrendAnalysisUncheckedUpdateManyWithoutOrganizationNestedInput
+    mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutOrganizationNestedInput
+    publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
+    exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
+    usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateWithoutChannelProfilesInput = {
@@ -29372,6 +35245,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutChannelProfilesInput = {
@@ -29393,6 +35267,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutChannelProfilesInput = {
@@ -29408,6 +35283,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     organization: OrganizationCreateNestedOneWithoutUsersInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     inviteCreated?: OrganizationInviteCreateNestedManyWithoutCreatedByUserInput
@@ -29422,6 +35299,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     inviteCreated?: OrganizationInviteUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
@@ -29447,6 +35326,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUncheckedCreateWithoutChannelProfileInput = {
@@ -29465,6 +35345,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectCreateOrConnectWithoutChannelProfileInput = {
@@ -29507,6 +35388,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutChannelProfilesInput = {
@@ -29528,6 +35410,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type UserUpsertWithoutChannelProfilesInput = {
@@ -29549,6 +35432,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     inviteCreated?: OrganizationInviteUpdateManyWithoutCreatedByUserNestedInput
@@ -29563,6 +35448,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     inviteCreated?: OrganizationInviteUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
@@ -29602,6 +35489,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutContentProjectsInput = {
@@ -29623,6 +35511,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutContentProjectsInput = {
@@ -29839,6 +35728,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type VideoPerformanceCreateWithoutContentProjectInput = {
+    id?: string
+    recordedAt?: Date | string
+    views?: number
+    watchTime?: number
+    ctr?: number
+    impressions?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VideoPerformanceUncheckedCreateWithoutContentProjectInput = {
+    id?: string
+    recordedAt?: Date | string
+    views?: number
+    watchTime?: number
+    ctr?: number
+    impressions?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VideoPerformanceCreateOrConnectWithoutContentProjectInput = {
+    where: VideoPerformanceWhereUniqueInput
+    create: XOR<VideoPerformanceCreateWithoutContentProjectInput, VideoPerformanceUncheckedCreateWithoutContentProjectInput>
+  }
+
+  export type VideoPerformanceCreateManyContentProjectInputEnvelope = {
+    data: VideoPerformanceCreateManyContentProjectInput | VideoPerformanceCreateManyContentProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OrganizationUpsertWithoutContentProjectsInput = {
     update: XOR<OrganizationUpdateWithoutContentProjectsInput, OrganizationUncheckedUpdateWithoutContentProjectsInput>
     create: XOR<OrganizationCreateWithoutContentProjectsInput, OrganizationUncheckedCreateWithoutContentProjectsInput>
@@ -29869,6 +35790,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutContentProjectsInput = {
@@ -29890,6 +35812,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type ChannelProfileUpsertWithoutContentProjectsInput = {
@@ -30029,6 +35952,37 @@ export namespace Prisma {
     data: XOR<ExportJobUpdateManyMutationInput, ExportJobUncheckedUpdateManyWithoutContentProjectInput>
   }
 
+  export type VideoPerformanceUpsertWithWhereUniqueWithoutContentProjectInput = {
+    where: VideoPerformanceWhereUniqueInput
+    update: XOR<VideoPerformanceUpdateWithoutContentProjectInput, VideoPerformanceUncheckedUpdateWithoutContentProjectInput>
+    create: XOR<VideoPerformanceCreateWithoutContentProjectInput, VideoPerformanceUncheckedCreateWithoutContentProjectInput>
+  }
+
+  export type VideoPerformanceUpdateWithWhereUniqueWithoutContentProjectInput = {
+    where: VideoPerformanceWhereUniqueInput
+    data: XOR<VideoPerformanceUpdateWithoutContentProjectInput, VideoPerformanceUncheckedUpdateWithoutContentProjectInput>
+  }
+
+  export type VideoPerformanceUpdateManyWithWhereWithoutContentProjectInput = {
+    where: VideoPerformanceScalarWhereInput
+    data: XOR<VideoPerformanceUpdateManyMutationInput, VideoPerformanceUncheckedUpdateManyWithoutContentProjectInput>
+  }
+
+  export type VideoPerformanceScalarWhereInput = {
+    AND?: VideoPerformanceScalarWhereInput | VideoPerformanceScalarWhereInput[]
+    OR?: VideoPerformanceScalarWhereInput[]
+    NOT?: VideoPerformanceScalarWhereInput | VideoPerformanceScalarWhereInput[]
+    id?: StringFilter<"VideoPerformance"> | string
+    projectId?: StringFilter<"VideoPerformance"> | string
+    recordedAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+    views?: IntFilter<"VideoPerformance"> | number
+    watchTime?: FloatFilter<"VideoPerformance"> | number
+    ctr?: FloatFilter<"VideoPerformance"> | number
+    impressions?: IntFilter<"VideoPerformance"> | number
+    createdAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+    updatedAt?: DateTimeFilter<"VideoPerformance"> | Date | string
+  }
+
   export type OrganizationCreateWithoutTrendAnalysesInput = {
     id?: string
     name: string
@@ -30048,6 +36002,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutTrendAnalysesInput = {
@@ -30069,6 +36024,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutTrendAnalysesInput = {
@@ -30092,6 +36048,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUncheckedCreateWithoutTrendAnalysesInput = {
@@ -30110,6 +36067,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectCreateOrConnectWithoutTrendAnalysesInput = {
@@ -30147,6 +36105,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutTrendAnalysesInput = {
@@ -30168,6 +36127,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type ContentProjectUpsertWithoutTrendAnalysesInput = {
@@ -30197,6 +36157,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateWithoutTrendAnalysesInput = {
@@ -30215,6 +36176,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectCreateWithoutScriptsInput = {
@@ -30233,6 +36195,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUncheckedCreateWithoutScriptsInput = {
@@ -30251,6 +36214,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectCreateOrConnectWithoutScriptsInput = {
@@ -30323,6 +36287,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateWithoutScriptsInput = {
@@ -30341,6 +36306,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type NarrationUpsertWithWhereUniqueWithoutScriptInput = {
@@ -30472,6 +36438,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutMediaSuggestionsInput = {
@@ -30493,6 +36460,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutMediaSuggestionsInput = {
@@ -30516,6 +36484,7 @@ export namespace Prisma {
     scripts?: ScriptCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUncheckedCreateWithoutMediaSuggestionsInput = {
@@ -30534,6 +36503,7 @@ export namespace Prisma {
     scripts?: ScriptUncheckedCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectCreateOrConnectWithoutMediaSuggestionsInput = {
@@ -30571,6 +36541,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutMediaSuggestionsInput = {
@@ -30592,6 +36563,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type ContentProjectUpsertWithoutMediaSuggestionsInput = {
@@ -30621,6 +36593,7 @@ export namespace Prisma {
     scripts?: ScriptUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateWithoutMediaSuggestionsInput = {
@@ -30639,6 +36612,7 @@ export namespace Prisma {
     scripts?: ScriptUncheckedUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type OrganizationCreateWithoutPublicationMetadataInput = {
@@ -30660,6 +36634,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutPublicationMetadataInput = {
@@ -30681,6 +36656,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutPublicationMetadataInput = {
@@ -30704,6 +36680,7 @@ export namespace Prisma {
     scripts?: ScriptCreateNestedManyWithoutContentProjectInput
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUncheckedCreateWithoutPublicationMetadataInput = {
@@ -30722,6 +36699,7 @@ export namespace Prisma {
     scripts?: ScriptUncheckedCreateNestedManyWithoutContentProjectInput
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutContentProjectInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectCreateOrConnectWithoutPublicationMetadataInput = {
@@ -30759,6 +36737,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutPublicationMetadataInput = {
@@ -30780,6 +36759,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type ContentProjectUpsertWithoutPublicationMetadataInput = {
@@ -30809,6 +36789,7 @@ export namespace Prisma {
     scripts?: ScriptUpdateManyWithoutContentProjectNestedInput
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateWithoutPublicationMetadataInput = {
@@ -30827,6 +36808,7 @@ export namespace Prisma {
     scripts?: ScriptUncheckedUpdateManyWithoutContentProjectNestedInput
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type OrganizationCreateWithoutExportJobsInput = {
@@ -30848,6 +36830,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutOrganizationInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutExportJobsInput = {
@@ -30869,6 +36852,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutOrganizationInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutExportJobsInput = {
@@ -30892,6 +36876,7 @@ export namespace Prisma {
     scripts?: ScriptCreateNestedManyWithoutContentProjectInput
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectUncheckedCreateWithoutExportJobsInput = {
@@ -30910,6 +36895,7 @@ export namespace Prisma {
     scripts?: ScriptUncheckedCreateNestedManyWithoutContentProjectInput
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutContentProjectInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutContentProjectInput
+    videoPerformances?: VideoPerformanceUncheckedCreateNestedManyWithoutContentProjectInput
   }
 
   export type ContentProjectCreateOrConnectWithoutExportJobsInput = {
@@ -30947,6 +36933,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutOrganizationNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutExportJobsInput = {
@@ -30968,6 +36955,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutOrganizationNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type ContentProjectUpsertWithoutExportJobsInput = {
@@ -30997,6 +36985,7 @@ export namespace Prisma {
     scripts?: ScriptUpdateManyWithoutContentProjectNestedInput
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateWithoutExportJobsInput = {
@@ -31015,6 +37004,7 @@ export namespace Prisma {
     scripts?: ScriptUncheckedUpdateManyWithoutContentProjectNestedInput
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type SubscriptionCreateWithoutPlanInput = {
@@ -31084,6 +37074,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutSubscriptionsInput = {
@@ -31105,6 +37096,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutSubscriptionsInput = {
@@ -31160,6 +37152,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutActiveSubscriptionInput = {
@@ -31181,6 +37174,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutActiveSubscriptionInput = {
@@ -31218,6 +37212,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutSubscriptionsInput = {
@@ -31239,6 +37234,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type PlanUpsertWithoutSubscriptionsInput = {
@@ -31306,6 +37302,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutActiveSubscriptionInput = {
@@ -31327,6 +37324,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateWithoutUsageLogsInput = {
@@ -31348,6 +37346,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutOrganizationInput
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsageLogsInput = {
@@ -31369,6 +37368,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutOrganizationInput
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsageLogsInput = {
@@ -31406,6 +37406,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutOrganizationNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsageLogsInput = {
@@ -31427,6 +37428,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutOrganizationNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateWithoutInvitesInput = {
@@ -31448,6 +37450,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutInvitesInput = {
@@ -31469,6 +37472,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutInvitesInput = {
@@ -31484,6 +37488,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     organization: OrganizationCreateNestedOneWithoutUsersInput
     channelProfiles?: ChannelProfileCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
@@ -31498,6 +37504,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
     channelProfiles?: ChannelProfileUncheckedCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
@@ -31537,6 +37545,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutInvitesInput = {
@@ -31558,6 +37567,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type UserUpsertWithoutInviteCreatedInput = {
@@ -31579,6 +37589,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
     channelProfiles?: ChannelProfileUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
@@ -31593,8 +37605,102 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     channelProfiles?: ChannelProfileUncheckedUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ContentProjectCreateWithoutVideoPerformancesInput = {
+    id?: string
+    title: string
+    keyword: string
+    niche: $Enums.NicheCategory
+    format: $Enums.FormatType
+    status?: $Enums.ProjectStatus
+    durationMinutes?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutContentProjectsInput
+    channelProfile: ChannelProfileCreateNestedOneWithoutContentProjectsInput
+    trendAnalyses?: TrendAnalysisCreateNestedManyWithoutContentProjectInput
+    scripts?: ScriptCreateNestedManyWithoutContentProjectInput
+    mediaSuggestions?: MediaSuggestionCreateNestedManyWithoutContentProjectInput
+    publicationMetadata?: PublicationMetadataCreateNestedManyWithoutContentProjectInput
+    exportJobs?: ExportJobCreateNestedManyWithoutContentProjectInput
+  }
+
+  export type ContentProjectUncheckedCreateWithoutVideoPerformancesInput = {
+    id?: string
+    organizationId: string
+    channelProfileId: string
+    title: string
+    keyword: string
+    niche: $Enums.NicheCategory
+    format: $Enums.FormatType
+    status?: $Enums.ProjectStatus
+    durationMinutes?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trendAnalyses?: TrendAnalysisUncheckedCreateNestedManyWithoutContentProjectInput
+    scripts?: ScriptUncheckedCreateNestedManyWithoutContentProjectInput
+    mediaSuggestions?: MediaSuggestionUncheckedCreateNestedManyWithoutContentProjectInput
+    publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutContentProjectInput
+    exportJobs?: ExportJobUncheckedCreateNestedManyWithoutContentProjectInput
+  }
+
+  export type ContentProjectCreateOrConnectWithoutVideoPerformancesInput = {
+    where: ContentProjectWhereUniqueInput
+    create: XOR<ContentProjectCreateWithoutVideoPerformancesInput, ContentProjectUncheckedCreateWithoutVideoPerformancesInput>
+  }
+
+  export type ContentProjectUpsertWithoutVideoPerformancesInput = {
+    update: XOR<ContentProjectUpdateWithoutVideoPerformancesInput, ContentProjectUncheckedUpdateWithoutVideoPerformancesInput>
+    create: XOR<ContentProjectCreateWithoutVideoPerformancesInput, ContentProjectUncheckedCreateWithoutVideoPerformancesInput>
+    where?: ContentProjectWhereInput
+  }
+
+  export type ContentProjectUpdateToOneWithWhereWithoutVideoPerformancesInput = {
+    where?: ContentProjectWhereInput
+    data: XOR<ContentProjectUpdateWithoutVideoPerformancesInput, ContentProjectUncheckedUpdateWithoutVideoPerformancesInput>
+  }
+
+  export type ContentProjectUpdateWithoutVideoPerformancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    keyword?: StringFieldUpdateOperationsInput | string
+    niche?: EnumNicheCategoryFieldUpdateOperationsInput | $Enums.NicheCategory
+    format?: EnumFormatTypeFieldUpdateOperationsInput | $Enums.FormatType
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutContentProjectsNestedInput
+    channelProfile?: ChannelProfileUpdateOneRequiredWithoutContentProjectsNestedInput
+    trendAnalyses?: TrendAnalysisUpdateManyWithoutContentProjectNestedInput
+    scripts?: ScriptUpdateManyWithoutContentProjectNestedInput
+    mediaSuggestions?: MediaSuggestionUpdateManyWithoutContentProjectNestedInput
+    publicationMetadata?: PublicationMetadataUpdateManyWithoutContentProjectNestedInput
+    exportJobs?: ExportJobUpdateManyWithoutContentProjectNestedInput
+  }
+
+  export type ContentProjectUncheckedUpdateWithoutVideoPerformancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    channelProfileId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    keyword?: StringFieldUpdateOperationsInput | string
+    niche?: EnumNicheCategoryFieldUpdateOperationsInput | $Enums.NicheCategory
+    format?: EnumFormatTypeFieldUpdateOperationsInput | $Enums.FormatType
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trendAnalyses?: TrendAnalysisUncheckedUpdateManyWithoutContentProjectNestedInput
+    scripts?: ScriptUncheckedUpdateManyWithoutContentProjectNestedInput
+    mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutContentProjectNestedInput
+    publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutContentProjectNestedInput
+    exportJobs?: ExportJobUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type OrganizationCreateWithoutBillingNotificationsInput = {
@@ -31616,6 +37722,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutBillingNotificationsInput = {
@@ -31637,6 +37744,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedCreateNestedManyWithoutOrganizationInput
     exportJobs?: ExportJobUncheckedCreateNestedManyWithoutOrganizationInput
     usageLogs?: UsageLogUncheckedCreateNestedManyWithoutOrganizationInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedCreateNestedOneWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutBillingNotificationsInput = {
@@ -31674,6 +37782,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUpdateOneWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutBillingNotificationsInput = {
@@ -31695,6 +37804,7 @@ export namespace Prisma {
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutOrganizationNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutOrganizationNestedInput
     usageLogs?: UsageLogUncheckedUpdateManyWithoutOrganizationNestedInput
+    youtubeOAuthToken?: YoutubeOAuthTokenUncheckedUpdateOneWithoutOrganizationNestedInput
   }
 
   export type SubscriptionCreateManyOrganizationInput = {
@@ -31715,6 +37825,8 @@ export namespace Prisma {
     passwordHash: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    acceptedTermsAt?: Date | string | null
+    termsVersion?: string | null
   }
 
   export type OrganizationInviteCreateManyOrganizationInput = {
@@ -31859,6 +37971,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     channelProfiles?: ChannelProfileUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     inviteCreated?: OrganizationInviteUpdateManyWithoutCreatedByUserNestedInput
@@ -31872,6 +37986,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
     channelProfiles?: ChannelProfileUncheckedUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     inviteCreated?: OrganizationInviteUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -31885,6 +38001,8 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptedTermsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    termsVersion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OrganizationInviteUpdateWithoutOrganizationInput = {
@@ -31998,6 +38116,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateWithoutOrganizationInput = {
@@ -32016,6 +38135,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateManyWithoutOrganizationInput = {
@@ -32360,6 +38480,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateWithoutChannelProfileInput = {
@@ -32378,6 +38499,7 @@ export namespace Prisma {
     mediaSuggestions?: MediaSuggestionUncheckedUpdateManyWithoutContentProjectNestedInput
     publicationMetadata?: PublicationMetadataUncheckedUpdateManyWithoutContentProjectNestedInput
     exportJobs?: ExportJobUncheckedUpdateManyWithoutContentProjectNestedInput
+    videoPerformances?: VideoPerformanceUncheckedUpdateManyWithoutContentProjectNestedInput
   }
 
   export type ContentProjectUncheckedUpdateManyWithoutChannelProfileInput = {
@@ -32451,6 +38573,17 @@ export namespace Prisma {
     errorMessage?: string | null
     startedAt?: Date | string | null
     completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VideoPerformanceCreateManyContentProjectInput = {
+    id?: string
+    recordedAt?: Date | string
+    views?: number
+    watchTime?: number
+    ctr?: number
+    impressions?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -32639,6 +38772,39 @@ export namespace Prisma {
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoPerformanceUpdateWithoutContentProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
+    watchTime?: FloatFieldUpdateOperationsInput | number
+    ctr?: FloatFieldUpdateOperationsInput | number
+    impressions?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoPerformanceUncheckedUpdateWithoutContentProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
+    watchTime?: FloatFieldUpdateOperationsInput | number
+    ctr?: FloatFieldUpdateOperationsInput | number
+    impressions?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoPerformanceUncheckedUpdateManyWithoutContentProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recordedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
+    watchTime?: FloatFieldUpdateOperationsInput | number
+    ctr?: FloatFieldUpdateOperationsInput | number
+    impressions?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

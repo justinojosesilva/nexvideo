@@ -52,7 +52,7 @@ interface PexelsVideo {
   }>;
 }
 
-interface PexelsResponse<T> {
+interface PexelsResponse {
   page: number;
   per_page: number;
   total_results: number;
@@ -114,7 +114,7 @@ export class PexelsAdapter implements IPexelsPort {
   private async fetchPhotos(
     query: string,
     page: number,
-  ): Promise<PexelsResponse<PexelsPhoto>> {
+  ): Promise<PexelsResponse> {
     const url = new URL(`${this.baseUrl}/search`);
     url.searchParams.append('query', query);
     url.searchParams.append('page', page.toString());
@@ -136,7 +136,7 @@ export class PexelsAdapter implements IPexelsPort {
   private async fetchVideos(
     query: string,
     page: number,
-  ): Promise<PexelsResponse<PexelsVideo>> {
+  ): Promise<PexelsResponse> {
     const url = new URL(`${this.baseUrl}/videos/search`);
     url.searchParams.append('query', query);
     url.searchParams.append('page', page.toString());
@@ -194,9 +194,8 @@ export class PexelsAdapter implements IPexelsPort {
    * Pexels photos/videos are generally free for commercial use
    * All Pexels content is under CC0 license (public domain)
    */
-  private hasCommercialLicense(
-    _asset: PexelsPhoto | PexelsVideo,
-  ): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private hasCommercialLicense(_asset: PexelsPhoto | PexelsVideo): boolean {
     return true;
   }
 

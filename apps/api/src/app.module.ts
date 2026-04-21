@@ -1,6 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { ContentTypeCsrfMiddleware } from './common/middleware/content-type-csrf.middleware';
 import { ConfigModule } from '@nestjs/config';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { CustomThrottlerGuard } from './common/guards/throttler-exception.guard';
 import { LoggerModule } from 'nestjs-pino';
 import { randomUUID } from 'crypto';
 import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup';
@@ -32,6 +35,7 @@ import { ExportModule } from './export/export.module';
 import { BillingModule } from './billing/billing.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { AdminModule } from './admin/admin.module';
+import { YoutubeModule } from './youtube/youtube.module';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -60,6 +64,13 @@ const isDev = process.env.NODE_ENV !== 'production';
       },
     }),
     SentryModule.forRoot(),
+    ThrottlerModule.forRoot([
+      {
+        name: 'global',
+        ttl: 60_000,
+        limit: 100,
+      },
+    ]),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: envValidationSchema,
@@ -88,6 +99,7 @@ const isDev = process.env.NODE_ENV !== 'production';
     LoggingModule,
     BullmqModule,
     JobsModule,
+    YoutubeModule,
   ],
   controllers: [AppController],
   providers: [
@@ -99,6 +111,10 @@ const isDev = process.env.NODE_ENV !== 'production';
     {
       provide: APP_INTERCEPTOR,
       useClass: SentryUserContextInterceptor,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: CustomThrottlerGuard,
     },
     {
       provide: APP_GUARD,
@@ -114,4 +130,10 @@ const isDev = process.env.NODE_ENV !== 'production';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer
+      .apply(ContentTypeCsrfMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}

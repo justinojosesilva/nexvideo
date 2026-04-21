@@ -60,6 +60,7 @@ const dto = {
   email: 'alice@example.com',
   password: 'supersecret',
   organizationName: 'Acme',
+  acceptTerms: true as const,
 };
 
 describe('RegisterUseCase', () => {
@@ -92,13 +93,15 @@ describe('RegisterUseCase', () => {
       data: expect.objectContaining({ name: 'Acme', slug: expect.stringMatching(/^acme/) }),
     });
     expect(txMock.user.create).toHaveBeenCalledWith({
-      data: {
+      data: expect.objectContaining({
         organizationId: mockOrg.id,
         email: dto.email,
         name: dto.name,
         role: 'admin',
         passwordHash: 'hashed-password',
-      },
+        acceptedTermsAt: expect.any(Date),
+        termsVersion: '1.0',
+      }),
     });
     expect(mockJwtService.sign).toHaveBeenCalledWith({
       sub: mockUser.id,

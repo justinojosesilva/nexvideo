@@ -340,14 +340,14 @@ export default function Home() {
               <h4 className="text-white font-bold mb-4 text-sm">Legal</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="/privacy" className="hover:text-white transition-colors">
                     Privacidade
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="/terms" className="hover:text-white transition-colors">
                     Termos
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

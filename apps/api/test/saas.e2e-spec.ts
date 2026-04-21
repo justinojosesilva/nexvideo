@@ -198,7 +198,7 @@ describe('[S7-01] SaaS E2E — cadastro, plano, uso e isolamento', () => {
     it('1.1 — POST /auth/register cria usuário e organização', async () => {
       const res = await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ name: 'E2E User AC1', email, password, organizationName: 'E2E Org AC1' })
+        .send({ name: 'E2E User AC1', email, password, organizationName: 'E2E Org AC1', acceptTerms: true })
         .expect(201);
 
       expect(res.body).toMatchObject({
@@ -695,6 +695,247 @@ describe('[S7-01] SaaS E2E — cadastro, plano, uso e isolamento', () => {
     it('5.5 — Endpoint protegido retorna 401 sem token', async () => {
       await request(app.getHttpServer())
         .get('/projects')
+        .expect(401);
+    });
+  });
+
+  // ── AC-6: ToS acceptance — bloqueio e persistência ───────────────────────
+
+  describe('AC-6: Aceite de Termos de Uso no cadastro', () => {
+    const email = `e2e-tos-${uid()}@test.com`;
+    const password = 'TestPassword123!';
+
+    it('6.1 — POST /auth/register sem acceptTerms retorna 400', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/auth/register')
+        .send({ name: 'ToS Test User', email: `no-tos-${uid()}@test.com`, password })
+        .expect(400);
+
+      expect(res.body.message).toEqual(
+        expect.arrayContaining([
+          expect.stringContaining('Terms of Service'),
+        ]),
+      );
+    });
+
+    it('6.2 — POST /auth/register com acceptTerms: false retorna 400', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/auth/register')
+        .send({ name: 'ToS Test User', email: `false-tos-${uid()}@test.com`, password, acceptTerms: false })
+        .expect(400);
+
+      expect(res.body.message).toEqual(
+        expect.arrayContaining([
+          expect.stringContaining('Terms of Service'),
+        ]),
+      );
+    });
+
+    it('6.3 — POST /auth/register com acceptTerms: true cria conta e persiste aceitação', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/auth/register')
+        .send({ name: 'ToS Test User', email, password, acceptTerms: true })
+        .expect(201);
+
+      expect(res.body.accessToken).toBeDefined();
+
+      const user = await prisma.client.user.findUnique({ where: { email } });
+      expect(user).toBeTruthy();
+      expect(user!.acceptedTermsAt).toBeInstanceOf(Date);
+      expect(user!.termsVersion).toBe('1.0');
+
+      createdOrgIds.push(user!.organizationId);
+    });
+  });
+
+  // ── AC-8: Edição de role de membros ──────────────────────────────────────
+
+  describe('AC-8: Edição de role em PATCH /organizations/members/:id/role', () => {
+    let adminToken: string;
+    let adminOrgId: string;
+    let adminId: string;
+    let memberId: string;
+
+    beforeAll(async () => {
+      const adminEmail = `e2e-role-admin-${uid()}@test.com`;
+      const adminRes = await request(app.getHttpServer())
+        .post('/auth/register')
+        .send({ name: 'Role Admin', email: adminEmail, password: 'TestPassword123!', acceptTerms: true })
+        .expect(201);
+
+      adminToken = adminRes.body.accessToken;
+      adminOrgId = adminRes.body.user.organizationId;
+      adminId = adminRes.body.user.id;
+      createdOrgIds.push(adminOrgId);
+
+      // Criar membro via convite
+      const memberEmail = `e2e-role-member-${uid()}@test.com`;
+      await request(app.getHttpServer())
+        .post('/organizations/invite')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ email: memberEmail })
+        .expect(201);
+
+      const invite = await prisma.client.organizationInvite.findFirst({
+        where: { email: memberEmail },
+      });
+
+      const acceptRes = await request(app.getHttpServer())
+        .post(`/organizations/invite/${invite!.token}/accept`)
+        .send({ name: 'Role Member', password: 'TestPassword123!' })
+        .expect(201);
+
+      memberId = acceptRes.body.userId;
+    });
+
+    it('8.1 — Admin altera role de member para manager com sucesso', async () => {
+      const res = await request(app.getHttpServer())
+        .patch(`/organizations/members/${memberId}/role`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ role: 'manager' })
+        .expect(200);
+
+      expect(res.body.id).toBe(memberId);
+      expect(res.body.role).toBe('manager');
+
+      // Verificar auditoria criada
+      const audit = await prisma.client.memberRoleAudit.findFirst({
+        where: { targetUserId: memberId, newRole: 'manager' },
+      });
+      expect(audit).toBeTruthy();
+      expect(audit!.previousRole).toBe('member');
+      expect(audit!.changedByUserId).toBe(adminId);
+    });
+
+    it('8.2 — Retorna 400 para role inválido', async () => {
+      const res = await request(app.getHttpServer())
+        .patch(`/organizations/members/${memberId}/role`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ role: 'superuser' })
+        .expect(400);
+
+      expect(res.body.message).toMatch(/Invalid role/i);
+    });
+
+    it('8.3 — Não pode demover o único admin', async () => {
+      const res = await request(app.getHttpServer())
+        .patch(`/organizations/members/${adminId}/role`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ role: 'member' })
+        .expect(400);
+
+      expect(res.body.message).toMatch(/último admin/i);
+    });
+
+    it('8.4 — Tenant isolation: 403 ao tentar alterar role de outra org', async () => {
+      const otherRes = await request(app.getHttpServer())
+        .post('/auth/register')
+        .send({ name: 'Other Org', email: `e2e-other-role-${uid()}@test.com`, password: 'TestPassword123!', acceptTerms: true })
+        .expect(201);
+
+      const otherUserId = otherRes.body.user.id;
+      createdOrgIds.push(otherRes.body.user.organizationId);
+
+      await request(app.getHttpServer())
+        .patch(`/organizations/members/${otherUserId}/role`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ role: 'manager' })
+        .expect(403);
+    });
+
+    it('8.5 — Sem token retorna 401', async () => {
+      await request(app.getHttpServer())
+        .patch(`/organizations/members/${memberId}/role`)
+        .send({ role: 'creator' })
+        .expect(401);
+    });
+  });
+
+  // ── AC-7: Remoção de membros ───────────────────────────────────────────────
+
+  describe('AC-7: Remoção de membros em DELETE /organizations/members/:id', () => {
+    let adminToken: string;
+    let adminOrgId: string;
+    let memberId: string;
+    let adminId: string;
+
+    beforeAll(async () => {
+      // Criar org com admin
+      const adminEmail = `e2e-admin-${uid()}@test.com`;
+      const adminRes = await request(app.getHttpServer())
+        .post('/auth/register')
+        .send({ name: 'Admin User', email: adminEmail, password: 'TestPassword123!', acceptTerms: true })
+        .expect(201);
+
+      adminToken = adminRes.body.accessToken;
+      adminOrgId = adminRes.body.user.organizationId;
+      adminId = adminRes.body.user.id;
+      createdOrgIds.push(adminOrgId);
+
+      // Criar convite e aceitar como membro
+      const memberEmail = `e2e-member-${uid()}@test.com`;
+      await request(app.getHttpServer())
+        .post('/organizations/invite')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ email: memberEmail })
+        .expect(201);
+
+      const invite = await prisma.client.organizationInvite.findFirst({
+        where: { email: memberEmail },
+      });
+
+      const acceptRes = await request(app.getHttpServer())
+        .post(`/organizations/invite/${invite!.token}/accept`)
+        .send({ name: 'Member User', password: 'TestPassword123!' })
+        .expect(201);
+
+      memberId = acceptRes.body.userId;
+    });
+
+    it('7.1 — Admin remove membro com sucesso', async () => {
+      const res = await request(app.getHttpServer())
+        .delete(`/organizations/members/${memberId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(200);
+
+      expect(res.body.removed).toBe(true);
+
+      const deleted = await prisma.client.user.findUnique({ where: { id: memberId } });
+      expect(deleted).toBeNull();
+    });
+
+    it('7.2 — Não é possível remover o último admin', async () => {
+      const res = await request(app.getHttpServer())
+        .delete(`/organizations/members/${adminId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(400);
+
+      expect(res.body.message).toMatch(/último admin/i);
+    });
+
+    it('7.3 — Tenant isolation: não pode remover membro de outra organização', async () => {
+      // Criar segunda org com membro separado
+      const otherAdminEmail = `e2e-other-${uid()}@test.com`;
+      const otherRes = await request(app.getHttpServer())
+        .post('/auth/register')
+        .send({ name: 'Other Admin', email: otherAdminEmail, password: 'TestPassword123!', acceptTerms: true })
+        .expect(201);
+
+      const otherUserId = otherRes.body.user.id;
+      createdOrgIds.push(otherRes.body.user.organizationId);
+
+      // Admin da org A tenta remover usuário da org B → 403
+      const res = await request(app.getHttpServer())
+        .delete(`/organizations/members/${otherUserId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(403);
+
+      expect(res.body.message).toMatch(/belong to your organization/i);
+    });
+
+    it('7.4 — Sem token retorna 401', async () => {
+      await request(app.getHttpServer())
+        .delete(`/organizations/members/${memberId}`)
         .expect(401);
     });
   });

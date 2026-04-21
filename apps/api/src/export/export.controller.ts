@@ -6,7 +6,6 @@ import {
   HttpStatus,
   Param,
   Post,
-  BadRequestException,
   GoneException,
 } from '@nestjs/common';
 import {

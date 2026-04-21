@@ -7,6 +7,7 @@ interface RegisterRequest {
   name: string;
   email: string;
   password: string;
+  acceptTerms: boolean;
 }
 
 interface AuthResponse {
@@ -70,4 +71,15 @@ export function storeToken(token: string): void {
 export function removeToken(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem("nexvideo_token");
+}
+
+export function getCurrentUserId(): string | null {
+  const token = getStoredToken();
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]!));
+    return (payload.sub as string) ?? null;
+  } catch {
+    return null;
+  }
 }

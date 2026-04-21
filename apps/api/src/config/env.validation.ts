@@ -8,6 +8,10 @@ export const envValidationSchema = Joi.object({
   JWT_EXPIRES_IN: Joi.string().required(),
   YOUTUBE_API_KEY: Joi.string().required(),
   GOOGLE_TRENDS_REGION: Joi.string().required(),
+  GOOGLE_CLIENT_ID: Joi.string().required(),
+  GOOGLE_CLIENT_SECRET: Joi.string().required(),
+  GOOGLE_REDIRECT_URI: Joi.string().uri().required(),
+  ENCRYPTION_KEY: Joi.string().length(64).required(),
   OPENAI_API_KEY: Joi.string().required(),
   MAX_COST_PER_SCRIPT_BRL: Joi.number().positive().default(1.5),
   STRIPE_SECRET_KEY: Joi.string()

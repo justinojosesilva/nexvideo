@@ -1,4 +1,18 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Query,
+  Redirect,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import {
   ApiOperation,
   ApiResponse,
@@ -7,14 +21,23 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiUnauthorizedResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
+import type { Request } from 'express';
+
+interface AuthenticatedRequest extends Request {
+  user: JwtPayload;
+}
 import { LoginDto, LoginResponse } from './dto/login.dto';
 import { RegisterDto, RegisterResponse } from './dto/register.dto';
 import { RefreshDto, RefreshResponse } from './dto/refresh.dto';
 import { LoginUseCase } from './use-cases/login.use-case';
 import { RegisterUseCase } from './use-cases/register.use-case';
 import { RefreshTokenService } from './services/refresh-token.service';
+import { YoutubeOAuthService } from './services/youtube-oauth.service';
 import { Public } from './decorators/public.decorator';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtPayload } from './strategies/jwt.strategy';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -23,10 +46,12 @@ export class AuthController {
     private readonly registerUseCase: RegisterUseCase,
     private readonly loginUseCase: LoginUseCase,
     private readonly refreshTokenService: RefreshTokenService,
+    private readonly youtubeOAuthService: YoutubeOAuthService,
   ) {}
 
   @Public()
   @Post('register')
+  @Throttle({ default: { ttl: 60_000, limit: 10 } })
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
     summary: 'Register a new user',
@@ -52,6 +77,7 @@ export class AuthController {
 
   @Public()
   @Post('login')
+  @Throttle({ default: { ttl: 60_000, limit: 5 } })
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Login user',
@@ -114,5 +140,83 @@ export class AuthController {
       await this.refreshTokenService.generateRefreshToken(userId);
 
     return { accessToken, refreshToken };
+  }
+
+  // ─── YouTube OAuth ────────────────────────────────────────────────────────
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get('youtube')
+  @Redirect()
+  @ApiOperation({
+    summary: 'Start YouTube OAuth flow',
+    description:
+      'Redirects the authenticated user to the Google consent screen. ' +
+      'The organizationId is encoded in the state parameter for CSRF protection.',
+  })
+  @ApiResponse({ status: 302, description: 'Redirect to Google OAuth' })
+  async startYoutubeOAuth(@Req() req: AuthenticatedRequest) {
+    const payload = req.user as JwtPayload;
+    const url = await this.youtubeOAuthService.getAuthorizationUrl(
+      payload.organizationId,
+    );
+    return { url, statusCode: 302 };
+  }
+
+  @Public()
+  @Get('youtube/callback')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'YouTube OAuth callback',
+    description:
+      'Google redirects here after user grants consent. ' +
+      'Exchanges the authorization code for tokens and stores them.',
+  })
+  @ApiResponse({ status: 200, description: 'YouTube account connected' })
+  @ApiBadRequestResponse({ description: 'Invalid code or state' })
+  async youtubeCallback(
+    @Query('code') code: string,
+    @Query('state') state: string,
+    @Query('error') error?: string,
+  ): Promise<{ message: string }> {
+    if (error) {
+      throw new BadRequestException(`Google OAuth denied: ${error}`);
+    }
+
+    await this.youtubeOAuthService.exchangeCodeForTokens(code, state);
+    return { message: 'YouTube account connected successfully' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Get('youtube/status')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Check YouTube connection status' })
+  @ApiResponse({ status: 200, description: 'Connection info' })
+  async youtubeStatus(@Req() req: AuthenticatedRequest) {
+    const payload = req.user as JwtPayload;
+    const info = await this.youtubeOAuthService.getTokenInfo(
+      payload.organizationId,
+    );
+    return {
+      connected: info !== null,
+      scope: info?.scope ?? null,
+      expiresAt: info ? new Date(Number(info.exp) * 1000).toISOString() : null,
+    };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Delete('youtube')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Disconnect YouTube account',
+    description: 'Revokes Google OAuth tokens and removes stored credentials.',
+  })
+  @ApiResponse({ status: 200, description: 'YouTube account disconnected' })
+  async disconnectYoutube(@Req() req: AuthenticatedRequest): Promise<{ message: string }> {
+    const payload = req.user as JwtPayload;
+    await this.youtubeOAuthService.revokeTokens(payload.organizationId);
+    return { message: 'YouTube account disconnected' };
   }
 }

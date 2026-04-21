@@ -2,7 +2,6 @@ import { ExecutionContext, BadRequestException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
 // Import custom exception
-import type { PaymentRequiredException } from '../../common/exceptions/payment-required.exception';
 
 // Mock PrismaService BEFORE importing PlanLimitsGuard to avoid DATABASE_URL requirement
 const mockPrismaService = {

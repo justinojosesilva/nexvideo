@@ -45,3 +45,31 @@ export async function inviteMember(email: string): Promise<InviteMemberResponse>
   });
   return response.data;
 }
+
+export async function removeMember(memberId: string): Promise<{ removed: boolean }> {
+  const client = getApiClient();
+  const response = await client.delete<{ removed: boolean }>(`/organizations/members/${memberId}`);
+  return response.data;
+}
+
+export async function updateMemberRole(
+  memberId: string,
+  role: string,
+): Promise<{ id: string; role: string }> {
+  const client = getApiClient();
+  const response = await client.patch<{ id: string; role: string }>(
+    `/organizations/members/${memberId}/role`,
+    { role },
+  );
+  return response.data;
+}
+
+export const ROLE_LABELS: Record<string, string> = {
+  admin: 'Admin',
+  manager: 'Gerente',
+  creator: 'Criador',
+  viewer: 'Visualizador',
+  member: 'Membro',
+};
+
+export const ASSIGNABLE_ROLES = ['admin', 'manager', 'creator', 'viewer', 'member'] as const;

@@ -17,7 +17,7 @@ describe('YouTubeDataAdapter', () => {
       }),
     };
 
-    adapter = new YouTubeDataAdapter(configService as ConfigService);
+    adapter = new YouTubeDataAdapter(configService as ConfigService, null);
   });
 
   afterEach(() => {
@@ -35,7 +35,7 @@ describe('YouTubeDataAdapter', () => {
       } as unknown as ConfigService;
 
       expect(() => {
-        new YouTubeDataAdapter(emptyConfig);
+        new YouTubeDataAdapter(emptyConfig, null);
       }).toThrow('YOUTUBE_API_KEY is not set');
     });
   });

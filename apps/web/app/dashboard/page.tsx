@@ -319,7 +319,7 @@ export default function DashboardPage() {
         subscription.percentUsed.exports,
       )
     : 0;
-  const showBanner = isFree && maxPercent >= 80 && !bannerDismissed;
+  const showBanner = maxPercent >= 80 && !bannerDismissed;
 
   const handleLogout = () => {
     removeToken();

@@ -20,6 +20,7 @@ import { AdminApiKeyGuard } from './guards/admin-api-key.guard';
 import { ListOrganizationsUseCase, type ListOrganizationsOutput } from './use-cases/list-organizations.use-case';
 import { GetAdminStatsUseCase, type AdminStatsOutput } from './use-cases/get-admin-stats.use-case';
 import { UpdateOrganizationPlanUseCase, type UpdateOrganizationPlanOutput } from './use-cases/update-organization-plan.use-case';
+import { YoutubeQuotaService, type QuotaStatus } from '../adapters/services/youtube-quota.service';
 
 const ADMIN_SWAGGER_NOTE =
   '⚠️ **ROTA ADMINISTRATIVA** — Requer JWT válido + header `X-Admin-Key` com a chave de admin.';
@@ -38,6 +39,7 @@ export class AdminController {
     private readonly listOrganizationsUseCase: ListOrganizationsUseCase,
     private readonly getAdminStatsUseCase: GetAdminStatsUseCase,
     private readonly updateOrganizationPlanUseCase: UpdateOrganizationPlanUseCase,
+    private readonly youtubeQuotaService: YoutubeQuotaService,
   ) {}
 
   @Get('organizations')
@@ -141,5 +143,30 @@ export class AdminController {
     @Body('plan') plan: string,
   ): Promise<UpdateOrganizationPlanOutput> {
     return this.updateOrganizationPlanUseCase.execute({ organizationId: id, plan });
+  }
+
+  @Get('youtube-quota')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'YouTube API quota usage for today',
+    description: `${ADMIN_SWAGGER_NOTE}\n\nReturns today's YouTube Data API v3 quota consumption tracked via Redis. Quota resets at 08:00 UTC (midnight Pacific Time). Default limit is 10,000 units/day.`,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Quota status retrieved',
+    schema: {
+      example: {
+        date: '2026-04-19',
+        usedUnits: 2350,
+        dailyLimit: 10000,
+        remainingUnits: 7650,
+        usagePercent: 24,
+        resetAtUtc: '2026-04-20T08:00:00.000Z',
+      },
+    },
+  })
+  @ApiResponse({ status: 403, description: 'Missing or invalid X-Admin-Key' })
+  getYoutubeQuota(): Promise<QuotaStatus> {
+    return this.youtubeQuotaService.getStatus();
   }
 }

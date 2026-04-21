@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+# Secret scan on staged files before every commit.
+# Requires gitleaks >= 8. Install: brew install gitleaks
+
+if ! command -v gitleaks > /dev/null 2>&1; then
+  echo "⚠️  gitleaks not found — skipping secret scan."
+  echo "   Install: brew install gitleaks"
+  exit 0
+fi
+
+gitleaks git \
+  --config "$(git rev-parse --show-toplevel)/.gitleaks.toml" \
+  --staged \
+  --redact \
+  --no-banner \
+  --exit-code 1
+
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Secret scan failed. Review the output above."
+  echo "   If this is a false positive, add it to .gitleaks.toml [allowlist]."
+  exit 1
+fi

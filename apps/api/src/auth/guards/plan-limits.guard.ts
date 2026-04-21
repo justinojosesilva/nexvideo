@@ -3,11 +3,13 @@ import {
   ExecutionContext,
   Injectable,
   BadRequestException,
+  Optional,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { PrismaService } from '../../prisma/prisma.service';
 import { PaymentRequiredException } from '../../common/exceptions/payment-required.exception';
 import { CHECK_PLAN_LIMIT_METADATA_KEY } from '../decorators/check-plan-limit.decorator';
+import { CheckUsageThresholdUseCase } from '../../billing/use-cases/check-usage-threshold.use-case';
 
 interface CheckPlanLimitMetadata {
   resourceType: 'scripts' | 'narrations' | 'exports';
@@ -47,6 +49,7 @@ export class PlanLimitsGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
     private prisma: PrismaService,
+    @Optional() private readonly checkUsageThreshold: CheckUsageThresholdUseCase | null = null,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -156,6 +159,9 @@ export class PlanLimitsGuard implements CanActivate {
         [resourceType]: currentUsage + 1,
       },
     });
+
+    // Fire-and-forget: check if org crossed 80% threshold and send warning email
+    void this.checkUsageThreshold?.execute({ organizationId });
 
     return true;
   }

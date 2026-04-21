@@ -16,6 +16,9 @@ const registerSchema = z.object({
     .min(8, "Senha deve ter pelo menos 8 caracteres")
     .regex(/[A-Z]/, "Senha deve conter pelo menos uma letra maiúscula")
     .regex(/[0-9]/, "Senha deve conter pelo menos um número"),
+  acceptTerms: z.literal(true, {
+    message: "Você deve aceitar os Termos de Uso para continuar",
+  }),
 });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
@@ -53,7 +56,7 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      const response = await registerUser(data);
+      const response = await registerUser({ ...data, acceptTerms: true });
       storeToken(response.accessToken);
       router.push("/onboarding");
     } catch (error) {
@@ -269,6 +272,44 @@ export default function RegisterPage() {
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* Terms of Service Checkbox */}
+        <div className="space-y-1.5">
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <input
+              {...register("acceptTerms")}
+              type="checkbox"
+              id="acceptTerms"
+              disabled={isLoading}
+              className="mt-0.5 w-4 h-4 rounded border-gray-700 bg-gray-900 text-[#7C3AED] accent-[#7C3AED] flex-shrink-0 cursor-pointer"
+            />
+            <span className="text-sm text-gray-400 leading-snug group-hover:text-gray-300 transition-colors">
+              Li e aceito os{" "}
+              <Link
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#7C3AED] hover:text-[#a78bfa] underline transition-colors"
+              >
+                Termos de Uso
+              </Link>{" "}
+              e a{" "}
+              <Link
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#7C3AED] hover:text-[#a78bfa] underline transition-colors"
+              >
+                Política de Privacidade
+              </Link>
+            </span>
+          </label>
+          {errors.acceptTerms && (
+            <p className="text-red-400 text-xs ml-7" role="alert">
+              {errors.acceptTerms.message}
+            </p>
+          )}
         </div>
 
         {/* Submit Button */}

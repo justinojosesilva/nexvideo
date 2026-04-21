@@ -1,4 +1,4 @@
-import { Controller, HttpCode, HttpStatus, Patch, Post, Get, Body, Param } from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Patch, Post, Get, Delete, Body, Param } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Public } from '../auth/decorators/public.decorator';
@@ -7,6 +7,8 @@ import { CompleteOnboardingUseCase } from './use-cases/complete-onboarding.use-c
 import { CreateInviteUseCase, type CreateInviteOutput } from './use-cases/create-invite.use-case';
 import { AcceptInviteUseCase, type AcceptInviteOutput } from './use-cases/accept-invite.use-case';
 import { GetOrganizationMembersUseCase, type GetOrganizationMembersOutput } from './use-cases/get-organization-members.use-case';
+import { RemoveMemberUseCase, type RemoveMemberOutput } from './use-cases/remove-member.use-case';
+import { UpdateMemberRoleUseCase, type UpdateMemberRoleOutput } from './use-cases/update-member-role.use-case';
 
 @ApiTags('Organizations')
 @Controller('organizations')
@@ -16,6 +18,8 @@ export class OrganizationsController {
     private readonly createInviteUseCase: CreateInviteUseCase,
     private readonly acceptInviteUseCase: AcceptInviteUseCase,
     private readonly getOrganizationMembersUseCase: GetOrganizationMembersUseCase,
+    private readonly removeMemberUseCase: RemoveMemberUseCase,
+    private readonly updateMemberRoleUseCase: UpdateMemberRoleUseCase,
   ) {}
 
   @Patch('onboarding')
@@ -96,6 +100,67 @@ export class OrganizationsController {
 
     return this.getOrganizationMembersUseCase.execute({
       organizationId: user.organizationId,
+    });
+  }
+
+  @Delete('members/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Remove a member from the organization' })
+  @ApiResponse({
+    status: 200,
+    description: 'Member removed successfully',
+    schema: { example: { removed: true } },
+  })
+  @ApiResponse({ status: 400, description: 'Cannot remove last admin or self' })
+  @ApiResponse({ status: 403, description: 'Member does not belong to your organization' })
+  @ApiResponse({ status: 404, description: 'Member not found' })
+  async removeMember(
+    @CurrentUser() user: JwtPayload | undefined,
+    @Param('id') targetUserId: string,
+  ): Promise<RemoveMemberOutput> {
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+
+    return this.removeMemberUseCase.execute({
+      organizationId: user.organizationId,
+      requestingUserId: user.sub,
+      targetUserId,
+    });
+  }
+
+  @Patch('members/:id/role')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Update the role of a member in the organization' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: { role: { type: 'string', example: 'manager' } },
+      required: ['role'],
+    },
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Role updated successfully',
+    schema: { example: { id: 'user-id', role: 'manager' } },
+  })
+  @ApiResponse({ status: 400, description: 'Invalid role or last admin demotion attempt' })
+  @ApiResponse({ status: 403, description: 'Member does not belong to your organization' })
+  @ApiResponse({ status: 404, description: 'Member not found' })
+  async updateMemberRole(
+    @CurrentUser() user: JwtPayload | undefined,
+    @Param('id') targetUserId: string,
+    @Body('role') role: string,
+  ): Promise<UpdateMemberRoleOutput> {
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+
+    return this.updateMemberRoleUseCase.execute({
+      organizationId: user.organizationId,
+      requestingUserId: user.sub,
+      targetUserId,
+      newRole: role,
     });
   }
 

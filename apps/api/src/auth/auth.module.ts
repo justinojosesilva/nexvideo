@@ -10,12 +10,17 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { TenantGuard } from './guards/tenant.guard';
 import { PlanLimitsGuard } from './guards/plan-limits.guard';
 import { RefreshTokenService } from './services/refresh-token.service';
+import { YoutubeOAuthService } from './services/youtube-oauth.service';
 import { EmailModule } from '../email/email.module';
+import { BillingModule } from '../billing/billing.module';
+import { CacheModule } from '../cache/cache.module';
 
 @Module({
   imports: [
     PassportModule,
     EmailModule,
+    BillingModule,
+    CacheModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService): JwtModuleOptions => ({
@@ -33,11 +38,12 @@ import { EmailModule } from '../email/email.module';
     RegisterUseCase,
     LoginUseCase,
     RefreshTokenService,
+    YoutubeOAuthService,
     JwtStrategy,
     JwtAuthGuard,
     TenantGuard,
     PlanLimitsGuard,
   ],
-  exports: [JwtAuthGuard, TenantGuard, PlanLimitsGuard],
+  exports: [JwtAuthGuard, TenantGuard, PlanLimitsGuard, YoutubeOAuthService],
 })
 export class AuthModule {}
