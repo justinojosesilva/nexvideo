@@ -14,7 +14,7 @@ acceptanceCriteria:
   - Variantes de estado (positivo/neutro/negativo)
   - Storybook documenta variantes
   - Testes unitários cobrem props
-status: TODO
+status: DONE
 body: |
   ## Objetivo
 
