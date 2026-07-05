@@ -7,6 +7,7 @@ import { fetchProject } from "@/lib/projects-client";
 import { ScriptsList } from "@/components/scripts-list";
 import { ComplianceBadge } from "@/components/compliance-badge";
 import { ExportFlow } from "@/components/export-flow";
+import { ProjectResumeBanner } from "@/components/project-resume-banner";
 
 const STATUS_COLORS: Record<string, string> = {
   planning: "bg-blue-500/20 text-blue-300",
@@ -87,17 +88,20 @@ export default function ProjectPage() {
         <div className="mx-auto max-w-4xl px-6 py-5">
           <div className="flex items-center gap-4">
             <button
-              onClick={() => router.push("/dashboard")}
+              onClick={() => router.push("/projects")}
               className="flex items-center gap-1.5 text-sm text-neutral-400 transition-colors hover:text-white"
             >
               <ArrowLeft className="h-4 w-4" />
-              Dashboard
+              Projetos
             </button>
           </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-4xl px-6 py-10">
+        {/* Resume Banner */}
+        <ProjectResumeBanner projectId={id} />
+
         {/* Project Header */}
         <div className="mb-8">
           <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -202,7 +206,14 @@ export default function ProjectPage() {
         </div>
 
         {/* Scripts List Section */}
-        <ScriptsList projectId={id} />
+        <ScriptsList
+          projectId={id}
+          onGenerateClick={() =>
+            router.push(
+              `/trends?projectId=${id}&keyword=${encodeURIComponent(project.keyword)}`,
+            )
+          }
+        />
       </div>
     </div>
   );
