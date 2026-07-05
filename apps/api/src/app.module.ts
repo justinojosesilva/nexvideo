@@ -36,6 +36,8 @@ import { BillingModule } from './billing/billing.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { AdminModule } from './admin/admin.module';
 import { YoutubeModule } from './youtube/youtube.module';
+import { AnalyticsModule } from './analytics/analytics.module';
+import { ThumbnailsModule } from './thumbnails/thumbnails.module';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -100,6 +102,8 @@ const isDev = process.env.NODE_ENV !== 'production';
     BullmqModule,
     JobsModule,
     YoutubeModule,
+    AnalyticsModule,
+    ThumbnailsModule,
   ],
   controllers: [AppController],
   providers: [
