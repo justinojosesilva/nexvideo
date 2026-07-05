@@ -14,7 +14,7 @@ acceptanceCriteria:
   - Teste E2E com mock de webhook cobre duplicidade
   - Tabela de event IDs processados registrada no banco
   - Documentação do mecanismo de idempotência publicada
-status: IN_REVIEW
+status: DONE
 body: |
   ## Objetivo
 
@@ -67,7 +67,7 @@ body: |
 id: TASK-009
 score: 20
 createdAt: '2026-04-17T16:16:26.575Z'
-updatedAt: '2026-04-18T20:09:21.296Z'
+updatedAt: '2026-07-05T02:31:02.000Z'
 filePath: /projects/nexvideo/.pm/tasks/TASK-009.md
 ---
 ## Objetivo

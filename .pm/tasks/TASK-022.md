@@ -29,7 +29,7 @@ body: |
 id: TASK-022
 score: 27
 createdAt: '2026-04-17T16:16:26.622Z'
-updatedAt: '2026-04-20T02:41:11.858Z'
+updatedAt: '2026-07-05T02:31:02.000Z'
 filePath: /projects/nexvideo/.pm/tasks/TASK-022.md
 ---
 ## Objetivo
@@ -39,7 +39,7 @@ Publicar página /privacy com Privacy Policy LGPD/GDPR
 ## Critérios de Aceite
 
 - [x] Página /privacy cobre coleta, cookies, retenção e direitos
-- [x] Conformidade com LGPD e GDPR revisada
+- [ ] Conformidade com LGPD e GDPR revisada ← pendência manual (revisar com advogado antes do launch, ver "Pendência jurídica" abaixo)
 - [x] Links acessíveis em todas as páginas
 - [x] Data de última atualização exibida
 

@@ -39,7 +39,7 @@ Saída esperada do bloco:
 | Task | Item | Owner sugerido | Status atual | Aprovado |
 |------|------|---------------|--------------|----------|
 | [TASK-008](../.pm/tasks/TASK-008.md) | Stripe test mode E2E validado em staging | Backend + QA | 🟡 IN_REVIEW | ☐ |
-| [TASK-009](../.pm/tasks/TASK-009.md) | Testes de idempotência de webhooks | Backend | 🟡 IN_REVIEW | ☐ |
+| [TASK-009](../.pm/tasks/TASK-009.md) | Testes de idempotência de webhooks | Backend | ✅ DONE | ☐ |
 | [TASK-010](../.pm/tasks/TASK-010.md) | `STRIPE_WEBHOOK_SECRET` distinto por ambiente | DevOps | 🟡 IN_REVIEW | ☐ |
 | [TASK-011](../.pm/tasks/TASK-011.md) | Stripe live mode configurado em produção | Tech Lead | 🟡 IN_REVIEW | ☐ |
 
@@ -56,7 +56,7 @@ Saída esperada do bloco:
 |------|------|---------------|--------------|----------|
 | [TASK-012](../.pm/tasks/TASK-012.md) | Rate limiting em auth e endpoints de geração | Backend | ✅ DONE | ☐ |
 | [TASK-013](../.pm/tasks/TASK-013.md) | CORS restrito a domínios conhecidos | Backend | ✅ DONE | ☐ |
-| [TASK-014](../.pm/tasks/TASK-014.md) | Helmet + CSRF em rotas de formulário | Backend | 🟡 IN_REVIEW | ☐ |
+| [TASK-014](../.pm/tasks/TASK-014.md) | Helmet + CSRF em rotas de formulário | Backend | ✅ DONE | ☐ |
 | [TASK-015](../.pm/tasks/TASK-015.md) | Auditoria de secrets no repositório | Tech Lead | ✅ DONE | ☐ |
 | [TASK-016](../.pm/tasks/TASK-016.md) | Backup automático do Postgres | DevOps | 🟡 IN_REVIEW | ☐ |
 
@@ -95,18 +95,20 @@ Saída esperada do bloco:
 
 ## 3. Sumário do gate (último snapshot)
 
-> Atualize após cada mudança de status. Data: **2026-05-15**.
+> Atualize após cada mudança de status. Data: **2026-07-05**.
 
 | Bloco | Total | DONE ✅ | IN_REVIEW 🟡 | Pendente |
 |-------|------:|--------:|-------------:|---------:|
 | Infra & Observabilidade | 7 | 4 | 3 | 0 |
-| Stripe | 4 | 0 | 4 | 0 |
-| Segurança | 5 | 3 | 2 | 0 |
+| Stripe | 4 | 1 | 3 | 0 |
+| Segurança | 5 | 4 | 1 | 0 |
 | YouTube / Google | 4 | 0 | 4 | 0 |
 | Legal & Privacidade | 3 | 1 | 2 | 0 |
-| **TOTAL** | **23** | **8** | **15** | **0** |
+| **TOTAL** | **23** | **10** | **13** | **0** |
 
-**Gate atual: 🔴 FECHADO** — 15 itens ainda precisam sair de `IN_REVIEW` para `DONE` antes do go-live.
+**Gate atual: 🔴 FECHADO** — 13 itens ainda precisam sair de `IN_REVIEW` para `DONE` antes do go-live.
+
+> **Nota de auditoria (2026-07-05):** TASK-009 e TASK-014 estavam com os 4/4 critérios de aceite já implementados e testados no código, mas com o campo `status` desatualizado — corrigido para `DONE`. TASK-003, TASK-020 e TASK-022 seguem `IN_REVIEW` porque têm ao menos um critério genuinamente pendente de ação manual (alerta no dashboard do Sentry, pedido de aumento de quota no GCP, e revisão jurídica por advogado, respectivamente) — nesses casos apenas o checklist interno da task foi conferido contra o código, sem alterar o status.
 
 ## 4. Como atualizar este runbook
 

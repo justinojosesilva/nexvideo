@@ -13,7 +13,7 @@ acceptanceCriteria:
   - CSRF ativo em rotas de formulário relevantes
   - Testes validam headers de segurança
   - Docs de exceções de CSP publicadas
-status: IN_REVIEW
+status: DONE
 body: |
   ## Objetivo
 
@@ -28,7 +28,7 @@ body: |
 id: TASK-014
 score: 19
 createdAt: '2026-04-17T16:16:26.590Z'
-updatedAt: '2026-04-19T00:00:00.000Z'
+updatedAt: '2026-07-05T02:31:02.000Z'
 filePath: /projects/nexvideo/.pm/tasks/TASK-014.md
 ---
 ## Objetivo
