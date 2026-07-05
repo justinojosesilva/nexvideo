@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo } from "react";
+import { type ReactNode } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -126,23 +126,15 @@ export function LineChart({
   ariaDescription,
   emptyState,
 }: LineChartProps) {
-  const resolvedSeries = useMemo(
-    () =>
-      series.map((s, i) => ({
-        key: s.key,
-        label: s.label ?? s.key,
-        color: s.color ?? DEFAULT_COLORS[i % DEFAULT_COLORS.length]!,
-        strokeDasharray: s.strokeDasharray,
-      })),
-    [series],
-  );
+  const resolvedSeries = series.map((s, i) => ({
+    key: s.key,
+    label: s.label ?? s.key,
+    color: s.color ?? DEFAULT_COLORS[i % DEFAULT_COLORS.length]!,
+    strokeDasharray: s.strokeDasharray,
+  }));
 
-  const resolvedTooltipFormatter = useMemo(
-    () =>
-      tooltipFormatter ??
-      ((value: number) => defaultNumberFormatter(value)),
-    [tooltipFormatter],
-  );
+  const resolvedTooltipFormatter =
+    tooltipFormatter ?? ((value: number) => defaultNumberFormatter(value));
 
   if (!data || data.length === 0) {
     return (

@@ -115,6 +115,12 @@ jobs:
       - name: Run API unit tests
         run: pnpm --filter api test
 
+      - name: Run UI component unit tests
+        run: pnpm --filter @nexvideo/ui test
+
+      - name: Run web unit tests
+        run: pnpm --filter web test
+
   e2e-youtube:
     runs-on: ubuntu-latest
     timeout-minutes: 10
