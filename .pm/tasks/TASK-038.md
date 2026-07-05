@@ -1,10 +1,15 @@
 ---
+id: TASK-038
 title: Criar testes E2E do fluxo OAuth e sync do YouTube
-type: feature
+status: DONE
 priority: HIGH
+type: feature
 impact: 8
 confidence: 8
 effort: 5
+score: 13
+createdAt: '2026-04-17T16:16:26.684Z'
+updatedAt: '2026-05-15T18:18:24.723Z'
 tags:
   - tests
   - e2e
@@ -14,7 +19,6 @@ acceptanceCriteria:
   - Sync job disparado e métricas persistidas
   - Dashboard exibe métricas simuladas corretamente
   - Suite rodando no CI
-status: TODO
 body: |
   ## Objetivo
 
@@ -26,10 +30,7 @@ body: |
   - [ ] Sync job disparado e métricas persistidas
   - [ ] Dashboard exibe métricas simuladas corretamente
   - [ ] Suite rodando no CI
-id: TASK-038
-score: 13
-createdAt: '2026-04-17T16:16:26.684Z'
-updatedAt: '2026-04-17T16:16:26.684Z'
+filePath: /Users/justinosilva/Documents/Justino/Projeto/nexvideo/.pm/tasks/TASK-038.md
 ---
 ## Objetivo
 

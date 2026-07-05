@@ -19,4 +19,6 @@ regexes = [
   '''sk_live_1234567890abcdefghij''',
   # Obvious README placeholder
   '''abc123def456''',
+  # Fake TOKEN_ENCRYPTION_KEY used as CI fixture in ci.yml (never real)
+  '''0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef''',
 ]

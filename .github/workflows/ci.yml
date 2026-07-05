@@ -114,3 +114,68 @@ jobs:
 
       - name: Run API unit tests
         run: pnpm --filter api test
+
+  e2e-youtube:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: lint-and-types
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: nexvideo
+          POSTGRES_PASSWORD: nexvideo
+          POSTGRES_DB: nexvideo_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql://nexvideo:nexvideo@localhost:5432/nexvideo_test
+      JWT_SECRET: test-jwt-secret-minimum-32-characters-long
+      JWT_REFRESH_SECRET: test-refresh-secret-minimum-32-characters-long
+      ADMIN_API_KEY: test-admin-api-key-minimum-32-characters-long
+      APP_URL: http://localhost:3001
+      REDIS_URL: redis://localhost:6379
+      OPENAI_API_KEY: sk-test-openai-key
+      ELEVENLABS_API_KEY: test-elevenlabs-key
+      RESEND_API_KEY: test-resend-key
+      GOOGLE_CLIENT_ID: test-google-client-id
+      GOOGLE_CLIENT_SECRET: test-google-client-secret
+      GOOGLE_REDIRECT_URI: http://localhost:3001/auth/google/callback
+      STRIPE_SECRET_KEY: sk_test_stripe
+      STRIPE_WEBHOOK_SECRET: whsec_test
+      TOKEN_ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      PEXELS_API_KEY: test-pexels
+      PIXABAY_API_KEY: test-pixabay
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.19.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm --filter @nexvideo/database... build
+
+      - name: Apply Prisma migrations
+        run: pnpm --filter @nexvideo/database exec prisma migrate deploy
+
+      - name: Run YouTube OAuth + sync E2E suite
+        run: pnpm --filter api exec jest --config ./test/jest-e2e.json --testPathPattern=youtube-oauth-sync --forceExit
