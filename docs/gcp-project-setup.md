@@ -107,7 +107,7 @@ Após criar as credenciais, preencha os valores nos ambientes:
 YOUTUBE_API_KEY="AIza..."
 GOOGLE_CLIENT_ID="....apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET="GOCSPX-..."
-GOOGLE_REDIRECT_URI="https://nexvideo.com/auth/youtube/callback"
+GOOGLE_REDIRECT_URI="https://nexvideo.com/youtube/oauth/callback"
 ```
 
 Consulte `apps/api/.env.example` para a lista completa de variáveis esperadas.

@@ -96,20 +96,20 @@ Com o Consent Screen em modo Testing e credenciais criadas (ver `docs/youtube-oa
 # 1. Configure as variáveis locais
 export GOOGLE_CLIENT_ID="seu-client-id.apps.googleusercontent.com"
 export GOOGLE_CLIENT_SECRET="seu-client-secret"
-export GOOGLE_REDIRECT_URI="http://localhost:3002/auth/youtube/callback"
+export GOOGLE_REDIRECT_URI="http://localhost:3002/youtube/oauth/callback"
 
 # 2. Inicie a API
 pnpm --filter api dev
 
 # 3. Acesse o endpoint de autorização (requer JWT do usuário logado)
-# GET http://localhost:3002/auth/youtube
+# GET http://localhost:3002/youtube/oauth/start
 # → Redireciona para a tela de consentimento do Google
 
 # 4. Após consentir, o callback é chamado:
-# GET http://localhost:3002/auth/youtube/callback?code=...&state=<orgId>
+# GET http://localhost:3002/youtube/oauth/callback?code=...&state=<orgId>
 
 # 5. Verifique o status
-curl -H "Authorization: Bearer <jwt>" http://localhost:3002/auth/youtube/status
+curl -H "Authorization: Bearer <jwt>" http://localhost:3002/youtube/oauth/status
 ```
 
 **Resposta esperada do consent screen em Testing:**
@@ -168,7 +168,7 @@ O Google exige, para cada scope Restricted:
 | Domínio `nexvideo.com` verificado | ☐ | Consent Screen → Authorized domains |
 | 3 scopes adicionados | ☐ | Consent Screen → Scopes |
 | Emails de teste adicionados | ☐ | Consent Screen → Test users |
-| Fluxo OAuth testado end-to-end | ☐ | `GET /auth/youtube` → callback → `/auth/youtube/status` |
+| Fluxo OAuth testado end-to-end | ☐ | `GET /youtube/oauth/start` → callback → `/youtube/oauth/status` |
 | Verificação submetida ao Google | ☐ | Consent Screen → Prepare for Verification |
 
 ---
