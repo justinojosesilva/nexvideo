@@ -5,7 +5,9 @@ import {
   Headers,
   HttpCode,
   HttpStatus,
+  ParseIntPipe,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import {
@@ -25,6 +27,8 @@ import { GetPlansUseCase } from './use-cases/get-plans.use-case';
 import { GetSubscriptionUseCase } from './use-cases/get-subscription.use-case';
 import { CreatePortalSessionUseCase } from './use-cases/create-portal-session.use-case';
 import { GetBillingStatusUseCase } from './use-cases/get-billing-status.use-case';
+import { GetUsageHistoryUseCase } from './use-cases/get-usage-history.use-case';
+import type { UsageHistoryResult } from './usage-history';
 import { CreateCheckoutSessionDto } from './dto/create-checkout-session.dto';
 import { GetPlansResponse } from './dto/get-plans.dto';
 import { GetSubscriptionResponse } from './dto/get-subscription.dto';
@@ -40,7 +44,31 @@ export class BillingController {
     private readonly getSubscriptionUseCase: GetSubscriptionUseCase,
     private readonly createPortalSessionUseCase: CreatePortalSessionUseCase,
     private readonly getBillingStatusUseCase: GetBillingStatusUseCase,
+    private readonly getUsageHistoryUseCase: GetUsageHistoryUseCase,
   ) {}
+
+  @Get('usage-history')
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Get monthly usage history for the current organization',
+    description:
+      'Returns dense monthly usage (scripts, narrations, exports) for the last N months. ' +
+      'Missing months are zero-filled so the timeline is continuous.',
+  })
+  @ApiResponse({ status: 200, description: 'Usage history per month + totals' })
+  async getUsageHistory(
+    @CurrentUser() user: JwtPayload | undefined,
+    @Query('months', new ParseIntPipe({ optional: true })) months?: number,
+  ): Promise<UsageHistoryResult> {
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+    return this.getUsageHistoryUseCase.execute({
+      organizationId: user.organizationId,
+      months,
+    });
+  }
 
   @Post('checkout')
   @ApiBearerAuth()

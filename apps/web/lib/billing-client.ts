@@ -100,3 +100,36 @@ export async function createPortalSession(): Promise<{ portalUrl: string }> {
   const response = await client.post<{ portalUrl: string }>("/billing/portal");
   return response.data;
 }
+
+// ─── Usage history ────────────────────────────────────────────────────────────
+
+export interface UsageHistoryEntry {
+  month: string;
+  scripts: number;
+  narrations: number;
+  exports: number;
+  total: number;
+}
+
+export interface UsageHistoryTotals {
+  scripts: number;
+  narrations: number;
+  exports: number;
+  total: number;
+}
+
+export interface UsageHistoryResponse {
+  months: UsageHistoryEntry[];
+  totals: UsageHistoryTotals;
+}
+
+export async function fetchUsageHistory(
+  months: number = 12,
+): Promise<UsageHistoryResponse> {
+  const client = getApiClient();
+  const response = await client.get<UsageHistoryResponse>(
+    "/billing/usage-history",
+    { params: { months } },
+  );
+  return response.data;
+}

@@ -7,6 +7,7 @@ import { GetSubscriptionUseCase } from './use-cases/get-subscription.use-case';
 import { CreatePortalSessionUseCase } from './use-cases/create-portal-session.use-case';
 import { GetBillingStatusUseCase } from './use-cases/get-billing-status.use-case';
 import { CheckUsageThresholdUseCase } from './use-cases/check-usage-threshold.use-case';
+import { GetUsageHistoryUseCase } from './use-cases/get-usage-history.use-case';
 import { PrismaModule } from '../prisma/prisma.module';
 import { CacheModule } from '../cache/cache.module';
 import { EmailModule } from '../email/email.module';
@@ -22,6 +23,7 @@ import { EmailModule } from '../email/email.module';
     CreatePortalSessionUseCase,
     GetBillingStatusUseCase,
     CheckUsageThresholdUseCase,
+    GetUsageHistoryUseCase,
   ],
   exports: [CheckUsageThresholdUseCase],
 })
