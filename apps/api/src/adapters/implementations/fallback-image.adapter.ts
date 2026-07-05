@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import {
   IImageGenerationPort,
   ImageGenerationRequest,
@@ -19,6 +19,13 @@ export class FallbackImageAdapter implements IImageGenerationPort {
     try {
       return await this.primary.generate(req);
     } catch (err) {
+      if (err instanceof BadRequestException) {
+        // Client-input problem (e.g. budget too low, prompt too long) —
+        // not a provider outage. Surface it instead of silently masking it
+        // behind a fallback image the caller has no way to notice.
+        throw err;
+      }
+
       const message = err instanceof Error ? err.message : String(err);
       this.logger.warn(
         { err: message },

@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { getApiClient } from "@/lib/api-client";
 import type { TrendAnalysis } from "@/lib/trends-client";
 
 interface DimensionScore {
@@ -70,28 +68,21 @@ export function ScoreDimensionBreakdown({
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const router = useRouter();
-  const apiClient = getApiClient();
+  const isPreview = !projectId || projectId === "temp-project";
 
   // Handle "Usar este tema" button click
   const handleUseTheme = () => {
-    // If projectId is valid (not temp-project), redirect to wizard
-    if (projectId && projectId !== "temp-project") {
-      router.push(
-        `/projects/${projectId}/scripts/new?trendAnalysisId=${analysis.id}`,
-      );
-    } else {
-      // Fallback: update project with keyword for temp-project
-      updateProjectMutation.mutate();
+    if (isPreview) {
+      // No persisted project in preview mode — script generation requires
+      // a real project + trend analysis, so send the user to create one.
+      router.push("/projects/new");
+      return;
     }
-  };
 
-  const updateProjectMutation = useMutation({
-    mutationFn: async () => {
-      await apiClient.patch(`/projects/${projectId}`, {
-        keyword: analysis.keyword,
-      });
-    },
-  });
+    router.push(
+      `/projects/${projectId}/scripts/new?trendAnalysisId=${analysis.id}`,
+    );
+  };
 
   const dimensions: DimensionScore[] = [
     { label: "Demanda", value: analysis.data.scores.demand, key: "demand" },
@@ -162,10 +153,9 @@ export function ScoreDimensionBreakdown({
 
         <button
           onClick={handleUseTheme}
-          disabled={updateProjectMutation.isPending}
-          className="btn-primary px-4 py-2 text-xs font-bold disabled:opacity-50"
+          className="btn-primary px-4 py-2 text-xs font-bold"
         >
-          {updateProjectMutation.isPending ? "Carregando..." : "Usar este tema"}
+          {isPreview ? "Criar projeto com este tema" : "Usar este tema"}
         </button>
       </div>
 
@@ -222,19 +212,6 @@ export function ScoreDimensionBreakdown({
         )}
       </div>
 
-      {/* Error State */}
-      {updateProjectMutation.isError && (
-        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-300">
-          Erro ao atualizar projeto. Tente novamente.
-        </div>
-      )}
-
-      {/* Success State */}
-      {updateProjectMutation.isSuccess && (
-        <div className="rounded-xl border border-[#4EDEA3]/30 bg-[#4EDEA3]/10 p-3 text-xs text-[#4EDEA3]">
-          ✓ Projeto atualizado com sucesso!
-        </div>
-      )}
     </div>
   );
 }

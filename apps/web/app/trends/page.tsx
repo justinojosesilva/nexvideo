@@ -86,7 +86,10 @@ function TrendsSearchForm() {
     queryKey: ["jobStatus", jobId],
     queryFn: () => (jobId ? getJobStatus(jobId) : Promise.reject("No jobId")),
     enabled: !!jobId && !isJobDone,
-    refetchInterval: 1000, // Poll every 1 second
+    refetchInterval: (query) => {
+      const status = query.state.data?.status;
+      return status === "DONE" || status === "FAILED" ? false : 1000;
+    },
     retry: false,
   });
 
