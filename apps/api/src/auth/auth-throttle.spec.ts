@@ -11,7 +11,6 @@ import { LoginUseCase } from './use-cases/login.use-case';
 import { RegisterUseCase } from './use-cases/register.use-case';
 import { RefreshTokenService } from './services/refresh-token.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { YoutubeOAuthService } from './services/youtube-oauth.service';
 
 async function buildApp(ttl: number, limit: number): Promise<INestApplication> {
   const module: TestingModule = await Test.createTestingModule({
@@ -21,7 +20,6 @@ async function buildApp(ttl: number, limit: number): Promise<INestApplication> {
       { provide: LoginUseCase, useValue: { execute: jest.fn().mockResolvedValue({ accessToken: 'tok', refreshToken: 'ref' }) } },
       { provide: RegisterUseCase, useValue: { execute: jest.fn().mockResolvedValue({ accessToken: 'tok', refreshToken: 'ref' }) } },
       { provide: RefreshTokenService, useValue: {} },
-      { provide: YoutubeOAuthService, useValue: {} },
       { provide: APP_GUARD, useClass: CustomThrottlerGuard },
       JwtAuthGuard,
     ],
