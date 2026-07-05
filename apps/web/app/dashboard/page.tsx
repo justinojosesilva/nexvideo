@@ -1,126 +1,75 @@
 "use client";
 
-import type { ContentProjectWithChannelProfile } from "@/lib/projects-client";
-import type { GetSubscriptionResponse } from "@/lib/billing-client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { removeToken, getStoredToken } from "@/lib/auth-client";
+import {
+  Plus,
+  Zap,
+  ArrowRight,
+  X,
+  FolderKanban,
+  Sparkles,
+  TrendingUp,
+  FileText,
+  Clock,
+} from "lucide-react";
+import { useMemo, useState } from "react";
+import { getStoredToken } from "@/lib/auth-client";
 import { fetchProjects } from "@/lib/projects-client";
-import { fetchSubscription } from "@/lib/billing-client";
-import { Plus, Zap, ArrowRight, X } from "lucide-react";
-import { useState } from "react";
+import { fetchSubscription, type GetSubscriptionResponse } from "@/lib/billing-client";
 
-function ProjectSkeleton() {
-  return (
-    <div className="animate-pulse rounded-xl border border-gray-700/30 bg-gray-900/50 p-6">
-      <div className="mb-4 h-6 w-2/3 rounded bg-gray-800" />
-      <div className="mb-2 h-4 w-1/2 rounded bg-gray-800" />
-      <div className="mb-4 h-4 w-1/3 rounded bg-gray-800" />
-      <div className="flex gap-2">
-        <div className="h-6 w-20 rounded-full bg-gray-800" />
-        <div className="h-6 w-20 rounded-full bg-gray-800" />
-      </div>
-    </div>
-  );
-}
+const STATUS_LABELS: Record<string, string> = {
+  planning: "Planejamento",
+  in_development: "Em Desenvolvimento",
+  in_review: "Em Revisão",
+  active: "Ativo",
+  paused: "Pausado",
+  archived: "Arquivado",
+};
 
-function EmptyState() {
-  const router = useRouter();
+const STATUS_COLORS: Record<string, string> = {
+  planning: "bg-blue-500/20 text-blue-300",
+  in_development: "bg-orange-500/20 text-orange-300",
+  in_review: "bg-[#7C3AED]/20 text-[#A78BFA]",
+  active: "bg-[#4EDEA3]/20 text-[#4EDEA3]",
+};
 
-  return (
-    <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-purple-500/30 px-12 py-20 text-center">
-      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#7C3AED]/20 to-[#7C3AED]/10">
-        <Zap className="h-8 w-8 text-[#7C3AED]" />
-      </div>
-      <h3 className="mb-2 text-xl font-headline font-bold text-white">
-        Nenhum projeto criado
-      </h3>
-      <p className="mb-6 max-w-sm text-gray-400">
-        Crie seu primeiro projeto de conteúdo com IA e comece a produzir
-        scripts, títulos e roteiros automaticamente.
-      </p>
-      <button
-        onClick={() => router.push("/projects/new")}
-        className="btn-primary flex items-center gap-2"
-      >
-        <Plus className="h-4 w-4" />
-        Novo Projeto
-      </button>
-    </div>
-  );
-}
-
-function ProjectCard({
-  project,
+function KpiCard({
+  label,
+  value,
+  hint,
+  icon: Icon,
+  accent = "purple",
 }: {
-  project: ContentProjectWithChannelProfile;
+  label: string;
+  value: string | number;
+  hint?: string;
+  icon: React.ComponentType<{ className?: string }>;
+  accent?: "purple" | "emerald" | "blue" | "amber";
 }) {
-  const statusColors: Record<string, string> = {
-    planning: "bg-blue-500/20 text-blue-300",
-    in_development: "bg-orange-500/20 text-orange-300",
-    in_review: "bg-[#7C3AED]/20 text-[#A78BFA]",
-    active: "bg-[#4EDEA3]/20 text-[#4EDEA3]",
-  };
-
-  const statusLabels: Record<string, string> = {
-    planning: "Planejamento",
-    in_development: "Em Desenvolvimento",
-    in_review: "Em Revisão",
-    active: "Ativo",
-  };
-
-  const statusColor = statusColors[project.status] || statusColors.planning;
-  const statusLabel = statusLabels[project.status] || project.status;
-
-  const createdAt = new Date(project.createdAt).toLocaleDateString("pt-BR", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  const accentMap = {
+    purple: "text-[#A78BFA] bg-[#7C3AED]/10",
+    emerald: "text-[#4EDEA3] bg-[#4EDEA3]/10",
+    blue: "text-blue-300 bg-blue-500/10",
+    amber: "text-amber-300 bg-amber-500/10",
+  } as const;
 
   return (
-    <div className="group card cursor-pointer">
-      <div className="mb-3 flex items-start justify-between">
-        <h3 className="flex-1 font-headline text-lg font-semibold text-white transition-colors group-hover:text-[#7C3AED]">
-          {project.title}
-        </h3>
-      </div>
-
-      <div className="mb-4 space-y-2 text-sm text-gray-400">
-        <p>
-          <span className="text-gray-500">Canal:</span>{" "}
-          {project.channelProfile.name}
-        </p>
-        <p>
-          <span className="text-gray-500">Palavra-chave:</span>{" "}
-          {project.keyword}
-        </p>
-        <p>
-          <span className="text-gray-500">Duração:</span>{" "}
-          {project.durationMinutes ? `${project.durationMinutes} min` : "—"}
-        </p>
-      </div>
-
-      <div className="mb-4 flex flex-wrap gap-2">
+    <div className="rounded-xl border border-gray-700/30 bg-gray-900/50 p-5">
+      <div className="mb-3 flex items-center justify-between">
+        <span className="text-xs font-medium uppercase tracking-wider text-gray-500">
+          {label}
+        </span>
         <span
-          className={`inline-flex rounded-full px-3 py-1 text-xs font-medium ${statusColor}`}
+          className={`flex h-9 w-9 items-center justify-center rounded-lg ${accentMap[accent]}`}
         >
-          {statusLabel}
-        </span>
-        <span className="inline-flex rounded-full bg-gray-700/50 px-3 py-1 text-xs font-medium text-gray-300">
-          {project.format.replace(/_/g, " ")}
-        </span>
-        <span className="inline-flex rounded-full bg-gray-700/50 px-3 py-1 text-xs font-medium text-gray-300">
-          {project.niche}
+          <Icon className="h-4 w-4" />
         </span>
       </div>
-
-      <div className="flex items-center justify-between border-t border-gray-700/50 pt-4">
-        <span className="text-xs text-gray-500">{createdAt}</span>
-        <button className="text-xs font-medium text-[#7C3AED] transition-colors hover:text-[#A78BFA] cursor-pointer">
-          Ver Detalhes →
-        </button>
+      <div className="font-headline text-3xl font-bold tabular-nums text-white">
+        {value}
       </div>
+      {hint && <p className="mt-1 text-xs text-gray-500">{hint}</p>}
     </div>
   );
 }
@@ -130,8 +79,6 @@ function UsageWidget({
 }: {
   subscription: GetSubscriptionResponse;
 }) {
-  const router = useRouter();
-
   const now = new Date();
   const resetDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
   const resetDateFormatted = resetDate.toLocaleDateString("pt-BR", {
@@ -225,13 +172,13 @@ function UsageWidget({
 
       {showUpgradeCta && (
         <div className="mt-4 border-t border-gray-700/30 pt-4">
-          <button
-            onClick={() => router.push("/plans")}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#7C3AED]/10 px-4 py-2.5 text-sm font-semibold text-[#A78BFA] transition-colors hover:bg-[#7C3AED]/20 cursor-pointer"
+          <Link
+            href="/plans"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#7C3AED]/10 px-4 py-2.5 text-sm font-semibold text-[#A78BFA] transition-colors hover:bg-[#7C3AED]/20"
           >
             <Zap className="h-4 w-4" />
             Fazer upgrade
-          </button>
+          </Link>
         </div>
       )}
     </div>
@@ -245,8 +192,6 @@ function UpgradeBanner({
   maxPercent: number;
   onDismiss: () => void;
 }) {
-  const router = useRouter();
-
   return (
     <div className="border-b border-amber-500/20 bg-amber-500/5">
       <div className="mx-auto max-w-7xl px-6 py-3">
@@ -265,13 +210,13 @@ function UpgradeBanner({
             </span>
           </div>
           <div className="flex flex-shrink-0 items-center gap-3">
-            <button
-              onClick={() => router.push("/plans")}
+            <Link
+              href="/plans"
               className="flex items-center gap-1.5 rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-amber-400"
             >
               Ver planos
               <ArrowRight className="h-3 w-3" />
-            </button>
+            </Link>
             <button
               onClick={onDismiss}
               className="text-amber-400/60 transition-colors hover:text-amber-400"
@@ -286,19 +231,44 @@ function UpgradeBanner({
   );
 }
 
+function QuickAction({
+  href,
+  title,
+  description,
+  icon: Icon,
+}: {
+  href: string;
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex items-center gap-4 rounded-xl border border-gray-700/30 bg-gray-900/50 p-4 transition-all hover:border-[#7C3AED]/40 hover:bg-gray-900/80"
+    >
+      <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg bg-[#7C3AED]/15 text-[#A78BFA] transition-colors group-hover:bg-[#7C3AED]/25">
+        <Icon className="h-5 w-5" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="font-headline text-sm font-semibold text-white">
+          {title}
+        </p>
+        <p className="truncate text-xs text-gray-400">{description}</p>
+      </div>
+      <ArrowRight className="h-4 w-4 flex-shrink-0 text-gray-500 transition-colors group-hover:text-[#A78BFA]" />
+    </Link>
+  );
+}
+
 export default function DashboardPage() {
-  const router = useRouter();
   const isAuthenticated = !!getStoredToken();
   const [bannerDismissed, setBannerDismissed] = useState(() => {
     if (typeof window === "undefined") return false;
     return sessionStorage.getItem("nexvideo_upgrade_banner_dismissed") === "1";
   });
 
-  const {
-    data: projects = [],
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: projects = [], isLoading: loadingProjects } = useQuery({
     queryKey: ["projects"],
     queryFn: fetchProjects,
   });
@@ -311,6 +281,26 @@ export default function DashboardPage() {
     refetchInterval: 5 * 60 * 1000,
   });
 
+  const stats = useMemo(() => {
+    const total = projects.length;
+    const inProgress = projects.filter((p) =>
+      ["planning", "in_development", "in_review"].includes(p.status),
+    ).length;
+    const active = projects.filter((p) => p.status === "active").length;
+    return { total, inProgress, active };
+  }, [projects]);
+
+  const recentProjects = useMemo(
+    () =>
+      [...projects]
+        .sort(
+          (a, b) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+        )
+        .slice(0, 4),
+    [projects],
+  );
+
   const maxPercent = subscription
     ? Math.max(
         subscription.percentUsed.scripts,
@@ -320,16 +310,8 @@ export default function DashboardPage() {
     : 0;
   const showBanner = maxPercent >= 80 && !bannerDismissed;
 
-  const handleLogout = () => {
-    removeToken();
-    router.push("/login");
-  };
-
-  const hasProjects = projects && projects.length > 0;
-
   return (
-    <div className="min-h-screen bg-[#0E0E0E]">
-      {/* Upgrade banner */}
+    <div>
       {showBanner && (
         <UpgradeBanner
           maxPercent={Math.round(maxPercent)}
@@ -343,63 +325,178 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="border-b border-gray-800/50 bg-[#0E0E0E]/50 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-6 py-6 sm:py-8">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="font-headline text-3xl font-bold text-white sm:text-4xl">
-                Projetos
+                Dashboard
               </h1>
               <p className="mt-2 text-gray-400">
-                Gerencia seus projetos de conteúdo com IA
+                Visão geral da sua produção de conteúdo
               </p>
             </div>
-            <div className="flex gap-3">
-              <button
-                onClick={() => router.push("/projects/new")}
-                className="btn-primary flex items-center gap-2"
-              >
-                <Plus className="h-4 w-4" />
-                Novo Projeto
-              </button>
-              <button onClick={handleLogout} className="btn-secondary">
-                Sair
-              </button>
-            </div>
+            <Link
+              href="/projects/new"
+              className="btn-primary flex items-center gap-2 self-start sm:self-auto"
+            >
+              <Plus className="h-4 w-4" />
+              Novo Projeto
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16">
-        {/* Usage Widget */}
-        {subscription && (
-          <div className="mb-8">
-            <UsageWidget subscription={subscription} />
+      <div className="mx-auto max-w-7xl space-y-8 px-6 py-8">
+        {/* KPI Tiles */}
+        <section aria-label="Indicadores">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <KpiCard
+              label="Total de projetos"
+              value={loadingProjects ? "—" : stats.total}
+              icon={FolderKanban}
+              accent="purple"
+            />
+            <KpiCard
+              label="Em produção"
+              value={loadingProjects ? "—" : stats.inProgress}
+              hint="Planejamento, dev e revisão"
+              icon={Sparkles}
+              accent="blue"
+            />
+            <KpiCard
+              label="Ativos"
+              value={loadingProjects ? "—" : stats.active}
+              icon={TrendingUp}
+              accent="emerald"
+            />
+            <KpiCard
+              label="Scripts no mês"
+              value={subscription ? subscription.usage.scripts : "—"}
+              hint={
+                subscription?.limits.scripts != null
+                  ? `de ${subscription.limits.scripts}`
+                  : "Plano ilimitado"
+              }
+              icon={FileText}
+              accent="amber"
+            />
           </div>
-        )}
+        </section>
 
-        {error ? (
-          <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
-            <p className="text-red-300">
-              Erro ao carregar projetos. Por favor, tente novamente.
-            </p>
+        {/* Quick actions + usage */}
+        <section className="grid gap-6 lg:grid-cols-3">
+          <div className="space-y-3 lg:col-span-2">
+            <h2 className="font-headline text-sm font-semibold uppercase tracking-wider text-gray-400">
+              Atalhos rápidos
+            </h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <QuickAction
+                href="/projects/new"
+                title="Novo projeto"
+                description="Comece um novo conteúdo com IA"
+                icon={Plus}
+              />
+              <QuickAction
+                href="/trends"
+                title="Analisar Trends"
+                description="Descubra tópicos em alta no seu nicho"
+                icon={TrendingUp}
+              />
+              <QuickAction
+                href="/projects"
+                title="Ver projetos"
+                description="Acompanhe todos os seus projetos"
+                icon={FolderKanban}
+              />
+              <QuickAction
+                href="/projects/history"
+                title="Histórico"
+                description="Veja scripts anteriores"
+                icon={Clock}
+              />
+            </div>
           </div>
-        ) : isLoading ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[...Array(6)].map((_, i) => (
-              <ProjectSkeleton key={i} />
-            ))}
+
+          {subscription && (
+            <div>
+              <h2 className="mb-3 font-headline text-sm font-semibold uppercase tracking-wider text-gray-400">
+                Uso
+              </h2>
+              <UsageWidget subscription={subscription} />
+            </div>
+          )}
+        </section>
+
+        {/* Recent projects */}
+        <section>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="font-headline text-sm font-semibold uppercase tracking-wider text-gray-400">
+              Projetos recentes
+            </h2>
+            <Link
+              href="/projects"
+              className="flex items-center gap-1 text-xs font-medium text-[#A78BFA] hover:text-white"
+            >
+              Ver todos <ArrowRight className="h-3 w-3" />
+            </Link>
           </div>
-        ) : !hasProjects ? (
-          <EmptyState />
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-max">
-            {projects.map((project) => (
-              <div key={project.id}>
-                <ProjectCard project={project} />
-              </div>
-            ))}
-          </div>
-        )}
+
+          {loadingProjects ? (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={i}
+                  className="h-24 animate-pulse rounded-xl border border-gray-700/30 bg-gray-900/50"
+                />
+              ))}
+            </div>
+          ) : recentProjects.length === 0 ? (
+            <div className="rounded-xl border-2 border-dashed border-purple-500/20 p-10 text-center">
+              <p className="mb-4 text-gray-400">
+                Você ainda não tem projetos. Crie o primeiro!
+              </p>
+              <Link
+                href="/projects/new"
+                className="btn-primary inline-flex items-center gap-2"
+              >
+                <Plus className="h-4 w-4" />
+                Novo Projeto
+              </Link>
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {recentProjects.map((p) => {
+                const updatedAt = new Date(p.updatedAt).toLocaleDateString(
+                  "pt-BR",
+                  { day: "numeric", month: "short" },
+                );
+                const statusColor =
+                  STATUS_COLORS[p.status] ?? "bg-gray-700/50 text-gray-300";
+                const statusLabel = STATUS_LABELS[p.status] ?? p.status;
+                return (
+                  <Link
+                    key={p.id}
+                    href={`/projects/${p.id}`}
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-gray-700/30 bg-gray-900/50 p-4 transition-all hover:border-[#7C3AED]/40"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-headline text-sm font-semibold text-white group-hover:text-[#A78BFA]">
+                        {p.title}
+                      </p>
+                      <p className="mt-1 truncate text-xs text-gray-500">
+                        {p.channelProfile.name} · {updatedAt}
+                      </p>
+                    </div>
+                    <span
+                      className={`flex-shrink-0 rounded-full px-2 py-1 text-[10px] font-medium ${statusColor}`}
+                    >
+                      {statusLabel}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </section>
       </div>
     </div>
   );
