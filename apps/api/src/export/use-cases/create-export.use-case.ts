@@ -10,6 +10,7 @@ import { Queue } from 'bullmq';
 import { prisma } from '@nexvideo/database';
 import { JOBS_QUEUE_TOKEN } from '../../bullmq/bullmq.module';
 import { ExportJobRepository } from '../../repositories/export-job.repository';
+import { evaluateExportChecklist } from '../export-checklist';
 
 interface CreateExportInput {
   projectId: string;
@@ -46,35 +47,20 @@ export class CreateExportUseCase {
       throw new BadRequestException('Project not found');
     }
 
-    // Collect missing requirements
-    const missing: string[] = [];
-
-    // 2. Validate project readiness: Script approved (READY)
+    // 2. Gather signals: approved script, completed narration, selected media, publication metadata
     const script = await prisma.script.findFirst({
       where: { projectId, status: 'approved' },
       orderBy: { createdAt: 'desc' },
     });
 
-    if (!script) {
-      missing.push('approved_script');
-    }
-
-    // 3. Validate: Narration DONE (completed)
     let narration: any = null;
     if (script) {
       narration = await prisma.narration.findFirst({
         where: { scriptId: script.id, status: 'completed' },
         orderBy: { createdAt: 'desc' },
       });
-
-      if (!narration) {
-        missing.push('completed_narration');
-      }
-    } else {
-      missing.push('completed_narration');
     }
 
-    // 4. Validate: >= 1 selected asset
     const selectedAssets = await prisma.mediaSuggestion.findMany({
       where: {
         projectId,
@@ -83,24 +69,26 @@ export class CreateExportUseCase {
       },
     });
 
-    if (selectedAssets.length === 0) {
-      missing.push('selected_media_assets');
-    }
-
-    // 5. Validate: title chosen (publicationMetadata with title set)
     const pubMeta = await prisma.publicationMetadata.findUnique({
       where: { projectId },
     });
 
-    if (!pubMeta || !pubMeta.title) {
-      missing.push('publication_title');
-    }
+    // 3. Run full pre-publication checklist (compliance, thumbnail, tags, ...) — blocks on critical
+    const checklist = evaluateExportChecklist({
+      hasApprovedScript: script !== null,
+      hasCompletedNarration: narration !== null,
+      selectedAssetsCount: selectedAssets.length,
+      publicationTitle: pubMeta?.title ?? null,
+      thumbnailUrl: pubMeta?.thumbnailUrl ?? null,
+      tagsCount: pubMeta?.tags?.length ?? 0,
+      complianceScore: pubMeta?.complianceScore ?? null,
+    });
 
-    // If any requirement is missing, throw UnprocessableEntityException with 422
-    if (missing.length > 0 || !script || !narration) {
+    if (!checklist.canExport || !script || !narration) {
       throw new UnprocessableEntityException({
         message: 'Project does not meet export requirements',
-        missing: missing.length > 0 ? missing : ['unknown'],
+        missing: checklist.blocking,
+        items: checklist.items,
       });
     }
 

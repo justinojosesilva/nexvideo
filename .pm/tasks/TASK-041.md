@@ -1,10 +1,15 @@
 ---
+id: TASK-041
 title: Criar checklist de validação pré-publicação
-type: feature
+status: DONE
 priority: MEDIUM
+type: feature
 impact: 7
 confidence: 8
 effort: 4
+score: 14
+createdAt: '2026-04-17T16:16:26.696Z'
+updatedAt: '2026-05-15T14:56:00.494Z'
 tags:
   - quality
   - frontend
@@ -14,7 +19,6 @@ acceptanceCriteria:
   - Bloqueia exportação se itens críticos ausentes
   - UI mostra status de cada item
   - Testes E2E cobrem cenários pass/fail
-status: TODO
 body: |
   ## Objetivo
 
@@ -26,10 +30,7 @@ body: |
   - [ ] Bloqueia exportação se itens críticos ausentes
   - [ ] UI mostra status de cada item
   - [ ] Testes E2E cobrem cenários pass/fail
-id: TASK-041
-score: 14
-createdAt: '2026-04-17T16:16:26.696Z'
-updatedAt: '2026-04-17T16:16:26.696Z'
+filePath: /Users/justinosilva/Documents/Justino/Projeto/nexvideo/.pm/tasks/TASK-041.md
 ---
 ## Objetivo
 

@@ -60,6 +60,9 @@ describe('CreateExportUseCase', () => {
       id: 'meta-1',
       projectId: 'proj-1',
       title: 'My Video Title',
+      tags: ['tag1', 'tag2', 'tag3'],
+      thumbnailUrl: 'https://cdn.example.com/thumb.png',
+      complianceScore: 80,
     });
     mockExportJobRepo.create.mockResolvedValue({
       id: 'ej-1',
@@ -159,6 +162,39 @@ describe('CreateExportUseCase', () => {
     mockPrisma.publicationMetadata.findUnique.mockResolvedValue({
       id: 'meta-1',
       title: null,
+      tags: ['t1', 't2', 't3'],
+      thumbnailUrl: 'https://cdn.example.com/x.png',
+      complianceScore: 80,
+    });
+
+    await expect(useCase.execute(validInput)).rejects.toThrow(
+      UnprocessableEntityException,
+    );
+  });
+
+  it('throws UnprocessableEntityException when thumbnail is missing', async () => {
+    setupValidProject();
+    mockPrisma.publicationMetadata.findUnique.mockResolvedValue({
+      id: 'meta-1',
+      title: 'My Video',
+      tags: ['t1', 't2', 't3'],
+      thumbnailUrl: null,
+      complianceScore: 80,
+    });
+
+    await expect(useCase.execute(validInput)).rejects.toThrow(
+      UnprocessableEntityException,
+    );
+  });
+
+  it('throws UnprocessableEntityException when compliance score is below minimum', async () => {
+    setupValidProject();
+    mockPrisma.publicationMetadata.findUnique.mockResolvedValue({
+      id: 'meta-1',
+      title: 'My Video',
+      tags: ['t1', 't2', 't3'],
+      thumbnailUrl: 'https://cdn.example.com/x.png',
+      complianceScore: 30,
     });
 
     await expect(useCase.execute(validInput)).rejects.toThrow(

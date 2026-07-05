@@ -9,8 +9,10 @@ import { fetchCompliance } from "@/lib/compliance-client";
 import {
   createExport,
   getExportStatus,
+  fetchExportChecklist,
   type CreateExportError,
 } from "@/lib/export-client";
+import { ExportChecklist } from "./export-checklist";
 
 interface ExportFlowProps {
   projectId: string;
@@ -50,7 +52,15 @@ export function ExportFlow({ projectId }: ExportFlowProps) {
     titleChosen: compliance?.complianceScore !== null, // Same check
   };
 
-  const allPrerequisitesMet = Object.values(prerequisites).every(Boolean);
+  const legacyPrerequisitesMet = Object.values(prerequisites).every(Boolean);
+
+  // Source-of-truth checklist from backend (compliance, thumbnail, tags, etc.)
+  const { data: checklist } = useQuery({
+    queryKey: ["export-checklist", projectId],
+    queryFn: () => fetchExportChecklist(projectId),
+  });
+
+  const allPrerequisitesMet = legacyPrerequisitesMet && (checklist?.canExport ?? false);
 
   // Status polling - only enabled while we have an export job ID
   const isPolling =
@@ -231,6 +241,9 @@ export function ExportFlow({ projectId }: ExportFlowProps) {
           <p className="text-red-300">{pollingError}</p>
         </div>
       )}
+
+      {/* Pre-publication checklist */}
+      <ExportChecklist projectId={projectId} />
 
       {/* Export Button or Status */}
       {!exportJobId ? (

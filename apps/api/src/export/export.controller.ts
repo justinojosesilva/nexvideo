@@ -21,7 +21,9 @@ import { Public } from '../auth/decorators/public.decorator';
 import { CreateExportUseCase } from './use-cases/create-export.use-case';
 import { GetExportStatusUseCase } from './use-cases/get-export-status.use-case';
 import { ProcessExportUseCase } from './use-cases/process-export.use-case';
+import { GetExportChecklistUseCase } from './use-cases/get-export-checklist.use-case';
 import { CreateExportDto } from './dto/create-export.dto';
+import { ChecklistResult } from './export-checklist';
 
 @ApiTags('export')
 @ApiBearerAuth()
@@ -31,7 +33,31 @@ export class ExportController {
     private readonly createExportUseCase: CreateExportUseCase,
     private readonly getExportStatusUseCase: GetExportStatusUseCase,
     private readonly processExportUseCase: ProcessExportUseCase,
+    private readonly getExportChecklistUseCase: GetExportChecklistUseCase,
   ) {}
+
+  @Get(':projectId/checklist')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Pre-publication checklist',
+    description:
+      'Returns the per-item status of the pre-publication validation ' +
+      '(approved script, narration, media selection, title, thumbnail, tags, compliance score). ' +
+      'Critical items must pass before /export will accept the project.',
+  })
+  @ApiResponse({ status: 200, description: 'Checklist result' })
+  async getChecklist(
+    @Param('projectId') projectId: string,
+    @CurrentUser() user: JwtPayload | undefined,
+  ): Promise<ChecklistResult> {
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+    return this.getExportChecklistUseCase.execute({
+      projectId,
+      organizationId: user.organizationId,
+    });
+  }
 
   @Post()
   @HttpCode(HttpStatus.ACCEPTED)
