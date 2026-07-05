@@ -61,6 +61,8 @@ This Turborepo has some additional tools already setup for you:
 
 ## External API Setup
 
+> 📋 Guia detalhado passo a passo (OpenAI, Stripe, Google/YouTube) em [docs/manual-setup-guide.md](./docs/manual-setup-guide.md).
+
 The application requires keys from the following external APIs:
 
 ### YouTube API
