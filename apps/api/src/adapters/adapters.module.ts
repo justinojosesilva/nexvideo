@@ -15,6 +15,8 @@ import { MemoryStorageAdapter } from './implementations/memory-storage.adapter';
 import { PexelsAdapter } from './implementations/pexels.adapter';
 import { PixabayAdapter } from './implementations/pixabay.adapter';
 import { MediaAdapter } from './implementations/media.adapter';
+import { OpenAIImageAdapter } from './implementations/openai-image.adapter';
+import { FallbackImageAdapter } from './implementations/fallback-image.adapter';
 
 @Module({
   imports: [ConfigModule, CacheModule, AuthModule],
@@ -62,6 +64,12 @@ import { MediaAdapter } from './implementations/media.adapter';
       provide: 'IYouTubeUploadPort',
       useClass: YouTubeUploadAdapter,
     },
+    OpenAIImageAdapter,
+    {
+      provide: 'IImageGenerationPort',
+      useFactory: (primary: OpenAIImageAdapter) => new FallbackImageAdapter(primary),
+      inject: [OpenAIImageAdapter],
+    },
   ],
   exports: [
     YoutubeQuotaService,
@@ -75,6 +83,7 @@ import { MediaAdapter } from './implementations/media.adapter';
     'MediaAdapter',
     'IYouTubeAnalyticsPort',
     'IYouTubeUploadPort',
+    'IImageGenerationPort',
   ],
 })
 export class AdaptersModule {}

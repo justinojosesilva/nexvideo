@@ -32,6 +32,12 @@ export {
 
 // Thumbnails
 export * from "./thumbnails/thumbnail-copy.prompt.js";
+export {
+  thumbnailImagePrompt,
+  type ThumbnailImageInput,
+  type ThumbnailTemplate,
+  type ThumbnailStyle,
+} from "./thumbnails/thumbnail-image.prompt.js";
 
 // SEO
 export * from "./seo/youtube-description.prompt.js";
