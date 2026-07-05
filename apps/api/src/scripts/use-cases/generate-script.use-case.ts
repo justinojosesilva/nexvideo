@@ -7,7 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { type Script } from '@nexvideo/database';
 import { genericScriptPrompt } from '@nexvideo/prompts';
-import { FormatType } from '@nexvideo/shared';
+import { FormatType, NicheCategory } from '@nexvideo/shared';
 import { ScriptRepository } from '../../repositories/script.repository';
 import { ContentProjectRepository } from '../../repositories/content-project.repository';
 import { IOpenAIPort } from '../../adapters/interfaces/openai.port';
@@ -73,6 +73,14 @@ export class GenerateScriptUseCase {
     if (!project) {
       throw new BadRequestException('Project not found');
     }
+
+    // Fall back to project values when caller omitted them
+    const projectAny = project as {
+      keyword?: string;
+      niche?: GenerateScriptInput['niche'];
+    };
+    if (!input.keyword && projectAny.keyword) input.keyword = projectAny.keyword;
+    if (!input.niche && projectAny.niche) input.niche = projectAny.niche;
 
     try {
       this.logger.debug(
@@ -186,7 +194,7 @@ export class GenerateScriptUseCase {
   ): Promise<string> {
     const prompt = genericScriptPrompt({
       topic: input.keyword || 'Generic Topic',
-      niche: input.niche,
+      niche: input.niche ?? NicheCategory.OTHER,
       format: input.formatType,
       tone: input.tone,
       durationMinutes: input.formatType === FormatType.SHORT_FORM ? 1 : 10,

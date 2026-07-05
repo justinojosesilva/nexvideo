@@ -40,12 +40,15 @@ export function TrendsWizard({ analysis, projectId }: TrendsWizardProps) {
   // Mutation to create script
   const createScriptMutation = useMutation({
     mutationFn: async () => {
+      const trimmedKeyword = keywordEditable.trim();
       return createScript({
         projectId,
-        keyword: keywordEditable,
         formatType: selectedFormat,
         tone: selectedTone,
         trendAnalysisId: analysis.id,
+        ...(trimmedKeyword && trimmedKeyword !== analysis.keyword
+          ? { keyword: trimmedKeyword }
+          : {}),
       });
     },
     onSuccess: (data) => {

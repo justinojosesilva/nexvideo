@@ -58,10 +58,11 @@ export async function updateScript(
 
 export interface CreateScriptDto {
   projectId: string;
-  keyword: string;
   formatType: string;
   tone: string;
   trendAnalysisId: string;
+  /** Optional keyword override; falls back to project/trend analysis keyword. */
+  keyword?: string;
 }
 
 export interface CreateScriptResponse {

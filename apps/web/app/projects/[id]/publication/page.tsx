@@ -2,14 +2,24 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { ArrowLeft, Copy, CheckCircle2, Sparkles } from "lucide-react";
-import { useState } from "react";
+import {
+  ArrowLeft,
+  Copy,
+  CheckCircle2,
+  Sparkles,
+  Loader2,
+  RefreshCw,
+  AlertCircle,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 import { fetchProject } from "@/lib/projects-client";
 import {
   fetchPublicationMetadata,
+  generatePublicationMetadata,
   selectTitle,
   type TitleVariant,
 } from "@/lib/publication-client";
+import { fetchScriptsByProject } from "@/lib/scripts-client";
 
 const TAG_CATEGORY_LABELS: Record<string, string> = {
   primary: "Primárias",
@@ -30,6 +40,8 @@ export default function PublicationPage() {
   const router = useRouter();
   const [selectedTitleText, setSelectedTitleText] = useState<string | null>(null);
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generateError, setGenerateError] = useState<string | null>(null);
 
   // Fetch project
   const {
@@ -41,7 +53,14 @@ export default function PublicationPage() {
     queryFn: () => fetchProject(projectId),
   });
 
-  // Fetch publication metadata
+  // Fetch project scripts (to pick latest for generation)
+  const { data: scripts = [] } = useQuery({
+    queryKey: ["scripts", projectId],
+    queryFn: () => fetchScriptsByProject(projectId),
+    enabled: !!projectId,
+  });
+
+  // Fetch publication metadata — poll while generating
   const {
     data: publication,
     isLoading: isLoadingPublication,
@@ -50,7 +69,44 @@ export default function PublicationPage() {
     queryKey: ["publication", projectId],
     queryFn: () => fetchPublicationMetadata(projectId),
     enabled: !!projectId,
+    refetchInterval: isGenerating ? 3000 : false,
   });
+
+  // Stop polling once results arrive
+  useEffect(() => {
+    if (!isGenerating) return;
+    const hasResults =
+      publication &&
+      ((publication.titleVariants?.length ?? 0) > 0 ||
+        publication.tags.length > 0);
+    if (hasResults) setIsGenerating(false);
+  }, [publication, isGenerating]);
+
+  const latestScript = scripts[0];
+  const canGenerate = !!latestScript && !isGenerating;
+
+  const generateMutation = useMutation({
+    mutationFn: () =>
+      generatePublicationMetadata(projectId, latestScript!.id),
+    onSuccess: () => {
+      setGenerateError(null);
+      setIsGenerating(true);
+    },
+    onError: (err: unknown) => {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : "Erro ao iniciar a geração. Tente novamente.";
+      setGenerateError(msg);
+      setIsGenerating(false);
+    },
+  });
+
+  const handleGenerate = () => {
+    if (!latestScript) return;
+    setGenerateError(null);
+    generateMutation.mutate();
+  };
 
   // Select title mutation
   const selectTitleMutation = useMutation({
@@ -143,22 +199,115 @@ export default function PublicationPage() {
       {/* Main Content */}
       <div className="mx-auto max-w-4xl px-6 py-10">
         {/* Page Title */}
-        <div className="mb-12">
-          <h1 className="font-display text-3xl font-bold text-white sm:text-4xl">
-            Título e Tags
-          </h1>
-          <p className="mt-2 text-neutral-400">
-            Selecione o melhor título para sua publicação e gerencie as tags
-          </p>
+        <div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h1 className="font-display text-3xl font-bold text-white sm:text-4xl">
+              Título e Tags
+            </h1>
+            <p className="mt-2 text-neutral-400">
+              Selecione o melhor título para sua publicação e gerencie as tags
+            </p>
+          </div>
+          {publication &&
+            (titleVariants.length > 0 || tags.length > 0) &&
+            latestScript && (
+              <button
+                onClick={handleGenerate}
+                disabled={!canGenerate || generateMutation.isPending}
+                className="btn-secondary inline-flex items-center gap-2 self-start px-3 py-2 text-xs disabled:opacity-50 sm:self-auto"
+              >
+                {isGenerating || generateMutation.isPending ? (
+                  <>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    Gerando…
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="h-3.5 w-3.5" />
+                    Regenerar
+                  </>
+                )}
+              </button>
+            )}
         </div>
+
+        {/* Error feedback */}
+        {generateError && (
+          <div
+            role="alert"
+            aria-live="polite"
+            className="mb-6 flex items-start gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-4"
+          >
+            <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-400" />
+            <div className="flex-1 text-sm">
+              <p className="font-medium text-red-200">
+                Não foi possível gerar
+              </p>
+              <p className="mt-1 text-red-300/80">{generateError}</p>
+            </div>
+            <button
+              onClick={handleGenerate}
+              className="text-xs font-semibold text-red-200 underline hover:text-red-100"
+            >
+              Tentar novamente
+            </button>
+          </div>
+        )}
 
         {/* No Data State */}
         {!publication || (titleVariants.length === 0 && tags.length === 0) ? (
           <div className="rounded-lg border border-dashed border-neutral-700 bg-neutral-800/30 p-12 text-center">
-            <Sparkles className="mx-auto mb-3 h-8 w-8 text-neutral-400" />
-            <p className="text-neutral-400">
-              Nenhum título ou tag gerado ainda. Crie um roteiro para gerar sugestões.
-            </p>
+            {isGenerating ? (
+              <>
+                <Loader2 className="mx-auto mb-3 h-8 w-8 animate-spin text-[#A78BFA]" />
+                <p className="font-medium text-white">
+                  Gerando títulos e tags…
+                </p>
+                <p className="mt-2 text-sm text-neutral-400">
+                  Isso pode levar até um minuto. Você pode aguardar aqui ou
+                  voltar mais tarde.
+                </p>
+              </>
+            ) : !latestScript ? (
+              <>
+                <Sparkles className="mx-auto mb-3 h-8 w-8 text-neutral-400" />
+                <p className="mb-4 text-neutral-400">
+                  Crie um roteiro primeiro para poder gerar títulos e tags.
+                </p>
+                <button
+                  onClick={() => router.push(`/projects/${projectId}`)}
+                  className="btn-secondary inline-flex items-center gap-2 px-4 py-2 text-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Ir para o projeto
+                </button>
+              </>
+            ) : (
+              <>
+                <Sparkles className="mx-auto mb-3 h-8 w-8 text-[#A78BFA]" />
+                <p className="mb-4 text-neutral-300">
+                  Gere variações de título com score de CTR e tags relevantes
+                  baseadas no seu roteiro.
+                </p>
+                <button
+                  onClick={handleGenerate}
+                  disabled={!canGenerate || generateMutation.isPending}
+                  className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 text-sm disabled:opacity-50"
+                >
+                  {generateMutation.isPending ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Iniciando…
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-4 w-4" />
+                      Gerar Títulos e Tags
+                    </>
+                  )}
+                </button>
+              </>
+            )}
           </div>
         ) : (
           <div className="space-y-8">

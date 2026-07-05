@@ -12,16 +12,18 @@ export default function CreateScriptPage() {
   const router = useRouter();
   const trendAnalysisId = searchParams.get("trendAnalysisId");
 
-  // Fetch trend analysis data
+  // Fetch trend analysis data — endpoint is /trends/:projectId and returns
+  // the latest analysis for that project, so we query by projectId.
+  // trendAnalysisId from the URL is kept for forward compatibility / UX.
   const {
     data: analysis,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["trendAnalysis", trendAnalysisId],
+    queryKey: ["trendAnalysis", projectId, trendAnalysisId],
     queryFn: () =>
       trendAnalysisId
-        ? getTrendAnalysis(trendAnalysisId)
+        ? getTrendAnalysis(projectId)
         : Promise.reject("No trendAnalysisId"),
     enabled: !!trendAnalysisId,
   });

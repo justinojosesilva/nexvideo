@@ -89,24 +89,36 @@ export class AnalyzeTrendsUseCase {
   async execute(input: AnalyzeTrendsInput): Promise<AnalyzeTrendsResult> {
     const { projectId, organizationId, keyword, geo, niche } = input;
 
-    // 1. Validate project exists
-    const project = await this.prismaService.client.contentProject.findUnique({
-      where: { id: projectId },
-    });
+    // Preview mode — no real ContentProject (used by /trends standalone analysis).
+    // Skip project validation, status update, and persistence.
+    const isPreview = projectId.startsWith('temp-');
 
-    if (!project) {
-      throw new NotFoundException(`ContentProject not found: ${projectId}`);
+    if (!isPreview) {
+      // 1. Validate project exists
+      const project = await this.prismaService.client.contentProject.findUnique(
+        {
+          where: { id: projectId },
+        },
+      );
+
+      if (!project) {
+        throw new NotFoundException(`ContentProject not found: ${projectId}`);
+      }
+
+      this.logger.log(
+        `Starting trend analysis for "${keyword}" (project: ${projectId})`,
+      );
+
+      // 2. Update project status to in_development (analysis in progress)
+      await this.prismaService.client.contentProject.update({
+        where: { id: projectId },
+        data: { status: 'in_development' },
+      });
+    } else {
+      this.logger.log(
+        `Starting preview trend analysis for "${keyword}" (no project persisted)`,
+      );
     }
-
-    this.logger.log(
-      `Starting trend analysis for "${keyword}" (project: ${projectId})`,
-    );
-
-    // 2. Update project status to in_development (analysis in progress)
-    await this.prismaService.client.contentProject.update({
-      where: { id: projectId },
-      data: { status: 'in_development' },
-    });
 
     // 3. Run all 4 scorers concurrently — never throw on partial failure
     const [
@@ -173,14 +185,30 @@ export class AnalyzeTrendsUseCase {
       analyzedAt: new Date().toISOString(),
     };
 
-    const trendAnalysis = await this.prismaService.client.trendAnalysis.create({
-      data: {
+    // 6. Persist TrendAnalysis — skipped in preview mode (no FK target).
+    // In that case return an in-memory record so the job result carries the data.
+    let trendAnalysis: TrendAnalysisRecord;
+    if (isPreview) {
+      const now = new Date();
+      trendAnalysis = {
+        id: `preview-${now.getTime()}`,
         organizationId,
         projectId,
         keyword,
-        data: analysisData as any,
-      },
-    });
+        data: analysisData,
+        analyzedAt: now,
+        createdAt: now,
+      };
+    } else {
+      trendAnalysis = await this.prismaService.client.trendAnalysis.create({
+        data: {
+          organizationId,
+          projectId,
+          keyword,
+          data: analysisData as any,
+        },
+      });
+    }
 
     return {
       trendAnalysis,

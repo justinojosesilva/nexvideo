@@ -1,4 +1,4 @@
-import { IsString, IsEnum } from 'class-validator';
+import { IsString, IsEnum, IsOptional } from 'class-validator';
 import { FormatType, ContentTone } from '@nexvideo/shared';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -32,4 +32,14 @@ export class CreateScriptQueueDto {
   })
   @IsEnum(ContentTone)
   tone: ContentTone;
+
+  @ApiProperty({
+    description:
+      'Optional keyword override. If provided, supersedes the keyword from the project/trend analysis as the script topic.',
+    required: false,
+    example: 'Como criar reserva de emergência aos 40 anos',
+  })
+  @IsString()
+  @IsOptional()
+  keyword?: string;
 }

@@ -73,6 +73,7 @@ export class EnqueueScriptGenerationUseCase {
         trendAnalysisId: input.trendAnalysisId,
         formatType: input.formatType,
         tone: input.tone,
+        keyword: input.keyword,
       },
       { jobId, removeOnComplete: false },
     );

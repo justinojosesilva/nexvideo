@@ -54,11 +54,19 @@ export interface AnalyzeTrendsRequest {
 }
 
 export interface JobStatus {
-  id: string;
+  id?: string;
+  jobId?: string;
   status: "PENDING" | "PROCESSING" | "DONE" | "FAILED";
   progress?: number;
   data?: unknown;
+  result?: {
+    trendAnalysis?: TrendAnalysis;
+    finalScore?: number;
+    scores?: TrendAnalysisData["scores"];
+    [key: string]: unknown;
+  };
   failedReason?: string;
+  errorMessage?: string;
 }
 
 export async function initiateTrendAnalysis(

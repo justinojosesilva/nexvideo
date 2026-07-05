@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   Sparkles,
@@ -59,11 +60,15 @@ function AnalysisSkeleton() {
 }
 
 function TrendsSearchForm() {
-  const [keyword, setKeyword] = useState("");
+  const searchParams = useSearchParams();
+  const projectIdParam = searchParams.get("projectId");
+  const keywordParam = searchParams.get("keyword");
+
+  const [keyword, setKeyword] = useState(keywordParam ?? "");
   const [niche, setNiche] = useState("technology");
   const [geo, setGeo] = useState("BR");
   const [jobId, setJobId] = useState<string | null>(null);
-  const [projectId] = useState("temp-project");
+  const [projectId] = useState(projectIdParam ?? "temp-project");
   const [isJobDone, setIsJobDone] = useState(false);
 
   // Mutation to initiate analysis
@@ -85,12 +90,19 @@ function TrendsSearchForm() {
     retry: false,
   });
 
-  // Fetch results when job is done
-  const { data: analysis, isLoading: isLoadingResults } = useQuery({
+  const isPreview = projectId.startsWith("temp-");
+
+  // For preview mode (no persisted record), read from job result.
+  // For real projects, fetch from the persisted TrendAnalysis.
+  const { data: persistedAnalysis, isLoading: isLoadingResults } = useQuery({
     queryKey: ["trendAnalysis", projectId],
     queryFn: () => getTrendAnalysis(projectId),
-    enabled: isJobDone,
+    enabled: isJobDone && !isPreview,
   });
+
+  const analysis = isPreview
+    ? (jobStatus?.result?.trendAnalysis ?? null)
+    : (persistedAnalysis ?? null);
 
   // Handle job completion
   useEffect(() => {
@@ -224,7 +236,7 @@ function TrendsSearchForm() {
             <div className="flex-1">
               <ScoreDimensionBreakdown
                 analysis={analysis}
-                projectId="temp-project"
+                projectId={projectId}
               />
             </div>
             <div className="w-80">
@@ -259,7 +271,9 @@ export default function TrendsPage() {
 
       {/* Main Content */}
       <div className="mx-auto max-w-5xl px-6 py-12">
-        <TrendsSearchForm />
+        <Suspense fallback={<AnalysisSkeleton />}>
+          <TrendsSearchForm />
+        </Suspense>
       </div>
     </div>
   );

@@ -97,7 +97,7 @@ async function processAnalyzeTrendsJob(job: Job): Promise<unknown> {
 
 async function processGenerateScriptJob(job: Job): Promise<unknown> {
   const jobData = job.data as Record<string, unknown>;
-  const { projectId, organizationId, trendAnalysisId, formatType, tone } = jobData;
+  const { projectId, organizationId, trendAnalysisId, formatType, tone, keyword } = jobData;
 
   logger.info({ jobId: job.id, organizationId }, "Processing generate-script job");
 
@@ -118,6 +118,7 @@ async function processGenerateScriptJob(job: Job): Promise<unknown> {
       trendAnalysisId,
       formatType,
       tone,
+      ...(keyword ? { keyword } : {}),
     });
 
     await job.updateProgress(80);

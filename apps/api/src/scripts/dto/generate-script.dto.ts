@@ -18,9 +18,14 @@ export class GenerateScriptDto {
   formatType: FormatType;
 
   @IsEnum(NicheCategory)
-  niche: NicheCategory;
+  @IsOptional()
+  niche?: NicheCategory;
 
   @IsEnum(ContentTone)
   @IsOptional()
   tone?: ContentTone;
+
+  @IsString()
+  @IsOptional()
+  keyword?: string;
 }
