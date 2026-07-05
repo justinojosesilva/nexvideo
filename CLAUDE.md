@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Monorepo Structure
 
-**pnpm + Turborepo** monorepo. Package manager `pnpm@10.19.0`, Node.js ≥18.
+**pnpm + Turborepo** monorepo. Package manager `pnpm@10.19.0`, Node.js ≥20.9 (exigido pelo Next.js 16 em `apps/web`).
 
 ```
 apps/
