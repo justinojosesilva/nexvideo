@@ -2,6 +2,8 @@
 
 This Turborepo starter is maintained by the Turborepo core team.
 
+> 🚦 **Antes de qualquer go-live**: consulte o [Production Readiness Gate runbook](./docs/production-readiness-gate.md) — todos os 23 itens do Sprint 7-PRE precisam estar em `DONE` e aprovados pelo Tech Lead.
+
 ## Using this example
 
 Run the following command:

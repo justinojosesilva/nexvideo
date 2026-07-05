@@ -1,10 +1,15 @@
 ---
+id: TASK-045
 title: Documentar runbook de Production Readiness Gate
-type: docs
+status: DONE
 priority: HIGH
+type: docs
 impact: 6
 confidence: 9
 effort: 2
+score: 27
+createdAt: '2026-04-17T16:16:26.726Z'
+updatedAt: '2026-05-15T18:18:36.235Z'
 tags:
   - docs
   - devops
@@ -13,7 +18,6 @@ acceptanceCriteria:
   - Cada item tem responsável e status
   - Link do runbook no README
   - Revisão aprovada pelo tech lead
-status: TODO
 body: |
   ## Objetivo
 
@@ -25,11 +29,7 @@ body: |
   - [ ] Cada item tem responsável e status
   - [ ] Link do runbook no README
   - [ ] Revisão aprovada pelo tech lead
-id: TASK-045
-score: 27
-createdAt: '2026-04-17T16:16:26.726Z'
-updatedAt: '2026-04-17T16:26:47.387Z'
-filePath: /projects/nexvideo/.pm/tasks/TASK-045.md
+filePath: /Users/justinosilva/Documents/Justino/Projeto/nexvideo/.pm/tasks/TASK-045.md
 ---
 ## Objetivo
 
