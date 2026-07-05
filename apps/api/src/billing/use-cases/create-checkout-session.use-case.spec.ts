@@ -25,7 +25,7 @@ jest.mock('stripe', () => {
       },
     },
   }));
-  return { default: MockStripe };
+  return { __esModule: true, default: MockStripe };
 });
 
 import { CreateCheckoutSessionUseCase } from './create-checkout-session.use-case';

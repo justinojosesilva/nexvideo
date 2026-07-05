@@ -3,7 +3,7 @@ import { AdaptersModule } from '../adapters/adapters.module';
 import { MediaSearchUseCase } from './use-cases/media-search.use-case';
 import { SelectMediaUseCase } from './use-cases/select-media.use-case';
 import { MediaController } from './media.controller';
-import { MediaAdapter } from 'src/adapters/implementations/media.adapter';
+import { MediaAdapter } from '../adapters/implementations/media.adapter';
 
 @Module({
   imports: [AdaptersModule],

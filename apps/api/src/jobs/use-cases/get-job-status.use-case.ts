@@ -64,6 +64,13 @@ export class GetJobStatusUseCase {
         if ((jobResult as any).narrationId) {
           result.narrationId = (jobResult as any).narrationId;
         }
+        // For analyze-trends jobs, surface the full payload so preview
+        // mode (no persisted record) can read results from the job.
+        if (jobType === 'analyze-trends') {
+          result.trendAnalysis = (jobResult as any).trendAnalysis;
+          result.finalScore = (jobResult as any).finalScore;
+          result.scores = (jobResult as any).scores;
+        }
       }
     }
 

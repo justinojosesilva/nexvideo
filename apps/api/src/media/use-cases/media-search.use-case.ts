@@ -7,7 +7,7 @@ import { MediaAsset } from '@nexvideo/shared';
 import { mediaQueryPrompt } from '@nexvideo/prompts';
 import { prisma } from '@nexvideo/database';
 import { SearchMediaDto } from '../dto/search-media.dto';
-import { MediaAdapter } from 'src/adapters/implementations/media.adapter';
+import { MediaAdapter } from '../../adapters/implementations/media.adapter';
 
 interface SearchMediaInput extends SearchMediaDto {
   organizationId: string;

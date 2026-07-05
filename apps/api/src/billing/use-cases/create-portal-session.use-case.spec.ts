@@ -18,7 +18,7 @@ jest.mock('stripe', () => {
     subscriptions: { retrieve: mockSubscriptionsRetrieve },
     billingPortal: { sessions: { create: mockBillingPortalSessionsCreate } },
   }));
-  return { default: MockStripe };
+  return { __esModule: true, default: MockStripe };
 });
 
 import { BadRequestException, NotFoundException } from '@nestjs/common';

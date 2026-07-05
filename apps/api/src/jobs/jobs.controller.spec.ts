@@ -3,11 +3,19 @@ import { NotFoundException } from '@nestjs/common';
 import { JobsController } from './jobs.controller';
 import { EnqueueHealthCheckUseCase } from './use-cases/enqueue-health-check.use-case';
 import { GetJobStatusUseCase } from './use-cases/get-job-status.use-case';
+import { type JwtPayload } from '../auth/strategies/jwt.strategy';
 
 describe('JobsController', () => {
   let controller: JobsController;
   let enqueueHealthCheckUseCase: EnqueueHealthCheckUseCase;
   let getJobStatusUseCase: GetJobStatusUseCase;
+
+  const mockUser: JwtPayload = {
+    sub: 'user-1',
+    organizationId: 'org-1',
+    role: 'MEMBER',
+    email: 'user@example.com',
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -48,19 +56,24 @@ describe('JobsController', () => {
   describe('getStatus', () => {
     it('should return job status', async () => {
       const mockStatus = {
-        id: 'job-123',
+        jobId: 'job-123',
         status: 'DONE' as const,
+        type: 'generate-script' as const,
         progress: 100,
-        data: {},
+        createdAt: new Date('2026-04-08T12:00:00Z'),
+        updatedAt: new Date('2026-04-08T12:05:00Z'),
       };
 
       (getJobStatusUseCase.execute as jest.Mock).mockResolvedValue(mockStatus);
 
-      const result = await controller.getStatus('job-123');
+      const result = await controller.getStatus('job-123', mockUser);
 
       expect(result).toEqual(mockStatus);
 
-      expect(getJobStatusUseCase.execute).toHaveBeenCalledWith('job-123');
+      expect(getJobStatusUseCase.execute).toHaveBeenCalledWith({
+        jobId: 'job-123',
+        organizationId: 'org-1',
+      });
     });
 
     it('should throw NotFoundException when job does not exist', async () => {
@@ -68,9 +81,15 @@ describe('JobsController', () => {
         new NotFoundException('Job not found'),
       );
 
-      await expect(controller.getStatus('nonexistent')).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(
+        controller.getStatus('nonexistent', mockUser),
+      ).rejects.toThrow(NotFoundException);
+    });
+
+    it('should throw when user is not authenticated', async () => {
+      await expect(
+        controller.getStatus('job-123', undefined),
+      ).rejects.toThrow('User not authenticated');
     });
   });
 });

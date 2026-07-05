@@ -16,7 +16,7 @@ jest.mock('stripe', () => {
   const MockStripe = jest.fn().mockImplementation(() => ({
     subscriptions: { retrieve: mockSubscriptionsRetrieve },
   }));
-  return { default: MockStripe };
+  return { __esModule: true, default: MockStripe };
 });
 
 import { BadRequestException, NotFoundException } from '@nestjs/common';
