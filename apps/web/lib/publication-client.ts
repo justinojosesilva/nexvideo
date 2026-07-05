@@ -16,6 +16,7 @@ export interface PublicationMetadata {
   projectId: string;
   title: string | null;
   tags: string[];
+  thumbnailUrl?: string | null;
   titleVariants?: TitleVariant[];
   tagGroups?: TagGroup[];
   platform?: string;

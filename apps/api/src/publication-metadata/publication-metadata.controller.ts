@@ -147,6 +147,7 @@ export class PublicationMetadataController {
         projectId: metadata.projectId,
         title: metadata.title,
         tags: metadata.tags,
+        thumbnailUrl: metadata.thumbnailUrl,
         // titleVariants would be stored in metadata.metadata or a separate field
         // For now, returning the structure
         platform: metadata.platform,
