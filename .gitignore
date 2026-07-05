@@ -38,3 +38,6 @@ yarn-error.log*
 # ui
 dist/
   .pm/current-task
+
+# k6 load test artifacts
+apps/api/test/load/*.report.json
