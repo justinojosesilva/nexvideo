@@ -1,10 +1,15 @@
 ---
+id: TASK-035
 title: Criar componente <LineChart> no packages/ui
-type: feature
+status: DONE
 priority: MEDIUM
+type: feature
 impact: 6
 confidence: 9
 effort: 3
+score: 18
+createdAt: '2026-04-17T16:16:26.673Z'
+updatedAt: '2026-05-15T14:42:30.678Z'
 tags:
   - ui
   - components
@@ -14,7 +19,6 @@ acceptanceCriteria:
   - Suporte a tooltip e legenda customizável
   - Responsivo e acessível
   - Storybook e testes disponíveis
-status: TODO
 body: |
   ## Objetivo
 
@@ -26,10 +30,7 @@ body: |
   - [ ] Suporte a tooltip e legenda customizável
   - [ ] Responsivo e acessível
   - [ ] Storybook e testes disponíveis
-id: TASK-035
-score: 18
-createdAt: '2026-04-17T16:16:26.673Z'
-updatedAt: '2026-04-17T16:16:26.673Z'
+filePath: /Users/justinosilva/Documents/Justino/Projeto/nexvideo/.pm/tasks/TASK-035.md
 ---
 ## Objetivo
 
